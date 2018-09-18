@@ -1,5 +1,6 @@
 import json
-from unittest.mock import patch
+import re
+from unittest.mock import patch, Mock
 
 import graphene
 import pytest
@@ -142,10 +143,10 @@ def test_query_user(admin_api_client, customer_user):
     assert address['phone'] == user_address.phone.as_e164
 
 
-def test_query_users(admin_api_client, user_api_client):
+def test_query_customers(admin_api_client, user_api_client):
     query = """
-    query Users($isStaff: Boolean) {
-        users(isStaff: $isStaff) {
+    query Users {
+        customers {
             totalCount
             edges {
                 node {
@@ -155,21 +156,44 @@ def test_query_users(admin_api_client, user_api_client):
         }
     }
     """
-    variables = json.dumps({'isStaff': True})
+    variables = json.dumps({})
     response = admin_api_client.post(
         reverse('api'), {'query': query, 'variables': variables})
     content = get_graphql_content(response)
-    users = content['data']['users']['edges']
-    assert users
-    assert all([user['node']['isStaff'] for user in users])
-
-    variables = json.dumps({'isStaff': False})
-    response = admin_api_client.post(
-        reverse('api'), {'query': query, 'variables': variables})
-    content = get_graphql_content(response)
-    users = content['data']['users']['edges']
+    users = content['data']['customers']['edges']
     assert users
     assert all([not user['node']['isStaff'] for user in users])
+
+    # check permissions
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    assert_no_permission(response)
+
+
+def test_query_staff(
+        admin_api_client, user_api_client, staff_user, customer_user,
+        admin_user):
+    query = """
+    {
+        staffUsers {
+            edges {
+                node {
+                    email
+                    isStaff
+                }
+            }
+        }
+    }
+    """
+    variables = json.dumps({})
+    response = admin_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    data = content['data']['staffUsers']['edges']
+    assert len(data) == 2
+    staff_emails = [user['node']['email'] for user in data]
+    assert sorted(staff_emails) == [admin_user.email, staff_user.email]
+    assert all([user['node']['isStaff'] for user in data])
 
     # check permissions
     response = user_api_client.post(
@@ -190,7 +214,7 @@ def test_who_can_see_user(
 
     query_2 = """
     query Users {
-        users {
+        customers {
             totalCount
         }
     }
@@ -218,7 +242,7 @@ def test_who_can_see_user(
     response = staff_api_client.post(reverse('api'), {'query': query_2})
     content = get_graphql_content(response)
     model = get_user_model()
-    assert content['data']['users']['totalCount'] == model.objects.count()
+    assert content['data']['customers']['totalCount'] == 1
 
 
 @patch('saleor.account.emails.send_password_reset_email.delay')
@@ -626,3 +650,66 @@ def test_address_delete_mutation(admin_api_client, customer_user):
     assert data['address']['city'] == address_obj.city
     with pytest.raises(address_obj._meta.model.DoesNotExist):
         address_obj.refresh_from_db()
+
+
+def test_address_validator(user_api_client):
+    query = """
+    query getValidator($input: AddressValidationInput!) {
+        addressValidator(input: $input) {
+            countryCode
+            countryName
+            addressFormat
+            addressLatinFormat
+            postalCodeMatchers
+        }
+    }
+    """
+    variables = json.dumps({'input': {
+        'countryCode': 'PL',
+        'countryArea': None,
+        'cityArea': None
+    }})
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    assert 'errors' not in content
+    data = content['data']['addressValidator']
+    assert data['countryCode'] == 'PL'
+    assert data['countryName'] == 'POLAND'
+    assert data['addressFormat'] is not None
+    assert data['addressLatinFormat'] is not None
+    matcher = data['postalCodeMatchers'][0]
+    matcher = re.compile(matcher)
+    assert matcher.match('00-123')
+
+
+def test_address_validator_uses_geip_when_country_code_missing(
+        user_api_client, monkeypatch):
+    query = """
+    query getValidator($input: AddressValidationInput!) {
+        addressValidator(input: $input) {
+            countryCode,
+            countryName
+        }
+    }
+    """
+    variables = json.dumps({'input': {
+        'countryCode': None,
+        'countryArea': None,
+        'cityArea': None
+    }})
+    mock_country_by_ip = Mock(return_value=Mock(code='US'))
+    monkeypatch.setattr(
+        'saleor.graphql.account.resolvers.get_client_ip',
+        lambda request: Mock(return_value='127.0.0.1'))
+    monkeypatch.setattr(
+        'saleor.graphql.account.resolvers.get_country_by_ip',
+        mock_country_by_ip)
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    assert mock_country_by_ip.called
+    assert 'errors' not in content
+    data = content['data']['addressValidator']
+    assert data['countryCode'] == 'US'
+    assert data['countryName'] == 'UNITED STATES'

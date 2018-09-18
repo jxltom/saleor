@@ -1,7 +1,7 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { AddressCountry, OrderEvents, FulfillmentStatus, OrderStatus } from "./../../types/globalTypes";
+import { AddressCountry, OrderEventsEmails, OrderEvents, FulfillmentStatus, PaymentStatusEnum, OrderStatus } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL fragment: OrderDetailsFragment
@@ -34,7 +34,7 @@ export interface OrderDetailsFragment_events {
   amount: number | null;
   date: any | null;
   email: string | null;
-  emailType: string | null;
+  emailType: OrderEventsEmails | null;
   message: string | null;
   quantity: number | null;
   type: OrderEvents | null;
@@ -198,7 +198,7 @@ export interface OrderDetailsFragment {
   fulfillments: (OrderDetailsFragment_fulfillments | null)[];
   lines: OrderDetailsFragment_lines | null;
   number: string | null;
-  paymentStatus: string | null;
+  paymentStatus: PaymentStatusEnum | null;
   shippingAddress: OrderDetailsFragment_shippingAddress | null;
   shippingMethod: OrderDetailsFragment_shippingMethod | null;
   shippingMethodName: string | null;

@@ -6,8 +6,9 @@ from graphql_jwt.decorators import login_required, permission_required
 from .account.mutations import (
     CustomerCreate, CustomerUpdate, PasswordReset, SetPassword, StaffCreate,
     StaffUpdate, AddressCreate, AddressUpdate, AddressDelete)
-from .account.resolvers import resolve_users
-from .account.types import User
+from .account.types import AddressValidationData, AddressValidationInput, User
+from .account.resolvers import (
+    resolve_address_validator, resolve_customers, resolve_staff_users) 
 from .menu.resolvers import resolve_menu, resolve_menus, resolve_menu_items
 from .menu.types import Menu, MenuItem
 # FIXME: sorting import by putting below line at the beginning breaks app
@@ -66,6 +67,9 @@ from .shop.mutations import (
 
 
 class Query(graphene.ObjectType):
+    address_validator = graphene.Field(
+        AddressValidationData,
+        input=graphene.Argument(AddressValidationInput, required=True))
     attributes = DjangoFilterConnectionField(
         ProductAttribute,
         query=graphene.String(description=DESCRIPTIONS['attributes']),
@@ -152,10 +156,13 @@ class Query(graphene.ObjectType):
     user = graphene.Field(
         User, id=graphene.Argument(graphene.ID),
         description='Lookup an user by ID.')
-    users = DjangoFilterConnectionField(
+    customers = DjangoFilterConnectionField(
         User, description='List of the shop\'s users.',
         query=graphene.String(
             description=DESCRIPTIONS['user']))
+    staff_users = DjangoFilterConnectionField(
+        User, description='List of the shop\'s staff users.',
+        query=graphene.String(description=DESCRIPTIONS['user']))
     node = graphene.Node.Field()
 
     def resolve_attributes(self, info, in_category=None, query=None, **kwargs):
@@ -178,8 +185,12 @@ class Query(graphene.ObjectType):
         return graphene.Node.get_node_from_global_id(info, id, User)
 
     @permission_required('account.manage_users')
-    def resolve_users(self, info, query=None, **kwargs):
-        return resolve_users(info, query=query)
+    def resolve_customers(self, info, query=None, **kwargs):
+        return resolve_customers(info, query=query)
+
+    @permission_required('account.manage_staff')
+    def resolve_staff_users(self, info, query=None, **kwargs):
+        return resolve_staff_users(info, query=query)
 
     def resolve_menu(self, info, id=None, name=None):
         return resolve_menu(info, id, name)
@@ -249,6 +260,9 @@ class Query(graphene.ObjectType):
 
     def resolve_shipping_zones(self, info, **kwargs):
         return resolve_shipping_zones(info)
+
+    def resolve_address_validator(self, info, input):
+        return resolve_address_validator(info, input)
 
 
 class Mutations(graphene.ObjectType):

@@ -326,6 +326,30 @@ type AddressUpdate {
   address: Address
 }
 
+type AddressValidationData {
+  countryCode: String
+  countryName: String
+  addressFormat: String
+  addressLatinFormat: String
+  allowedFields: [String]
+  requiredFields: [String]
+  upperFields: [String]
+  countryAreaType: String
+  countryAreaChoices: [ChoiceValue]
+  cityType: String
+  cityAreaChoices: [ChoiceValue]
+  postalCodeType: String
+  postalCodeMatchers: [String]
+  postalCodeExamples: [String]
+  postalCodePrefix: String
+}
+
+input AddressValidationInput {
+  countryCode: String
+  countryArea: String
+  cityArea: String
+}
+
 type AssignNavigation {
   errors: [Error]
   menu: Menu
@@ -345,6 +369,7 @@ input AttributeChoiceValueInput {
   attribute: ID
   slug: String!
   name: String!
+  value: String!
 }
 
 type AttributeChoiceValueUpdate {
@@ -417,6 +442,11 @@ input CategoryInput {
 type CategoryUpdate {
   errors: [Error]
   category: Category
+}
+
+type ChoiceValue {
+  raw: String
+  verbose: String
 }
 
 type Collection implements Node {
@@ -625,23 +655,6 @@ input FulfillmentUpdateInput {
 }
 
 scalar GenericScalar
-
-type Group implements Node {
-  id: ID!
-  name: String!
-  permissions: [PermissionDisplay]
-}
-
-type GroupCountableConnection {
-  pageInfo: PageInfo!
-  edges: [GroupCountableEdge!]!
-  totalCount: Int
-}
-
-type GroupCountableEdge {
-  node: Group!
-  cursor: String!
-}
 
 type HomepageCollectionUpdate {
   errors: [Error]
@@ -877,7 +890,7 @@ type Order implements Node {
   trackingClientId: String!
   billingAddress: Address
   shippingAddress: Address
-  userEmail: String!
+  userEmail: String
   shippingMethod: ShippingMethod
   shippingPrice: TaxedMoney
   shippingMethodName: String
@@ -895,7 +908,7 @@ type Order implements Node {
   events: [OrderEvent]
   isPaid: Boolean
   number: String
-  paymentStatus: String
+  paymentStatus: PaymentStatusEnum
   paymentStatusDisplay: String
   subtotal: TaxedMoney
   statusDisplay: String
@@ -941,7 +954,7 @@ type OrderEvent implements Node {
   user(id: ID): User
   message: String
   email: String
-  emailType: String
+  emailType: OrderEventsEmails
   amount: Float
   quantity: Int
   composedId: String
@@ -965,6 +978,13 @@ enum OrderEvents {
   OTHER
 }
 
+enum OrderEventsEmails {
+  PAYMENT
+  SHIPPING
+  ORDER
+  FULFILLMENT
+}
+
 type OrderLine implements Node {
   id: ID!
   productName: String!
@@ -975,6 +995,7 @@ type OrderLine implements Node {
   quantityFulfilled: Int!
   unitPrice: TaxedMoney
   taxRate: Float!
+  thumbnailUrl(size: Int): String
 }
 
 type OrderLineCountableConnection {
@@ -1085,6 +1106,16 @@ type PasswordReset {
   errors: [Error]
 }
 
+enum PaymentStatusEnum {
+  WAITING
+  PREAUTH
+  CONFIRMED
+  REJECTED
+  REFUNDED
+  ERROR
+  INPUT
+}
+
 type PermissionDisplay {
   code: String!
   name: String!
@@ -1156,7 +1187,16 @@ type ProductAttributeValue implements Node {
   id: ID!
   sortOrder: Int!
   name: String
+  value: String!
   slug: String
+  type: ProductAttributeValueType
+}
+
+enum ProductAttributeValueType {
+  COLOR
+  GRADIENT
+  URL
+  STRING
 }
 
 input ProductAttributesInput {
@@ -1397,6 +1437,7 @@ type ProductVariantUpdate {
 }
 
 type Query {
+  addressValidator(input: AddressValidationInput!): AddressValidationData
   attributes(query: String, inCategory: ID, before: String, after: String, first: Int, last: Int, id: ID, slug: String): ProductAttributeCountableConnection
   categories(query: String, level: Int, before: String, after: String, first: Int, last: Int, id: ID, name: String): CategoryCountableConnection
   category(id: ID): Category
@@ -1424,7 +1465,8 @@ type Query {
   shippingZone(id: ID): ShippingZone
   shippingZones(before: String, after: String, first: Int, last: Int, name_Icontains: String, countries_Icontains: String, shippingMethods_Price_Gte: Float, shippingMethods_Price_Lte: Float): ShippingZoneCountableConnection
   user(id: ID): User
-  users(query: String, before: String, after: String, first: Int, last: Int, isStaff: Boolean): UserCountableConnection
+  customers(query: String, before: String, after: String, first: Int, last: Int, isStaff: Boolean): UserCountableConnection
+  staffUsers(query: String, before: String, after: String, first: Int, last: Int, isStaff: Boolean): UserCountableConnection
   node(id: ID!): Node
 }
 
@@ -1716,7 +1758,6 @@ scalar Upload
 
 type User implements Node {
   id: ID!
-  groups(before: String, after: String, first: Int, last: Int): GroupCountableConnection
   email: String!
   addresses(before: String, after: String, first: Int, last: Int): AddressCountableConnection
   isStaff: Boolean!

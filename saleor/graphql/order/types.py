@@ -1,13 +1,18 @@
 import graphene
 from graphene import relay
+from payments import PaymentStatus
 
-from ...order import OrderEvents, models
+from ...order import OrderEvents, OrderEventsEmails, models
+from ...product.templatetags.product_images import get_thumbnail
 from ..account.types import User
 from ..core.types.common import CountableDjangoObjectType
 from ..core.types.money import Money, TaxedMoney
-from decimal import Decimal
 
 OrderEventsEnum = graphene.Enum.from_enum(OrderEvents)
+OrderEventsEmailsEnum = graphene.Enum.from_enum(OrderEventsEmails)
+PaymentStatusEnum = graphene.Enum(
+    'PaymentStatusEnum',
+    [(code.upper(), code) for code, name in PaymentStatus.CHOICES])
 
 
 class OrderEvent(CountableDjangoObjectType):
@@ -20,7 +25,7 @@ class OrderEvent(CountableDjangoObjectType):
     message = graphene.String(
         description='Content of a note added to the order.')
     email = graphene.String(description='Email of the customer')
-    email_type = graphene.String(
+    email_type = OrderEventsEmailsEnum(
         description='Type of an email sent to the customer')
     amount = graphene.Float(description='Amount of money.')
     quantity = graphene.Int(description='Number of items.')
@@ -41,7 +46,7 @@ class OrderEvent(CountableDjangoObjectType):
 
     def resolve_amount(self, info):
         amount = self.parameters.get('amount', None)
-        return Decimal(amount) if amount else None
+        return float(amount) if amount else None
 
     def resolve_quantity(self, info):
         quantity = self.parameters.get('quantity', None)
@@ -84,7 +89,7 @@ class Order(CountableDjangoObjectType):
     is_paid = graphene.Boolean(
         description='Informs if an order is fully paid.')
     number = graphene.String(description='User-friendly number of an order.')
-    payment_status = graphene.String(description='Internal payment status.')
+    payment_status = PaymentStatusEnum(description='Internal payment status.')
     payment_status_display = graphene.String(
         description='User-friendly payment status.')
     subtotal = graphene.Field(
@@ -163,9 +168,21 @@ class Order(CountableDjangoObjectType):
 
 
 class OrderLine(CountableDjangoObjectType):
+    thumbnail_url = graphene.String(
+        description='The URL of a main thumbnail for the ordered product.',
+        size=graphene.Int(description='Size of the image'))
+
     class Meta:
         description = 'Represents order line of particular order.'
         model = models.OrderLine
         interfaces = [relay.Node]
         exclude_fields = [
             'order', 'unit_price_gross', 'unit_price_net', 'variant']
+
+    def resolve_thumbnail_url(self, info, size=None):
+        if not self.variant_id:
+            return None
+        if not size:
+            size = 255
+        return get_thumbnail(
+            self.variant.get_first_image(), size, method='thumbnail')

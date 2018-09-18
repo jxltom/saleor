@@ -5,14 +5,53 @@ import pytest
 
 import graphene
 from django.shortcuts import reverse
+from payments import PaymentStatus
 from saleor.account.models import Address
 from saleor.graphql.order.mutations.draft_orders import (
     check_for_draft_order_errors)
 from saleor.graphql.order.mutations.orders import (
+    clean_order_cancel, clean_order_capture, clean_order_mark_as_paid,
     clean_refund_payment, clean_release_payment)
-from saleor.order import CustomPaymentChoices, OrderEvents, OrderEventsEmails
-from saleor.order.models import Order, OrderStatus, Payment, PaymentStatus
+from saleor.graphql.order.types import OrderEventsEmailsEnum, PaymentStatusEnum
+from saleor.order import (
+    CustomPaymentChoices, OrderEvents, OrderEventsEmails, OrderStatus)
+from saleor.order.models import Order, Payment
 from tests.utils import get_graphql_content
+
+
+def test_orderline_query(admin_api_client, fulfilled_order):
+    order = fulfilled_order
+    query = """
+        query OrdersQuery {
+            orders(first: 1) {
+                edges {
+                    node {
+                        lines {
+                            edges {
+                                node {
+                                    thumbnailUrl(size: 540)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    """
+    line = order.lines.first()
+    line.variant = None
+    line.save()
+
+    response = admin_api_client.post(
+        reverse('api'), {'query': query})
+    content = get_graphql_content(response)
+    assert 'errors' not in content
+    order_data = content['data']['orders']['edges'][0]['node']
+    lines_data = order_data['lines']['edges']
+    thumbnails = [l['node']['thumbnailUrl'] for l in lines_data]
+    assert len(thumbnails) == 2
+    assert None in thumbnails
+    assert '/static/images/placeholder540x540.png' in thumbnails
 
 
 def test_order_query(admin_api_client, fulfilled_order):
@@ -116,7 +155,7 @@ def test_order_events_query(admin_api_client, fulfilled_order, admin_user):
     data = content['data']['orders']['edges'][0]['node']['events'][0]
     assert data['message'] == event.parameters['message']
     assert data['amount'] == float(event.parameters['amount'])
-    assert data['emailType'] == event.parameters['email_type']
+    assert data['emailType'] == OrderEventsEmailsEnum.PAYMENT.name
     assert data['quantity'] == int(event.parameters['quantity'])
     assert data['composedId'] == event.parameters['composed_id']
     assert data['user']['email'] == admin_user.email
@@ -439,14 +478,14 @@ def test_order_capture(admin_api_client, payment_preauth, admin_user):
         }
     """
     order_id = graphene.Node.to_global_id('Order', order.id)
-    amount = str(payment_preauth.get_total_price().gross.amount)
+    amount = float(payment_preauth.get_total_price().gross.amount)
     variables = json.dumps({'id': order_id, 'amount': amount})
     response = admin_api_client.post(
         reverse('api'), {'query': query, 'variables': variables})
     content = get_graphql_content(response)
     data = content['data']['orderCapture']['order']
     order.refresh_from_db()
-    assert data['paymentStatus'] == order.get_last_payment_status()
+    assert data['paymentStatus'] == PaymentStatusEnum.CONFIRMED.name
     assert data['isPaid']
     assert data['totalCaptured']['amount'] == float(amount)
 
@@ -461,7 +500,7 @@ def test_order_capture(admin_api_client, payment_preauth, admin_user):
         'email_type': OrderEventsEmails.PAYMENT.value}
     assert event_captured.type == OrderEvents.PAYMENT_CAPTURED.value
     assert event_captured.user == admin_user
-    assert event_captured.parameters == {'amount': '80.00'}
+    assert event_captured.parameters == {'amount': str(amount)}
 
 
 def test_paid_order_mark_as_paid(
@@ -539,7 +578,7 @@ def test_order_release(admin_api_client, payment_preauth, admin_user):
         reverse('api'), {'query': query, 'variables': variables})
     content = get_graphql_content(response)
     data = content['data']['orderRelease']['order']
-    assert data['paymentStatus'] == PaymentStatus.REFUNDED
+    assert data['paymentStatus'] == PaymentStatusEnum.REFUNDED.name
     event_payment_released = order.events.last()
     assert event_payment_released.type == OrderEvents.PAYMENT_RELEASED.value
     assert event_payment_released.user == admin_user
@@ -559,7 +598,7 @@ def test_order_refund(admin_api_client, payment_confirmed):
         }
     """
     order_id = graphene.Node.to_global_id('Order', order.id)
-    amount = str(payment_confirmed.get_total_price().gross.amount)
+    amount = float(payment_confirmed.get_total_price().gross.amount)
     variables = json.dumps({'id': order_id, 'amount': amount})
     response = admin_api_client.post(
         reverse('api'), {'query': query, 'variables': variables})
@@ -567,11 +606,11 @@ def test_order_refund(admin_api_client, payment_confirmed):
     data = content['data']['orderRefund']['order']
     order.refresh_from_db()
     assert data['status'] == order.status.upper()
-    assert data['paymentStatus'] == PaymentStatus.REFUNDED
+    assert data['paymentStatus'] == PaymentStatusEnum.REFUNDED.name
     assert data['isPaid'] == False
 
     order_event = order.events.last()
-    assert order_event.parameters['amount'] == amount
+    assert order_event.parameters['amount'] == str(amount)
     assert order_event.type == OrderEvents.PAYMENT_REFUNDED.value
 
 
@@ -598,9 +637,32 @@ def test_clean_order_refund_payment():
     assert errors[0].field == 'payment'
     assert errors[0].message == 'Manual payments can not be refunded.'
 
-    payment.variant = None
-    error_msg = 'error has happened.'
-    payment.refund = Mock(side_effect=ValueError(error_msg))
-    errors = clean_refund_payment(payment, amount, [])
+
+def test_clean_order_capture():
+    amount = Mock(spec='string')
+    errors = clean_order_capture(None, amount, [])
     assert errors[0].field == 'payment'
-    assert errors[0].message == error_msg
+    assert errors[0].message == (
+        'There\'s no payment associated with the order.')
+
+
+def test_clean_order_mark_as_paid(payment_preauth):
+    order = payment_preauth.order
+    errors = clean_order_mark_as_paid(order, [])
+    assert errors[0].field == 'payment'
+    assert errors[0].message == (
+        'Orders with payments can not be manually marked as paid.')
+
+    order.payments.all().delete()
+    assert clean_order_mark_as_paid(order, []) == []
+
+
+def test_clean_order_cancel(order):
+    assert clean_order_cancel(order, []) == []
+
+    order.status = OrderStatus.DRAFT
+    order.save()
+
+    errors = clean_order_cancel(order, [])
+    assert errors[0].field == 'order'
+    assert errors[0].message == 'This order can\'t be canceled.'
