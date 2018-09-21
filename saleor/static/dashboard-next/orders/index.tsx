@@ -3,7 +3,12 @@ import * as React from "react";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import i18n from "../i18n";
-import { FulfillmentStatus, OrderStatus } from "../types/globalTypes";
+import { maybe } from "../misc";
+import {
+  FulfillmentStatus,
+  OrderStatus,
+  PaymentStatusEnum
+} from "../types/globalTypes";
 import OrderDetailsComponent from "./views/OrderDetails";
 import OrderListComponent from "./views/OrderList";
 
@@ -46,42 +51,29 @@ export interface AddressType {
   streetAddress2: string;
 }
 
-export const PaymentStatus = {
-  CONFIRMED: "confirmed",
-  ERROR: "error",
-  INPUT: "input",
-  PREAUTH: "preauth",
-  REFUNDED: "refunded",
-  REJECTED: "rejected",
-  WAITING: "waiting"
-};
-export const PaymentVariants = {
-  MANUAL: "manual"
-};
-
 export const transformPaymentStatus = (status: string) => {
   switch (status) {
-    case PaymentStatus.CONFIRMED:
+    case PaymentStatusEnum.CONFIRMED:
       return { localized: i18n.t("Confirmed"), status: "success" };
-    case PaymentStatus.REFUNDED:
+    case PaymentStatusEnum.REFUNDED:
       return { localized: i18n.t("Refunded"), status: "success" };
-    case PaymentStatus.WAITING:
+    case PaymentStatusEnum.WAITING:
       return {
-        localized: i18n.t("Waiting for confirmation"),
+        localized: i18n.t("Waiting"),
         status: "neutral"
       };
-    case PaymentStatus.PREAUTH:
+    case PaymentStatusEnum.PREAUTH:
       return { localized: i18n.t("Preauthorized"), status: "neutral" };
-    case PaymentStatus.INPUT:
+    case PaymentStatusEnum.INPUT:
       return { localized: i18n.t("Input"), status: "neutral" };
-    case PaymentStatus.REJECTED:
+    case PaymentStatusEnum.REJECTED:
       return { localized: i18n.t("Rejected"), status: "error" };
-    case PaymentStatus.ERROR:
+    case PaymentStatusEnum.ERROR:
       return { localized: i18n.t("Error"), status: "error" };
   }
   return {
     localized: status,
-    status: "error"
+    status
   };
 };
 
@@ -118,8 +110,17 @@ export const transformFulfillmentStatus = (status: string) => {
 };
 
 export const transformAddressToForm = (data: AddressType) => ({
-  ...data,
-  phone: data.phone
+  city: maybe(() => data.city, ""),
+  cityArea: maybe(() => data.cityArea, ""),
+  companyName: maybe(() => data.companyName, ""),
+  country: maybe(() => data.country, ""),
+  countryArea: maybe(() => data.countryArea, ""),
+  firstName: maybe(() => data.firstName, ""),
+  lastName: maybe(() => data.lastName, ""),
+  phone: maybe(() => data.phone, ""),
+  postalCode: maybe(() => data.postalCode, ""),
+  streetAddress1: maybe(() => data.streetAddress1, ""),
+  streetAddress2: maybe(() => data.streetAddress2, "")
 });
 
 export const orderListUrl = "/orders/";

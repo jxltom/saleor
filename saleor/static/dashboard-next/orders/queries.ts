@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { TypedQuery } from "../queries";
 import { OrderDetails, OrderDetailsVariables } from "./types/OrderDetails";
 import { OrderList, OrderListVariables } from "./types/OrderList";
-import { OrderShippingMethods } from "./types/OrderShippingMethods";
 import {
   OrderVariantSearch,
   OrderVariantSearchVariables
@@ -42,36 +41,49 @@ export const TypedOrderListQuery = TypedQuery<OrderList, OrderListVariables>(
   orderListQuery
 );
 
+export const fragmentOrderEvent = gql`
+  fragment OrderEventFragment on OrderEvent {
+    id
+    amount
+    date
+    email
+    emailType
+    message
+    quantity
+    type
+    user {
+      email
+    }
+  }
+`;
+export const fragmentAddress = gql`
+  fragment AddressFragment on Address {
+    id
+    city
+    cityArea
+    companyName
+    country
+    countryArea
+    firstName
+    lastName
+    phone
+    postalCode
+    streetAddress1
+    streetAddress2
+  }
+`;
+
 export const fragmentOrderDetails = gql`
+  ${fragmentAddress}
+  ${fragmentOrderEvent}
   fragment OrderDetailsFragment on Order {
     id
     billingAddress {
-      id
-      city
-      cityArea
-      companyName
-      country
-      countryArea
-      firstName
-      lastName
-      phone
-      postalCode
-      streetAddress1
-      streetAddress2
+      ...AddressFragment
     }
     created
     events {
-      id
-      amount
-      date
-      email
-      emailType
-      message
-      quantity
-      type
-      user {
-        email
-      }
+      ...OrderEventFragment
     }
     fulfillments {
       id
@@ -108,24 +120,14 @@ export const fragmentOrderDetails = gql`
               currency
             }
           }
+          thumbnailUrl
         }
       }
     }
     number
     paymentStatus
     shippingAddress {
-      id
-      city
-      cityArea
-      companyName
-      country
-      countryArea
-      firstName
-      lastName
-      phone
-      postalCode
-      streetAddress1
-      streetAddress2
+      ...AddressFragment
     }
     shippingMethod {
       id
@@ -166,6 +168,10 @@ export const fragmentOrderDetails = gql`
       id
       email
     }
+    availableShippingMethods {
+      id
+      name
+    }
   }
 `;
 
@@ -175,35 +181,18 @@ export const orderDetailsQuery = gql`
     order(id: $id) {
       ...OrderDetailsFragment
     }
+    shop {
+      countries {
+        code
+        country
+      }
+    }
   }
 `;
 export const TypedOrderDetailsQuery = TypedQuery<
   OrderDetails,
   OrderDetailsVariables
 >(orderDetailsQuery);
-
-export const orderShippingMethodsQuery = gql`
-  query OrderShippingMethods {
-    shippingZones {
-      edges {
-        node {
-          shippingMethods {
-            edges {
-              node {
-                id
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-export const TypedOrderShippingMethodsQuery = TypedQuery<
-  OrderShippingMethods,
-  {}
->(orderShippingMethodsQuery);
 
 export const orderVariantSearchQuery = gql`
   query OrderVariantSearch($search: String!) {

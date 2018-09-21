@@ -2,17 +2,21 @@ import { withStyles, WithStyles } from "@material-ui/core/styles";
 import * as React from "react";
 
 import { AddressType, transformAddressToForm } from "../..";
+import { UserError } from "../../..";
 import { Container } from "../../../components/Container";
 import DateFormatter from "../../../components/DateFormatter";
 import Form from "../../../components/Form";
 import PageHeader from "../../../components/PageHeader";
 import Skeleton from "../../../components/Skeleton";
 import Toggle from "../../../components/Toggle";
+import { AddressTypeInput } from "../../../customers";
 import i18n from "../../../i18n";
 import { maybe } from "../../../misc";
 import { OrderEvents, OrderStatus } from "../../../types/globalTypes";
 import OrderAddressEditDialog from "../OrderAddressEditDialog";
-import OrderCancelDialog from "../OrderCancelDialog";
+import OrderCancelDialog, {
+  FormData as OrderCancelFormData
+} from "../OrderCancelDialog";
 import OrderCustomer from "../OrderCustomer";
 import OrderCustomerEditDialog from "../OrderCustomerEditDialog";
 import OrderFulfillment from "../OrderFulfillment";
@@ -21,7 +25,7 @@ import OrderFulfillmentDialog, {
   FormData as OrderFulfillFormData
 } from "../OrderFulfillmentDialog";
 import OrderFulfillmentTrackingDialog from "../OrderFulfillmentTrackingDialog";
-import OrderHistory from "../OrderHistory";
+import OrderHistory, { FormData as HistoryFormData } from "../OrderHistory";
 import OrderPaymentDialog, {
   FormData as OrderPaymentFormData
 } from "../OrderPaymentDialog";
@@ -29,7 +33,9 @@ import OrderPaymentReleaseDialog from "../OrderPaymentReleaseDialog";
 import OrderProductAddDialog, {
   FormData as ProductAddFormData
 } from "../OrderProductAddDialog";
-import OrderShippingMethodEditDialog from "../OrderShippingMethodEditDialog";
+import OrderShippingMethodEditDialog, {
+  FormData as ShippingMethodForm
+} from "../OrderShippingMethodEditDialog";
 import OrderSummary from "../OrderSummary";
 
 interface TaxedMoneyType {
@@ -83,7 +89,7 @@ interface OrderDetailsPageProps {
           id: string;
           productName: string;
           productSku: string;
-          thumbnailUrl?: string;
+          thumbnailUrl: string;
           unitPrice: TaxedMoneyType;
           quantity: number;
           quantityFulfilled: number;
@@ -137,12 +143,12 @@ interface OrderDetailsPageProps {
     stockQuantity: number;
   }>;
   variantsLoading?: boolean;
+  errors: UserError[];
   fetchUsers?(value: string);
-  fetchShippingMethods?(value: string);
   fetchVariants?(value: string);
   onBack();
+  onBillingAddressEdit(data: AddressTypeInput);
   onCreate?();
-  onCustomerEmailClick?(id: string);
   onOrderFulfill(data: OrderFulfillFormData);
   onOrderLineChange?(id: string): (value: string) => () => void;
   onOrderLineRemove?(id: string): () => void;
@@ -152,7 +158,10 @@ interface OrderDetailsPageProps {
   onPaymentCapture(data: OrderPaymentFormData);
   onPaymentRefund(data: OrderPaymentFormData);
   onPaymentRelease?();
-  onOrderCancel?();
+  onShippingAddressEdit(data: AddressTypeInput);
+  onShippingMethodEdit(data: ShippingMethodForm);
+  onOrderCancel(data: OrderCancelFormData);
+  onNoteAdd(data: HistoryFormData);
 }
 interface OrderDetailsPageState {
   openedBillingAddressEditDialog: boolean;
@@ -240,18 +249,19 @@ class OrderDetailsPageComponent extends React.Component<
     const {
       classes,
       countries,
+      errors,
       order,
       shippingMethods,
       user,
       users,
       variants,
       variantsLoading,
-      fetchShippingMethods,
       fetchUsers,
       fetchVariants,
       onBack,
+      onBillingAddressEdit,
       onCreate,
-      onCustomerEmailClick,
+      onNoteAdd,
       onOrderCancel,
       onOrderFulfill,
       onOrderLineChange,
@@ -261,7 +271,9 @@ class OrderDetailsPageComponent extends React.Component<
       onPaymentRefund,
       onPaymentRelease,
       onProductAdd,
-      onProductClick
+      onProductClick,
+      onShippingAddressEdit,
+      onShippingMethodEdit
     } = this.props;
     const {
       openedBillingAddressEditDialog,
@@ -354,32 +366,20 @@ class OrderDetailsPageComponent extends React.Component<
               onClose={this.toggleOrderProductAddDialog}
               onSubmit={onProductAdd}
             />
+            <OrderShippingMethodEditDialog
+              open={openedShippingMethodEditDialog}
+              shippingMethod={maybe(() => order.shippingMethod.id, "")}
+              shippingMethods={shippingMethods}
+              onClose={this.toggleShippingMethodEditDialog}
+              onSubmit={onShippingMethodEdit}
+            />
             {order && (
               <>
-                <Form
-                  initial={{
-                    shippingMethod: {
-                      label: order.shippingMethodName,
-                      value: order.shippingMethod && order.shippingMethod.id
-                    }
-                  }}
-                >
-                  {({ change, data }) => (
-                    <OrderShippingMethodEditDialog
-                      open={openedShippingMethodEditDialog}
-                      shippingMethod={data.shippingMethod}
-                      shippingMethods={shippingMethods}
-                      fetchShippingMethods={fetchShippingMethods}
-                      onChange={change}
-                      onClose={this.toggleShippingMethodEditDialog}
-                    />
-                  )}
-                </Form>
                 <OrderCancelDialog
                   number={order.number}
                   open={openedOrderCancelDialog}
                   onClose={this.toggleOrderCancelDialog}
-                  onConfirm={onOrderCancel}
+                  onSubmit={onOrderCancel}
                 />
                 <OrderPaymentReleaseDialog
                   open={openedPaymentReleaseDialog}
@@ -408,7 +408,7 @@ class OrderDetailsPageComponent extends React.Component<
                             )}
                             status={fulfillment.status}
                             trackingCode={fulfillment.trackingNumber}
-                            onFulfillmentCancel={toggleCancelDialog}
+                            onOrderFulfillmentCancel={toggleCancelDialog}
                             onTrackingCodeAdd={toggleTrackingDialog}
                             onPackingSlipClick={
                               onPackingSlipClick
@@ -447,17 +447,20 @@ class OrderDetailsPageComponent extends React.Component<
             ) : (
               <OrderFulfillment />
             )}
-            <OrderHistory history={maybe(() => order.events)} user={user} />
+            <OrderHistory
+              history={maybe(() => order.events)}
+              user={user}
+              onNoteAdd={onNoteAdd}
+            />
           </div>
           <div>
             <OrderCustomer
               billingAddress={maybe(() => order.billingAddress)}
               client={maybe(() => order.user)}
-              editCustomer={isDraft}
+              canEditCustomer={isDraft}
               shippingAddress={maybe(() => order.shippingAddress)}
               onBillingAddressEdit={this.toggleBillingAddressEditDialog}
               onCustomerEditClick={this.toggleCustomerEditDialog}
-              onCustomerEmailClick={onCustomerEmailClick}
               onShippingAddressEdit={this.toggleShippingAddressEditDialog}
             />
             {order && (
@@ -481,39 +484,40 @@ class OrderDetailsPageComponent extends React.Component<
                   )}
                 </Form>
                 <Form
-                  initial={
-                    order &&
-                    order.shippingAddress &&
-                    transformAddressToForm(order.shippingAddress)
-                  }
+                  initial={transformAddressToForm(
+                    maybe(() => order.shippingAddress)
+                  )}
+                  errors={errors}
+                  onSubmit={onShippingAddressEdit}
                 >
-                  {({ change, data, submit }) => (
+                  {({ change, data, errors: formErrors, submit }) => (
                     <OrderAddressEditDialog
                       countries={countries}
                       data={data}
+                      errors={formErrors}
                       open={openedShippingAddressEditDialog}
                       variant="shipping"
+                      onChange={change}
                       onClose={this.toggleShippingAddressEditDialog}
                       onConfirm={submit}
-                      onChange={change}
                     />
                   )}
                 </Form>
                 <Form
-                  initial={
-                    order.billingAddress &&
-                    transformAddressToForm(order.billingAddress)
-                  }
+                  initial={transformAddressToForm(order.billingAddress)}
+                  errors={errors}
+                  onSubmit={onBillingAddressEdit}
                 >
-                  {({ change, data, submit }) => (
+                  {({ change, data, errors: formErrors, submit }) => (
                     <OrderAddressEditDialog
                       countries={countries}
                       data={data}
+                      errors={formErrors}
                       open={openedBillingAddressEditDialog}
                       variant="billing"
+                      onChange={change}
                       onClose={this.toggleBillingAddressEditDialog}
                       onConfirm={submit}
-                      onChange={change}
                     />
                   )}
                 </Form>

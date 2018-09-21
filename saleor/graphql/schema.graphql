@@ -560,6 +560,17 @@ type DraftOrderCreate {
   order: Order
 }
 
+input DraftOrderCreateInput {
+  billingAddress: AddressInput
+  user: ID
+  userEmail: String
+  discount: Decimal
+  shippingAddress: AddressInput
+  shippingMethod: ID
+  voucher: ID
+  lines: [OrderLineCreateInput]
+}
+
 type DraftOrderDelete {
   errors: [Error]
   order: Order
@@ -570,10 +581,27 @@ input DraftOrderInput {
   user: ID
   userEmail: String
   discount: Decimal
-  lines: [OrderLineInput]
   shippingAddress: AddressInput
   shippingMethod: ID
   voucher: ID
+}
+
+type DraftOrderLineCreate {
+  errors: [Error]
+  order: Order
+  orderLine: OrderLine
+}
+
+type DraftOrderLineDelete {
+  errors: [Error]
+  order: Order
+  orderLine: OrderLine
+}
+
+type DraftOrderLineUpdate {
+  errors: [Error]
+  order: Order
+  orderLine: OrderLine
 }
 
 type DraftOrderUpdate {
@@ -599,6 +627,7 @@ type Fulfillment implements Node {
 type FulfillmentCancel {
   errors: [Error]
   fulfillment: Fulfillment
+  order: Order
 }
 
 input FulfillmentCancelInput {
@@ -608,13 +637,13 @@ input FulfillmentCancelInput {
 type FulfillmentCreate {
   errors: [Error]
   fulfillment: Fulfillment
+  order: Order
 }
 
 input FulfillmentCreateInput {
-  order: ID
   trackingNumber: String
   notifyCustomer: Boolean
-  lines: [FulfillmentLineInput]
+  lines: [FulfillmentLineInput]!
 }
 
 type FulfillmentLine implements Node {
@@ -644,12 +673,13 @@ enum FulfillmentStatus {
   CANCELED
 }
 
-type FulfillmentUpdate {
+type FulfillmentUpdateTracking {
   errors: [Error]
   fulfillment: Fulfillment
+  order: Order
 }
 
-input FulfillmentUpdateInput {
+input FulfillmentUpdateTrackingInput {
   trackingNumber: String
   notifyCustomer: Boolean
 }
@@ -815,13 +845,16 @@ type Mutations {
   menuItemCreate(input: MenuItemCreateInput!): MenuItemCreate
   menuItemDelete(id: ID!): MenuItemDelete
   menuItemUpdate(id: ID!, input: MenuItemInput!): MenuItemUpdate
-  draftOrderCreate(input: DraftOrderInput!): DraftOrderCreate
+  draftOrderCreate(input: DraftOrderCreateInput!): DraftOrderCreate
   draftOrderComplete(id: ID!): DraftOrderComplete
   draftOrderDelete(id: ID!): DraftOrderDelete
+  draftOrderLineCreate(id: ID!, input: OrderLineCreateInput!): DraftOrderLineCreate
+  draftOrderLineDelete(id: ID!): DraftOrderLineDelete
+  draftOrderLineUpdate(id: ID!, input: OrderLineInput!): DraftOrderLineUpdate
   draftOrderUpdate(id: ID!, input: DraftOrderInput!): DraftOrderUpdate
-  fulfillmentCancel(id: ID!, input: FulfillmentCancelInput!): FulfillmentCancel
-  fulfillmentCreate(input: FulfillmentCreateInput!): FulfillmentCreate
-  fulfillmentUpdate(id: ID!, input: FulfillmentUpdateInput!): FulfillmentUpdate
+  orderFulfillmentCancel(id: ID!, input: FulfillmentCancelInput!): FulfillmentCancel
+  orderFulfillmentCreate(input: FulfillmentCreateInput!, order: ID): FulfillmentCreate
+  orderFulfillmentUpdateTracking(id: ID!, input: FulfillmentUpdateTrackingInput!): FulfillmentUpdateTracking
   orderAddNote(order: ID!, input: OrderAddNoteInput!): OrderAddNote
   orderCancel(id: ID!, restock: Boolean!): OrderCancel
   orderCapture(amount: Decimal!, id: ID!): OrderCapture
@@ -915,6 +948,7 @@ type Order implements Node {
   statusDisplay: String
   totalAuthorized: Money
   totalCaptured: Money
+  availableShippingMethods: [ShippingMethod]
 }
 
 type OrderAddNote {
@@ -975,6 +1009,7 @@ enum OrderEvents {
   FULFILLMENT_CANCELED
   FULFILLMENT_RESTOCKED_ITEMS
   FULFILLMENT_FULFILLED_ITEMS
+  TRACKING_UPDATED
   NOTE_ADDED
   OTHER
 }
@@ -1010,9 +1045,13 @@ type OrderLineCountableEdge {
   cursor: String!
 }
 
+input OrderLineCreateInput {
+  quantity: Int!
+  variantId: ID!
+}
+
 input OrderLineInput {
-  variantId: ID
-  quantity: Int
+  quantity: Int!
 }
 
 type OrderMarkAsPaid {
@@ -1416,7 +1455,7 @@ type ProductVariantCreate {
 }
 
 input ProductVariantCreateInput {
-  attributes: [AttributeValueInput]
+  attributes: [AttributeValueInput]!
   costPrice: Decimal
   priceOverride: Decimal
   sku: String
@@ -1562,7 +1601,7 @@ input SetPasswordInput {
 type ShippingMethod implements Node {
   id: ID!
   name: String!
-  type: ShippingMethodType!
+  type: ShippingMethodTypeEnum
   price: Money
   minimumOrderPrice: Money
   maximumOrderPrice: Money
@@ -1570,24 +1609,9 @@ type ShippingMethod implements Node {
   maximumOrderWeight: Weight
 }
 
-type ShippingMethodConnection {
-  pageInfo: PageInfo!
-  edges: [ShippingMethodEdge]!
-}
-
-type ShippingMethodEdge {
-  node: ShippingMethod
-  cursor: String!
-}
-
-enum ShippingMethodType {
+enum ShippingMethodTypeEnum {
   PRICE
   WEIGHT
-}
-
-enum ShippingMethodTypeEnum {
-  PRICE_BASED
-  WEIGHT_BASED
 }
 
 type ShippingPriceCreate {
@@ -1620,7 +1644,7 @@ type ShippingZone implements Node {
   id: ID!
   name: String!
   countries: [String]
-  shippingMethods(before: String, after: String, first: Int, last: Int): ShippingMethodConnection
+  shippingMethods: [ShippingMethod]
   priceRange: MoneyRange
 }
 

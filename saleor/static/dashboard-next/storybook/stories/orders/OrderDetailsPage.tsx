@@ -2,7 +2,6 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 
 import * as placeholderImage from "../../../../images/placeholder60x60.png";
-import { PaymentStatus } from "../../../orders";
 import OrderDetailsPage from "../../../orders/components/OrderDetailsPage";
 import {
   clients,
@@ -11,7 +10,7 @@ import {
   shippingMethods,
   variants
 } from "../../../orders/fixtures";
-import { OrderStatus } from "../../../types/globalTypes";
+import { OrderStatus, PaymentStatusEnum } from "../../../types/globalTypes";
 import Decorator from "../../Decorator";
 
 const order = orderFixture(placeholderImage);
@@ -19,13 +18,14 @@ const orderDraft = orderFixture(placeholderImage, {
   status: OrderStatus.DRAFT
 });
 const orderWithoutPayment = orderFixture(placeholderImage, {
-  paymentStatus: PaymentStatus.PREAUTH
+  paymentStatus: PaymentStatusEnum.PREAUTH
 });
 
 const callbacks = {
   onBack: () => undefined,
+  onBillingAddressEdit: undefined,
   onCreate: undefined,
-  onCustomerEmailClick: () => undefined,
+  onNoteAdd: undefined,
   onOrderCancel: undefined,
   onOrderFulfill: undefined,
   onOrderLineChange: () => () => () => undefined,
@@ -36,14 +36,19 @@ const callbacks = {
   onPaymentRelease: undefined,
   onPrintClick: undefined,
   onProductAdd: undefined,
-  onProductClick: undefined
+  onProductClick: undefined,
+  onShippingAddressEdit: undefined,
+  onShippingMethodEdit: undefined
 };
 
 storiesOf("Views / Orders / Order details", module)
   .addDecorator(Decorator)
-  .add("when loading data", () => <OrderDetailsPage {...callbacks} />)
+  .add("when loading data", () => (
+    <OrderDetailsPage errors={[]} {...callbacks} />
+  ))
   .add("when loaded data", () => (
     <OrderDetailsPage
+      errors={[]}
       countries={countries}
       order={order}
       user={{ email: "admin@example.com" }}
@@ -52,6 +57,7 @@ storiesOf("Views / Orders / Order details", module)
   ))
   .add("as a draft", () => (
     <OrderDetailsPage
+      errors={[]}
       countries={countries}
       order={orderDraft}
       shippingMethods={shippingMethods}
@@ -59,7 +65,6 @@ storiesOf("Views / Orders / Order details", module)
       users={clients}
       variants={variants}
       variantsLoading={false}
-      fetchShippingMethods={undefined}
       fetchUsers={undefined}
       fetchVariants={undefined}
       {...callbacks}
@@ -67,6 +72,7 @@ storiesOf("Views / Orders / Order details", module)
   ))
   .add("as a unpaid order", () => (
     <OrderDetailsPage
+      errors={[]}
       countries={countries}
       order={orderWithoutPayment}
       shippingMethods={shippingMethods}
@@ -74,7 +80,6 @@ storiesOf("Views / Orders / Order details", module)
       users={clients}
       variants={variants}
       variantsLoading={false}
-      fetchShippingMethods={undefined}
       fetchUsers={undefined}
       fetchVariants={undefined}
       {...callbacks}

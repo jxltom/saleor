@@ -98,6 +98,7 @@ export interface OrderDetailsFragment_lines_edges_node {
   quantity: number;
   quantityFulfilled: number;
   unitPrice: OrderDetailsFragment_lines_edges_node_unitPrice | null;
+  thumbnailUrl: string | null;
 }
 
 export interface OrderDetailsFragment_lines_edges {
@@ -189,6 +190,12 @@ export interface OrderDetailsFragment_user {
   email: string;
 }
 
+export interface OrderDetailsFragment_availableShippingMethods {
+  __typename: "ShippingMethod";
+  id: string;
+  name: string;
+}
+
 export interface OrderDetailsFragment {
   __typename: "Order";
   id: string;
@@ -209,4 +216,5 @@ export interface OrderDetailsFragment {
   totalAuthorized: OrderDetailsFragment_totalAuthorized | null;
   totalCaptured: OrderDetailsFragment_totalCaptured | null;
   user: OrderDetailsFragment_user | null;
+  availableShippingMethods: (OrderDetailsFragment_availableShippingMethods | null)[] | null;
 }

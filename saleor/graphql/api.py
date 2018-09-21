@@ -8,7 +8,7 @@ from .account.mutations import (
     StaffUpdate, AddressCreate, AddressUpdate, AddressDelete)
 from .account.types import AddressValidationData, AddressValidationInput, User
 from .account.resolvers import (
-    resolve_address_validator, resolve_customers, resolve_staff_users) 
+    resolve_address_validator, resolve_customers, resolve_staff_users)
 from .menu.resolvers import resolve_menu, resolve_menus, resolve_menu_items
 from .menu.types import Menu, MenuItem
 # FIXME: sorting import by putting below line at the beginning breaks app
@@ -26,9 +26,11 @@ from .order.filters import OrderFilter
 from .order.resolvers import resolve_order, resolve_orders
 from .order.types import Order
 from .order.mutations.draft_orders import (
-    DraftOrderComplete, DraftOrderCreate, DraftOrderDelete, DraftOrderUpdate)
+    DraftOrderComplete, DraftOrderCreate, DraftOrderDelete,
+    DraftOrderLineCreate, DraftOrderLineDelete, DraftOrderLineUpdate,
+    DraftOrderUpdate)
 from .order.mutations.fulfillments import (
-    FulfillmentCancel, FulfillmentCreate, FulfillmentUpdate)
+    FulfillmentCancel, FulfillmentCreate, FulfillmentUpdateTracking)
 from .order.mutations.orders import (
     OrderAddNote, OrderCancel, OrderCapture, OrderMarkAsPaid, OrderRefund,
     OrderRelease, OrderUpdate, OrderUpdateShipping)
@@ -310,10 +312,13 @@ class Mutations(graphene.ObjectType):
     draft_order_create = DraftOrderCreate.Field()
     draft_order_complete = DraftOrderComplete.Field()
     draft_order_delete = DraftOrderDelete.Field()
+    draft_order_line_create = DraftOrderLineCreate.Field()
+    draft_order_line_delete = DraftOrderLineDelete.Field()
+    draft_order_line_update = DraftOrderLineUpdate.Field()
     draft_order_update = DraftOrderUpdate.Field()
-    fulfillment_cancel = FulfillmentCancel.Field()
-    fulfillment_create = FulfillmentCreate.Field()
-    fulfillment_update = FulfillmentUpdate.Field()
+    order_fulfillment_cancel = FulfillmentCancel.Field()
+    order_fulfillment_create = FulfillmentCreate.Field()
+    order_fulfillment_update_tracking = FulfillmentUpdateTracking.Field()
     order_add_note = OrderAddNote.Field()
     order_cancel = OrderCancel.Field()
     order_capture = OrderCapture.Field()

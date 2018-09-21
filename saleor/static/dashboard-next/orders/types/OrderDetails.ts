@@ -98,6 +98,7 @@ export interface OrderDetails_order_lines_edges_node {
   quantity: number;
   quantityFulfilled: number;
   unitPrice: OrderDetails_order_lines_edges_node_unitPrice | null;
+  thumbnailUrl: string | null;
 }
 
 export interface OrderDetails_order_lines_edges {
@@ -189,6 +190,12 @@ export interface OrderDetails_order_user {
   email: string;
 }
 
+export interface OrderDetails_order_availableShippingMethods {
+  __typename: "ShippingMethod";
+  id: string;
+  name: string;
+}
+
 export interface OrderDetails_order {
   __typename: "Order";
   id: string;
@@ -209,10 +216,23 @@ export interface OrderDetails_order {
   totalAuthorized: OrderDetails_order_totalAuthorized | null;
   totalCaptured: OrderDetails_order_totalCaptured | null;
   user: OrderDetails_order_user | null;
+  availableShippingMethods: (OrderDetails_order_availableShippingMethods | null)[] | null;
+}
+
+export interface OrderDetails_shop_countries {
+  __typename: "CountryDisplay";
+  code: string;
+  country: string;
+}
+
+export interface OrderDetails_shop {
+  __typename: "Shop";
+  countries: (OrderDetails_shop_countries | null)[];
 }
 
 export interface OrderDetails {
   order: OrderDetails_order | null;
+  shop: OrderDetails_shop | null;
 }
 
 export interface OrderDetailsVariables {

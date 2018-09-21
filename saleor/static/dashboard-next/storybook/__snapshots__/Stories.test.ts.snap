@@ -1298,6 +1298,37 @@ exports[`Storyshots Generics / ErrorMessageCard default 1`] = `
 </div>
 `;
 
+exports[`Storyshots Generics / External Link default 1`] = `
+<div>
+  <a
+    class="Component-link-id"
+    href="http://www.google.com"
+  >
+    <p
+      class="MuiTypography-root-id MuiTypography-body1-id MuiTypography-colorSecondary-id"
+    >
+      Link to google.com
+    </p>
+  </a>
+</div>
+`;
+
+exports[`Storyshots Generics / External Link new tab 1`] = `
+<div>
+  <a
+    class="Component-link-id"
+    href="http://www.google.com"
+    target="_blank"
+  >
+    <p
+      class="MuiTypography-root-id MuiTypography-body1-id MuiTypography-colorSecondary-id"
+    >
+      Link to google.com
+    </p>
+  </a>
+</div>
+`;
+
 exports[`Storyshots Generics / Global messages default 1`] = `
 <div>
   <button
@@ -3623,11 +3654,8 @@ exports[`Storyshots Generics / Skeleton default 1`] = `
 exports[`Storyshots Generics / StatusLabel when error 1`] = `
 <div>
   <div
-    class="Component-root-id"
+    class="Component-root-id undefined Component-errorDot-id"
   >
-    <span
-      class="Component-errorDot-id"
-    />
     Example label
   </div>
 </div>
@@ -3636,11 +3664,8 @@ exports[`Storyshots Generics / StatusLabel when error 1`] = `
 exports[`Storyshots Generics / StatusLabel when neutral 1`] = `
 <div>
   <div
-    class="Component-root-id"
+    class="Component-root-id undefined Component-neutralDot-id"
   >
-    <span
-      class="Component-neutralDot-id"
-    />
     Example label
   </div>
 </div>
@@ -3649,11 +3674,8 @@ exports[`Storyshots Generics / StatusLabel when neutral 1`] = `
 exports[`Storyshots Generics / StatusLabel when success 1`] = `
 <div>
   <div
-    class="Component-root-id"
+    class="Component-root-id undefined Component-successDot-id"
   >
-    <span
-      class="Component-successDot-id"
-    />
     Example label
   </div>
 </div>
@@ -4632,16 +4654,16 @@ exports[`Storyshots Orders / OrderCustomer when loaded data 1`] = `
     <div
       class="MuiCardContent-root-id"
     >
-      <p
-        class="MuiTypography-root-id MuiTypography-body1-id"
+      <a
+        class="Component-link-id"
+        href="mailto:test.client@example.com"
       >
-        test.client@example.com
-      </p>
-      <p
-        class="MuiTypography-root-id MuiTypography-body1-id OrderCustomer-link-id"
-      >
-        test.client@example.com
-      </p>
+        <p
+          class="MuiTypography-root-id MuiTypography-body1-id MuiTypography-colorSecondary-id"
+        >
+          test.client@example.com
+        </p>
+      </a>
     </div>
     <hr
       class="OrderCustomer-hr-id"
@@ -4656,7 +4678,22 @@ exports[`Storyshots Orders / OrderCustomer when loaded data 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+          <span
+            class="MuiTouchRipple-root-id"
+          />
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -4701,7 +4738,22 @@ exports[`Storyshots Orders / OrderCustomer when loaded data 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+          <span
+            class="MuiTouchRipple-root-id"
+          />
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -4772,7 +4824,20 @@ exports[`Storyshots Orders / OrderCustomer when loading data 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButtonBase-disabled-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id MuiButton-disabled-id"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -4802,7 +4867,20 @@ exports[`Storyshots Orders / OrderCustomer when loading data 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButtonBase-disabled-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id MuiButton-disabled-id"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -4849,16 +4927,16 @@ exports[`Storyshots Orders / OrderCustomer with different addresses 1`] = `
     <div
       class="MuiCardContent-root-id"
     >
-      <p
-        class="MuiTypography-root-id MuiTypography-body1-id"
+      <a
+        class="Component-link-id"
+        href="mailto:test.client@example.com"
       >
-        test.client@example.com
-      </p>
-      <p
-        class="MuiTypography-root-id MuiTypography-body1-id OrderCustomer-link-id"
-      >
-        test.client@example.com
-      </p>
+        <p
+          class="MuiTypography-root-id MuiTypography-body1-id MuiTypography-colorSecondary-id"
+        >
+          test.client@example.com
+        </p>
+      </a>
     </div>
     <hr
       class="OrderCustomer-hr-id"
@@ -4873,7 +4951,22 @@ exports[`Storyshots Orders / OrderCustomer with different addresses 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+          <span
+            class="MuiTouchRipple-root-id"
+          />
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -4918,7 +5011,22 @@ exports[`Storyshots Orders / OrderCustomer with different addresses 1`] = `
       </aside>
       <div
         class="Component-toolbar-id"
-      />
+      >
+        <button
+          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Edit
+          </span>
+          <span
+            class="MuiTouchRipple-root-id"
+          />
+        </button>
+      </div>
     </div>
     <div
       class="Component-children-id"
@@ -5011,12 +5119,6 @@ exports[`Storyshots Orders / OrderHistory default 1`] = `
             <div
               class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
             >
-              <label
-                class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
-                data-shrink="true"
-              >
-                Note
-              </label>
               <div
                 class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-multiline-id MuiInput-underline-id"
               >
@@ -5041,7 +5143,7 @@ exports[`Storyshots Orders / OrderHistory default 1`] = `
                   <textarea
                     aria-invalid="false"
                     class="Textarea-textarea-id MuiInput-input-id MuiInput-inputMultiline-id"
-                    name="content"
+                    name="message"
                     placeholder="Leave your note here..."
                     rows="1"
                     type="text"
@@ -5288,11 +5390,8 @@ exports[`Storyshots Orders / OrderSummary order cancelled 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -5422,135 +5521,100 @@ exports[`Storyshots Orders / OrderSummary order cancelled 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
-    <div
-      class="MuiCardActions-root-id"
-    >
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Invoice
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Refund
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-    </div>
   </div>
 </div>
 `;
@@ -5591,11 +5655,8 @@ exports[`Storyshots Orders / OrderSummary order draft 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -5725,58 +5786,62 @@ exports[`Storyshots Orders / OrderSummary order draft 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id OrderProducts-link-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-link-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            DHL
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $9,123.12
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -5822,11 +5887,8 @@ exports[`Storyshots Orders / OrderSummary order fulfilled 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-successDot-id"
       >
-        <span
-          class="Component-successDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -5956,134 +6018,103 @@ exports[`Storyshots Orders / OrderSummary order fulfilled 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
       class="MuiCardActions-root-id"
     >
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Invoice
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Refund
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
       <button
         class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
         tabindex="0"
@@ -6124,11 +6155,8 @@ exports[`Storyshots Orders / OrderSummary order partially fulfilled 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-neutralDot-id"
       >
-        <span
-          class="Component-neutralDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -6258,101 +6286,98 @@ exports[`Storyshots Orders / OrderSummary order partially fulfilled 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -6366,35 +6391,7 @@ exports[`Storyshots Orders / OrderSummary order partially fulfilled 1`] = `
         <span
           class="MuiButton-label-id"
         >
-          Invoice
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
           Fulfill
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Refund
         </span>
         <span
           class="MuiTouchRipple-root-id"
@@ -6440,11 +6437,8 @@ exports[`Storyshots Orders / OrderSummary order unfulfilled 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -6574,101 +6568,98 @@ exports[`Storyshots Orders / OrderSummary order unfulfilled 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -6682,35 +6673,7 @@ exports[`Storyshots Orders / OrderSummary order unfulfilled 1`] = `
         <span
           class="MuiButton-label-id"
         >
-          Invoice
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
           Fulfill
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Refund
         </span>
         <span
           class="MuiTouchRipple-root-id"
@@ -6756,11 +6719,8 @@ exports[`Storyshots Orders / OrderSummary payment confirmed 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -6890,134 +6850,103 @@ exports[`Storyshots Orders / OrderSummary payment confirmed 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
       class="MuiCardActions-root-id"
     >
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Invoice
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Refund
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
       <button
         class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
         tabindex="0"
@@ -7058,11 +6987,8 @@ exports[`Storyshots Orders / OrderSummary payment error 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -7192,101 +7118,98 @@ exports[`Storyshots Orders / OrderSummary payment error 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -7332,11 +7255,8 @@ exports[`Storyshots Orders / OrderSummary payment input 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -7466,101 +7386,98 @@ exports[`Storyshots Orders / OrderSummary payment input 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -7606,11 +7523,8 @@ exports[`Storyshots Orders / OrderSummary payment preauth 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -7740,134 +7654,103 @@ exports[`Storyshots Orders / OrderSummary payment preauth 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
       class="MuiCardActions-root-id"
     >
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Capture
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
-      <button
-        class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label-id"
-        >
-          Release
-        </span>
-        <span
-          class="MuiTouchRipple-root-id"
-        />
-      </button>
       <button
         class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
         tabindex="0"
@@ -7908,11 +7791,8 @@ exports[`Storyshots Orders / OrderSummary payment refunded 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -8042,101 +7922,98 @@ exports[`Storyshots Orders / OrderSummary payment refunded 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -8182,11 +8059,8 @@ exports[`Storyshots Orders / OrderSummary payment rejected 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -8316,101 +8190,98 @@ exports[`Storyshots Orders / OrderSummary payment rejected 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -8456,11 +8327,8 @@ exports[`Storyshots Orders / OrderSummary payment waiting 1`] = `
       class="Component-children-id"
     >
       <div
-        class="Component-root-id"
+        class="Component-root-id undefined Component-errorDot-id"
       >
-        <span
-          class="Component-errorDot-id"
-        />
         <span
           class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
         >
@@ -8590,101 +8458,98 @@ exports[`Storyshots Orders / OrderSummary payment waiting 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                DHL
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <p
+              class="MuiTypography-root-id MuiTypography-body1-id"
             >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $160.20
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $9,123.12
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $165.70
-              </p>
-            </div>
+              $160.20
+            </p>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            DHL
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                $19.20
-              </p>
-            </div>
+            $9,123.12
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $165.70
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            $19.20
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
     <div
@@ -8851,101 +8716,110 @@ exports[`Storyshots Orders / OrderSummary when loading data 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Subtotal
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Shipping
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Total
-                </b>
-              </p>
-            </div>
+            Subtotal
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <span
+              class="Skeleton-skeleton-id"
             >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-            </div>
+              ‌
+            </span>
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root-id"
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
         >
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
             colspan="5"
           >
-            <div
-              class="OrderProducts-flexBox-id"
-            >
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                Authorized
-              </p>
-              <p
-                class="MuiTypography-root-id MuiTypography-body1-id"
-              >
-                <b>
-                  Net payment
-                </b>
-              </p>
-            </div>
+            Shipping
           </td>
           <td
-            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
           >
-            <div
-              class="OrderProducts-flexBox-id"
+            <span
+              class="Skeleton-skeleton-id"
             >
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-              <span
-                class="Skeleton-skeleton-id"
-              >
-                ‌
-              </span>
-            </div>
+              ‌
+            </span>
           </td>
         </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Total
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            Authorized
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        >
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+            colspan="5"
+          >
+            <b>
+              Net payment
+            </b>
+          </td>
+          <td
+            class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+          >
+            <span
+              class="Skeleton-skeleton-id"
+            >
+              ‌
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root-id OrderProducts-thinRow-id"
+        />
       </tbody>
     </table>
   </div>
@@ -10996,8 +10870,9 @@ exports[`Storyshots Views / Authentication / Log in default 1`] = `
           class="Component-spacer-id"
         />
         <button
-          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-contained-id MuiButton-containedSecondary-id MuiButton-raised-id MuiButton-raisedSecondary-id Component-loginButton-id"
-          tabindex="0"
+          class="MuiButtonBase-root-id MuiButtonBase-disabled-id MuiButton-root-id MuiButton-contained-id MuiButton-containedSecondary-id MuiButton-raised-id MuiButton-raisedSecondary-id MuiButton-disabled-id Component-loginButton-id"
+          disabled=""
+          tabindex="-1"
           type="submit"
         >
           <span
@@ -11005,9 +10880,6 @@ exports[`Storyshots Views / Authentication / Log in default 1`] = `
           >
             Login
           </span>
-          <span
-            class="MuiTouchRipple-root-id"
-          />
         </button>
       </div>
     </div>
@@ -11128,8 +11000,9 @@ exports[`Storyshots Views / Authentication / Log in error 1`] = `
           class="Component-spacer-id"
         />
         <button
-          class="MuiButtonBase-root-id MuiButton-root-id MuiButton-contained-id MuiButton-containedSecondary-id MuiButton-raised-id MuiButton-raisedSecondary-id Component-loginButton-id"
-          tabindex="0"
+          class="MuiButtonBase-root-id MuiButtonBase-disabled-id MuiButton-root-id MuiButton-contained-id MuiButton-containedSecondary-id MuiButton-raised-id MuiButton-raisedSecondary-id MuiButton-disabled-id Component-loginButton-id"
+          disabled=""
+          tabindex="-1"
           type="submit"
         >
           <span
@@ -11137,13 +11010,157 @@ exports[`Storyshots Views / Authentication / Log in error 1`] = `
           >
             Login
           </span>
-          <span
-            class="MuiTouchRipple-root-id"
-          />
         </button>
       </div>
     </div>
   </form>
+</div>
+`;
+
+exports[`Storyshots Views / Authentication / Log in loading 1`] = `
+<div>
+  <form>
+    <div
+      class="Component-sm-id Component-root-id"
+    >
+      <div
+        class="MuiPaper-root-id MuiPaper-elevation1-id MuiPaper-rounded-id MuiCard-root-id Component-card-id"
+      >
+        <span
+          class="isvg pending Component-logo-id"
+        />
+        <div
+          class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
+        >
+          <label
+            class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id"
+            data-shrink="false"
+          >
+            Email
+          </label>
+          <div
+            class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-underline-id"
+          >
+            <input
+              aria-invalid="false"
+              autocomplete="username"
+              autofocus=""
+              class="MuiInput-input-id"
+              name="email"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="Component-spacer-id"
+        />
+        <div
+          class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
+        >
+          <label
+            class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id"
+            data-shrink="false"
+          >
+            Password
+          </label>
+          <div
+            class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-underline-id"
+          >
+            <input
+              aria-invalid="false"
+              autocomplete="current-password"
+              class="MuiInput-input-id MuiInput-inputType-id"
+              name="password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="Component-spacer-id"
+        />
+        <label
+          class="MuiFormControlLabel-root-id"
+        >
+          <span
+            class="MuiButtonBase-root-id MuiIconButton-root-id MuiSwitchBase-root-id MuiCheckbox-root-id MuiCheckbox-colorPrimary-id"
+          >
+            <span
+              class="MuiIconButton-label-id"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root-id"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                />
+              </svg>
+              <input
+                class="MuiSwitchBase-input-id"
+                name="rememberMe"
+                type="checkbox"
+              />
+            </span>
+            <span
+              class="MuiTouchRipple-root-id"
+            />
+          </span>
+          <span
+            class="MuiTypography-root-id MuiTypography-body1-id MuiFormControlLabel-label-id"
+          >
+            Remember me
+          </span>
+        </label>
+        <div
+          class="Component-spacer-id"
+        />
+        <button
+          class="MuiButtonBase-root-id MuiButtonBase-disabled-id MuiButton-root-id MuiButton-contained-id MuiButton-containedSecondary-id MuiButton-raised-id MuiButton-raisedSecondary-id MuiButton-disabled-id Component-loginButton-id"
+          disabled=""
+          tabindex="-1"
+          type="submit"
+        >
+          <span
+            class="MuiButton-label-id"
+          >
+            Login
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`Storyshots Views / Authentication / Verifying remembered user default 1`] = `
+<div>
+  <div
+    class="Component-root-id"
+  >
+    <div
+      class="MuiCircularProgress-root-id MuiCircularProgress-colorPrimary-id MuiCircularProgress-indeterminate-id"
+      role="progressbar"
+      style="width:128px;height:128px"
+    >
+      <svg
+        class="MuiCircularProgress-svg-id"
+        viewBox="22 22 44 44"
+      >
+        <circle
+          class="MuiCircularProgress-circle-id MuiCircularProgress-circleIndeterminate-id"
+          cx="44"
+          cy="44"
+          fill="none"
+          r="20.2"
+          stroke-width="3.6"
+        />
+      </svg>
+    </div>
+  </div>
 </div>
 `;
 
@@ -13037,11 +13054,8 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
                     class="MuiTableCell-root-id MuiTableCell-body-id"
                   >
                     <div
-                      class="Component-root-id"
+                      class="Component-root-id undefined Component-successDot-id"
                     >
-                      <span
-                        class="Component-successDot-id"
-                      />
                       Published
                     </div>
                   </td>
@@ -13063,11 +13077,8 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
                     class="MuiTableCell-root-id MuiTableCell-body-id"
                   >
                     <div
-                      class="Component-root-id"
+                      class="Component-root-id undefined Component-errorDot-id"
                     >
-                      <span
-                        class="Component-errorDot-id"
-                      />
                       Not published
                     </div>
                   </td>
@@ -13089,11 +13100,8 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
                     class="MuiTableCell-root-id MuiTableCell-body-id"
                   >
                     <div
-                      class="Component-root-id"
+                      class="Component-root-id undefined Component-successDot-id"
                     >
-                      <span
-                        class="Component-successDot-id"
-                      />
                       Published
                     </div>
                   </td>
@@ -13115,11 +13123,8 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
                     class="MuiTableCell-root-id MuiTableCell-body-id"
                   >
                     <div
-                      class="Component-root-id"
+                      class="Component-root-id undefined Component-successDot-id"
                     >
-                      <span
-                        class="Component-successDot-id"
-                      />
                       Published
                     </div>
                   </td>
@@ -13141,11 +13146,8 @@ exports[`Storyshots Views / Collections / Collection details default 1`] = `
                     class="MuiTableCell-root-id MuiTableCell-body-id"
                   >
                     <div
-                      class="Component-root-id"
+                      class="Component-root-id undefined Component-successDot-id"
                     >
-                      <span
-                        class="Component-successDot-id"
-                      />
                       Published
                     </div>
                   </td>
@@ -13992,11 +13994,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14018,11 +14017,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -14044,11 +14040,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -14070,11 +14063,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14096,11 +14086,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14122,11 +14109,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -14148,11 +14132,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14174,11 +14155,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -14200,11 +14178,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14226,11 +14201,8 @@ exports[`Storyshots Views / Collections / Collection list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -14925,11 +14897,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
               class="MuiTypography-root-id MuiTypography-body1-id"
             >
               <div
-                class="Component-root-id Component-status-id"
+                class="Component-root-id Component-status-id Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Active
               </div>
             </span>
@@ -15099,11 +15068,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     fulfilled
                   </div>
                 </td>
@@ -15138,11 +15104,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     unfulfilled
                   </div>
                 </td>
@@ -15177,11 +15140,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     fulfilled
                   </div>
                 </td>
@@ -15216,11 +15176,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     fulfilled
                   </div>
                 </td>
@@ -15255,11 +15212,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     fulfilled
                   </div>
                 </td>
@@ -15294,11 +15248,8 @@ exports[`Storyshots Views / Customers / Customer details default 1`] = `
                   class="MuiTableCell-root-id MuiTableCell-body-id"
                 >
                   <div
-                    class="Component-root-id"
+                    class="Component-root-id undefined Component-errorDot-id"
                   >
-                    <span
-                      class="Component-errorDot-id"
-                    />
                     unfulfilled
                   </div>
                 </td>
@@ -16988,11 +16939,8 @@ exports[`Storyshots Views / Orders / Order details as a draft 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -17122,58 +17070,66 @@ exports[`Storyshots Views / Orders / Order details as a draft 1`] = `
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Subtotal
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id OrderProducts-link-id"
-                    >
-                      DHL
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Total
-                      </b>
-                    </p>
-                  </div>
+                  Subtotal
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
+                  <span
+                    class="Skeleton-skeleton-id"
                   >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      $5.50
-                    </p>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                    ‌
+                  </span>
                 </td>
               </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-link-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  DHL
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  $5.50
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Total
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
             </tbody>
           </table>
           <div
@@ -17195,7 +17151,6 @@ exports[`Storyshots Views / Orders / Order details as a draft 1`] = `
             </button>
           </div>
         </div>
-        <form />
         <div
           class="OrderHistory-root-id"
         >
@@ -17241,12 +17196,6 @@ exports[`Storyshots Views / Orders / Order details as a draft 1`] = `
                   <div
                     class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
                   >
-                    <label
-                      class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
-                      data-shrink="true"
-                    >
-                      Note
-                    </label>
                     <div
                       class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-multiline-id MuiInput-underline-id"
                     >
@@ -17271,7 +17220,7 @@ exports[`Storyshots Views / Orders / Order details as a draft 1`] = `
                         <textarea
                           aria-invalid="false"
                           class="Textarea-textarea-id MuiInput-input-id MuiInput-inputMultiline-id"
-                          name="content"
+                          name="message"
                           placeholder="Leave your note here..."
                           rows="1"
                           type="text"
@@ -17729,11 +17678,8 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -17863,101 +17809,106 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Subtotal
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      DHL
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Total
-                      </b>
-                    </p>
-                  </div>
+                  Subtotal
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
+                  <span
+                    class="Skeleton-skeleton-id"
                   >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      $5.50
-                    </p>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                    ‌
+                  </span>
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Authorized
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Net payment
-                      </b>
-                    </p>
-                  </div>
+                  DHL
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                  $5.50
                 </td>
               </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Total
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  Authorized
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Net payment
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
             </tbody>
           </table>
           <div
@@ -18007,7 +17958,6 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             </button>
           </div>
         </div>
-        <form />
         <div
           class="MuiPaper-root-id MuiPaper-elevation1-id MuiPaper-rounded-id MuiCard-root-id OrderFulfillment-root-id"
         >
@@ -18042,11 +17992,8 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -18170,11 +18117,8 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -18292,12 +18236,6 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
                   <div
                     class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
                   >
-                    <label
-                      class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
-                      data-shrink="true"
-                    >
-                      Note
-                    </label>
                     <div
                       class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-multiline-id MuiInput-underline-id"
                     >
@@ -18322,7 +18260,7 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
                         <textarea
                           aria-invalid="false"
                           class="Textarea-textarea-id MuiInput-input-id MuiInput-inputMultiline-id"
-                          name="content"
+                          name="message"
                           placeholder="Leave your note here..."
                           rows="1"
                           type="text"
@@ -18585,7 +18523,22 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -18630,7 +18583,22 @@ exports[`Storyshots Views / Orders / Order details as a unpaid order 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -18735,11 +18703,8 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -18869,134 +18834,111 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Subtotal
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      DHL
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Total
-                      </b>
-                    </p>
-                  </div>
+                  Subtotal
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
+                  <span
+                    class="Skeleton-skeleton-id"
                   >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      $5.50
-                    </p>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                    ‌
+                  </span>
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Authorized
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Net payment
-                      </b>
-                    </p>
-                  </div>
+                  DHL
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                  $5.50
                 </td>
               </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Total
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  Authorized
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Net payment
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
             </tbody>
           </table>
           <div
             class="MuiCardActions-root-id"
           >
-            <button
-              class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiButton-label-id"
-              >
-                Invoice
-              </span>
-              <span
-                class="MuiTouchRipple-root-id"
-              />
-            </button>
-            <button
-              class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="MuiButton-label-id"
-              >
-                Refund
-              </span>
-              <span
-                class="MuiTouchRipple-root-id"
-              />
-            </button>
             <button
               class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-flat-id"
               tabindex="0"
@@ -19013,7 +18955,6 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             </button>
           </div>
         </div>
-        <form />
         <div
           class="MuiPaper-root-id MuiPaper-elevation1-id MuiPaper-rounded-id MuiCard-root-id OrderFulfillment-root-id"
         >
@@ -19048,11 +18989,8 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -19176,11 +19114,8 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             class="Component-children-id"
           >
             <div
-              class="Component-root-id"
+              class="Component-root-id undefined Component-errorDot-id"
             >
-              <span
-                class="Component-errorDot-id"
-              />
               <span
                 class="MuiTypography-root-id MuiTypography-body1-id Component-span-id"
               >
@@ -19298,12 +19233,6 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
                   <div
                     class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
                   >
-                    <label
-                      class="MuiFormLabel-root-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
-                      data-shrink="true"
-                    >
-                      Note
-                    </label>
                     <div
                       class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-multiline-id MuiInput-underline-id"
                     >
@@ -19328,7 +19257,7 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
                         <textarea
                           aria-invalid="false"
                           class="Textarea-textarea-id MuiInput-input-id MuiInput-inputMultiline-id"
-                          name="content"
+                          name="message"
                           placeholder="Leave your note here..."
                           rows="1"
                           type="text"
@@ -19591,7 +19520,22 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -19636,7 +19580,22 @@ exports[`Storyshots Views / Orders / Order details when loaded data 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -19859,101 +19818,110 @@ exports[`Storyshots Views / Orders / Order details when loading data 1`] = `
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Subtotal
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Shipping
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Total
-                      </b>
-                    </p>
-                  </div>
+                  Subtotal
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
+                  <span
+                    class="Skeleton-skeleton-id"
                   >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                    ‌
+                  </span>
                 </td>
               </tr>
               <tr
-                class="MuiTableRow-root-id"
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
               >
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
                   colspan="5"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
-                  >
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      Authorized
-                    </p>
-                    <p
-                      class="MuiTypography-root-id MuiTypography-body1-id"
-                    >
-                      <b>
-                        Net payment
-                      </b>
-                    </p>
-                  </div>
+                  Shipping
                 </td>
                 <td
-                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-textRight-id"
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
                 >
-                  <div
-                    class="OrderProducts-flexBox-id"
+                  <span
+                    class="Skeleton-skeleton-id"
                   >
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                    <span
-                      class="Skeleton-skeleton-id"
-                    >
-                      ‌
-                    </span>
-                  </div>
+                    ‌
+                  </span>
                 </td>
               </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Total
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  Authorized
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              >
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id"
+                  colspan="5"
+                >
+                  <b>
+                    Net payment
+                  </b>
+                </td>
+                <td
+                  class="MuiTableCell-root-id MuiTableCell-body-id OrderProducts-noBorder-id OrderProducts-textRight-id"
+                >
+                  <span
+                    class="Skeleton-skeleton-id"
+                  >
+                    ‌
+                  </span>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root-id OrderProducts-thinRow-id"
+              />
             </tbody>
           </table>
         </div>
@@ -20155,7 +20123,22 @@ exports[`Storyshots Views / Orders / Order details when loading data 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -20185,7 +20168,22 @@ exports[`Storyshots Views / Orders / Order details when loading data 1`] = `
             </aside>
             <div
               class="Component-toolbar-id"
-            />
+            >
+              <button
+                class="MuiButtonBase-root-id MuiButton-root-id MuiButton-text-id MuiButton-textSecondary-id MuiButton-flat-id MuiButton-flatSecondary-id"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label-id"
+                >
+                  Edit
+                </span>
+                <span
+                  class="MuiTouchRipple-root-id"
+                />
+              </button>
+            </div>
           </div>
           <div
             class="Component-children-id"
@@ -20387,11 +20385,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 fulfilled
               </div>
             </td>
@@ -20417,12 +20412,9 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-successDot-id"
-                />
-                Confirmed
+                confirmed
               </div>
             </td>
             <td
@@ -20443,11 +20435,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 unfulfilled
               </div>
             </td>
@@ -20473,12 +20462,9 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-successDot-id"
-                />
-                Confirmed
+                confirmed
               </div>
             </td>
             <td
@@ -20499,11 +20485,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 fulfilled
               </div>
             </td>
@@ -20529,12 +20512,9 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
-                Rejected
+                rejected
               </div>
             </td>
             <td
@@ -20555,11 +20535,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 fulfilled
               </div>
             </td>
@@ -20585,11 +20562,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 unknown
               </div>
             </td>
@@ -20611,11 +20585,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 fulfilled
               </div>
             </td>
@@ -20641,12 +20612,9 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-neutralDot-id"
-                />
-                Waiting for confirmation
+                waiting
               </div>
             </td>
             <td
@@ -20667,11 +20635,8 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 unfulfilled
               </div>
             </td>
@@ -20697,12 +20662,9 @@ exports[`Storyshots Views / Orders / Order list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
-                Rejected
+                rejected
               </div>
             </td>
             <td
@@ -21867,11 +21829,8 @@ exports[`Storyshots Views / Pages / Page list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -21893,11 +21852,8 @@ exports[`Storyshots Views / Pages / Page list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -25204,7 +25160,7 @@ exports[`Storyshots Views / Products / Create product variant default 1`] = `
                       <input
                         aria-invalid="false"
                         class="MuiInput-input-id"
-                        name="stock"
+                        name="quantity"
                         type="text"
                         value="0"
                       />
@@ -25573,7 +25529,7 @@ exports[`Storyshots Views / Products / Create product variant when loading data 
                         aria-invalid="false"
                         class="MuiInput-input-id MuiInput-disabled-id"
                         disabled=""
-                        name="stock"
+                        name="quantity"
                         type="text"
                         value="0"
                       />
@@ -25979,27 +25935,22 @@ exports[`Storyshots Views / Products / Create product variant with errors 1`] = 
                     class="MuiFormControl-root-id MuiFormControl-fullWidth-id"
                   >
                     <label
-                      class="MuiFormLabel-root-id MuiFormLabel-error-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
+                      class="MuiFormLabel-root-id MuiFormLabel-filled-id MuiInputLabel-root-id MuiInputLabel-formControl-id MuiInputLabel-animated-id MuiInputLabel-shrink-id"
                       data-shrink="true"
                     >
                       Inventory
                     </label>
                     <div
-                      class="MuiInput-root-id MuiInput-error-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-underline-id"
+                      class="MuiInput-root-id MuiInput-fullWidth-id MuiInput-formControl-id MuiInput-underline-id"
                     >
                       <input
-                        aria-invalid="true"
+                        aria-invalid="false"
                         class="MuiInput-input-id"
-                        name="stock"
+                        name="quantity"
                         type="text"
                         value="0"
                       />
                     </div>
-                    <p
-                      class="MuiFormHelperText-root-id MuiFormHelperText-error-id MuiFormHelperText-filled-id"
-                    >
-                      Generic error
-                    </p>
                   </div>
                 </div>
                 <div>
@@ -26808,11 +26759,8 @@ exports[`Storyshots Views / Products / Product edit when data is fully loaded 1`
                       class="MuiTableCell-root-id MuiTableCell-body-id"
                     >
                       <div
-                        class="Component-root-id"
+                        class="Component-root-id undefined Component-successDot-id"
                       >
-                        <span
-                          class="Component-successDot-id"
-                        />
                         Available
                       </div>
                     </td>
@@ -26834,11 +26782,8 @@ exports[`Storyshots Views / Products / Product edit when data is fully loaded 1`
                       class="MuiTableCell-root-id MuiTableCell-body-id"
                     >
                       <div
-                        class="Component-root-id"
+                        class="Component-root-id undefined Component-successDot-id"
                       >
-                        <span
-                          class="Component-successDot-id"
-                        />
                         Available
                       </div>
                     </td>
@@ -28571,11 +28516,8 @@ exports[`Storyshots Views / Products / Product edit when product has no images 1
                       class="MuiTableCell-root-id MuiTableCell-body-id"
                     >
                       <div
-                        class="Component-root-id"
+                        class="Component-root-id undefined Component-successDot-id"
                       >
-                        <span
-                          class="Component-successDot-id"
-                        />
                         Available
                       </div>
                     </td>
@@ -28597,11 +28539,8 @@ exports[`Storyshots Views / Products / Product edit when product has no images 1
                       class="MuiTableCell-root-id MuiTableCell-body-id"
                     >
                       <div
-                        class="Component-root-id"
+                        class="Component-root-id undefined Component-successDot-id"
                       >
-                        <span
-                          class="Component-successDot-id"
-                        />
                         Available
                       </div>
                     </td>
@@ -31073,11 +31012,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -31116,11 +31052,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -31159,11 +31092,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -31202,11 +31132,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -31245,11 +31172,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -31288,11 +31212,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -31331,11 +31252,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -31374,11 +31292,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -31417,11 +31332,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-successDot-id"
               >
-                <span
-                  class="Component-successDot-id"
-                />
                 Published
               </div>
             </td>
@@ -31460,11 +31372,8 @@ exports[`Storyshots Views / Products / Product list default 1`] = `
               class="MuiTableCell-root-id MuiTableCell-body-id"
             >
               <div
-                class="Component-root-id"
+                class="Component-root-id undefined Component-errorDot-id"
               >
-                <span
-                  class="Component-errorDot-id"
-                />
                 Not published
               </div>
             </td>
@@ -32415,7 +32324,7 @@ exports[`Storyshots Views / Products / Product variant details when loaded data 
                       <input
                         aria-invalid="false"
                         class="MuiInput-input-id"
-                        name="stock"
+                        name="quantity"
                         type="text"
                         value="19"
                       />
@@ -32840,7 +32749,7 @@ exports[`Storyshots Views / Products / Product variant details when loading data
                         aria-invalid="false"
                         class="MuiInput-input-id MuiInput-disabled-id"
                         disabled=""
-                        name="stock"
+                        name="quantity"
                         type="text"
                         value=""
                       />

@@ -299,7 +299,7 @@ class ProductDelete(ModelDeleteMutation):
 
 class ProductVariantInput(graphene.InputObjectType):
     attributes = graphene.List(
-        AttributeValueInput,
+        AttributeValueInput, required=False,
         description='List of attributes specific to this variant.')
     cost_price = Decimal(description='Cost price of the variant.')
     price_override = Decimal(
@@ -316,6 +316,9 @@ class ProductVariantInput(graphene.InputObjectType):
 
 
 class ProductVariantCreateInput(ProductVariantInput):
+    attributes = graphene.List(
+        AttributeValueInput, required=True,
+        description='List of attributes specific to this variant.')
     product = graphene.ID(
         description='Product ID of which type is the variant.',
         name='product', required=True)
@@ -332,6 +335,19 @@ class ProductVariantCreate(ModelMutation):
         model = models.ProductVariant
 
     @classmethod
+    def clean_product_type_attributes(
+            cls, attributes_qs, attributes_input, errors):
+        # transform attributes_input list to a dict of slug:value pairs
+        attributes_input = {
+            item['slug']: item['value'] for item in attributes_input}
+
+        for attr in attributes_qs:
+            value = attributes_input.get(attr.slug, None)
+            if not value:
+                fieldname = 'attributes:%s' % attr.slug
+                cls.add_error(errors, fieldname, 'This field cannot be blank.')
+
+    @classmethod
     def clean_input(cls, info, instance, input, errors):
         cleaned_input = super().clean_input(info, instance, input, errors)
 
@@ -340,15 +356,18 @@ class ProductVariantCreate(ModelMutation):
         # `Product` model, which is HStore field that maps attribute's PK to
         # the value's PK.
 
-        attributes = cleaned_input.pop('attributes', [])
-        product = instance.product if instance.pk else cleaned_input.get(
-            'product')
-        product_type = product.product_type
-
-        if attributes and product_type:
+        if 'attributes' in input:
+            attributes_input = cleaned_input.pop('attributes')
+            product = instance.product if instance.pk else cleaned_input.get(
+                'product')
+            product_type = product.product_type
+            variant_attrs = product_type.variant_attributes.prefetch_related(
+                'values')
             try:
-                qs = product_type.variant_attributes.prefetch_related('values')
-                attributes = attributes_to_hstore(attributes, qs)
+                cls.clean_product_type_attributes(
+                    variant_attrs, attributes_input, errors)
+                attributes = attributes_to_hstore(
+                    attributes_input, variant_attrs)
             except ValueError as e:
                 cls.add_error(errors, 'attributes', str(e))
             else:

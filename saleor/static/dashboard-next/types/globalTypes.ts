@@ -278,6 +278,7 @@ export enum OrderEvents {
   PAYMENT_RELEASED = "PAYMENT_RELEASED",
   PLACED = "PLACED",
   PLACED_FROM_DRAFT = "PLACED_FROM_DRAFT",
+  TRACKING_UPDATED = "TRACKING_UPDATED",
   UPDATED = "UPDATED",
 }
 
@@ -333,21 +334,58 @@ export enum TaxRateType {
   WATER = "WATER",
 }
 
+export interface AddressInput {
+  firstName?: string | null;
+  lastName?: string | null;
+  companyName?: string | null;
+  streetAddress1?: string | null;
+  streetAddress2?: string | null;
+  city?: string | null;
+  cityArea?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  countryArea?: string | null;
+  phone?: string | null;
+}
+
 export interface AttributeValueInput {
   slug: string;
   value: string;
 }
 
+export interface DraftOrderInput {
+  billingAddress?: AddressInput | null;
+  user?: string | null;
+  userEmail?: string | null;
+  discount?: any | null;
+  shippingAddress?: AddressInput | null;
+  shippingMethod?: string | null;
+  voucher?: string | null;
+}
+
 export interface FulfillmentCreateInput {
-  order?: string | null;
   trackingNumber?: string | null;
   notifyCustomer?: boolean | null;
-  lines?: (FulfillmentLineInput | null)[] | null;
+  lines: (FulfillmentLineInput | null)[];
 }
 
 export interface FulfillmentLineInput {
   orderLineId?: string | null;
   quantity?: number | null;
+}
+
+export interface OrderAddNoteInput {
+  message?: string | null;
+}
+
+export interface OrderUpdateInput {
+  billingAddress?: AddressInput | null;
+  userEmail?: string | null;
+  shippingAddress?: AddressInput | null;
+}
+
+export interface OrderUpdateShippingInput {
+  shippingMethod?: string | null;
 }
 
 export interface ProductTypeInput {
