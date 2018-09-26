@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import F, Max, Sum
 from django.urls import reverse
@@ -115,7 +115,7 @@ class Order(models.Model):
     def is_fully_paid(self):
         total_paid = sum(
             [
-                payment.get_total_price() for payment in
+                payment.get_total() for payment in
                 self.payments.filter(status=PaymentStatus.CONFIRMED)],
             ZERO_TAXED_MONEY)
         return total_paid.gross >= self.total.gross
@@ -204,10 +204,9 @@ class OrderLine(models.Model):
         max_length=386, default='', blank=True)
     product_sku = models.CharField(max_length=32)
     is_shipping_required = models.BooleanField()
-    quantity = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999)])
+    quantity = models.IntegerField(validators=[MinValueValidator(1)])
     quantity_fulfilled = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999)], default=0)
+        validators=[MinValueValidator(0)], default=0)
     unit_price_net = MoneyField(
         currency=settings.DEFAULT_CURRENCY, max_digits=12,
         decimal_places=settings.DEFAULT_DECIMAL_PLACES)
@@ -274,8 +273,7 @@ class FulfillmentLine(models.Model):
         OrderLine, related_name='+', on_delete=models.CASCADE)
     fulfillment = models.ForeignKey(
         Fulfillment, related_name='lines', on_delete=models.CASCADE)
-    quantity = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999)])
+    quantity = models.IntegerField(validators=[MinValueValidator(1)])
 
 
 class Payment(BasePayment):
@@ -314,7 +312,7 @@ class Payment(BasePayment):
                     currency=self.order.discount_amount.currency))
         return lines
 
-    def get_total_price(self):
+    def get_total(self):
         return TaxedMoney(
             net=Money(self.total - self.tax, self.currency),
             gross=Money(self.total, self.currency))

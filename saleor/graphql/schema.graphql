@@ -355,38 +355,92 @@ type AssignNavigation {
   menu: Menu
 }
 
-type AttributeChoiceValueCreate {
-  errors: [Error]
-  attributeChoiceValue: ProductAttributeValue
+type Attribute implements Node {
+  id: ID!
+  slug: String
+  name: String
+  values: [AttributeValue]
 }
 
-type AttributeChoiceValueDelete {
-  errors: [Error]
-  attributeChoiceValue: ProductAttributeValue
+type AttributeCountableConnection {
+  pageInfo: PageInfo!
+  edges: [AttributeCountableEdge!]!
+  totalCount: Int
 }
 
-input AttributeChoiceValueInput {
+type AttributeCountableEdge {
+  node: Attribute!
+  cursor: String!
+}
+
+type AttributeCreate {
+  errors: [Error]
+  attribute: Attribute
+}
+
+type AttributeDelete {
+  errors: [Error]
+  attribute: Attribute
+}
+
+scalar AttributeScalar
+
+type AttributeUpdate {
+  errors: [Error]
+  attribute: Attribute
+}
+
+type AttributeValue implements Node {
+  id: ID!
+  sortOrder: Int!
+  name: String
+  value: String!
+  slug: String
+  type: AttributeValueType
+}
+
+type AttributeValueCreate {
+  errors: [Error]
+  attributeValue: AttributeValue
+}
+
+input AttributeValueCreateInput {
   attribute: ID
   slug: String!
   name: String!
   value: String!
 }
 
-type AttributeChoiceValueUpdate {
+type AttributeValueDelete {
   errors: [Error]
-  attributeChoiceValue: ProductAttributeValue
+  attributeValue: AttributeValue
 }
-
-input AttributeChoiceValueUpdateInput {
-  slug: String!
-  name: String!
-}
-
-scalar AttributeScalar
 
 input AttributeValueInput {
   slug: String!
   value: String!
+}
+
+enum AttributeValueType {
+  COLOR
+  GRADIENT
+  URL
+  STRING
+}
+
+type AttributeValueUpdate {
+  errors: [Error]
+  attributeValue: AttributeValue
+}
+
+input AttributeValueUpdateInput {
+  slug: String!
+  name: String!
+}
+
+input AttributesInput {
+  slug: String!
+  name: String!
 }
 
 type AuthorizationKey {
@@ -526,6 +580,24 @@ input CustomerInput {
   note: String
   defaultBillingAddress: AddressInput
   defaultShippingAddress: AddressInput
+}
+
+type CustomerPasswordReset {
+  errors: [Error]
+}
+
+input CustomerPasswordResetInput {
+  email: String!
+}
+
+type CustomerRegister {
+  errors: [Error]
+  user: User
+}
+
+input CustomerRegisterInput {
+  email: String!
+  password: String!
 }
 
 type CustomerUpdate {
@@ -821,16 +893,19 @@ type Mutations {
   tokenVerify(token: String): VerifyToken
   setPassword(id: ID!, input: SetPasswordInput!): SetPassword
   passwordReset(email: String!): PasswordReset
-  attributeChoiceValueCreate(input: AttributeChoiceValueInput!): AttributeChoiceValueCreate
-  attributeChoiceValueDelete(id: ID!): AttributeChoiceValueDelete
-  attributeChoiceValueUpdate(id: ID!, input: AttributeChoiceValueUpdateInput!): AttributeChoiceValueUpdate
+  attributeValueCreate(input: AttributeValueCreateInput!): AttributeValueCreate
+  attributeValueDelete(id: ID!): AttributeValueDelete
+  attributeValueUpdate(id: ID!, input: AttributeValueUpdateInput!): AttributeValueUpdate
   categoryCreate(input: CategoryInput!): CategoryCreate
   categoryDelete(id: ID!): CategoryDelete
   categoryUpdate(id: ID!, input: CategoryInput!): CategoryUpdate
   customerCreate(input: UserCreateInput!): CustomerCreate
   customerUpdate(id: ID!, input: CustomerInput!): CustomerUpdate
+  customerPasswordReset(input: CustomerPasswordResetInput!): CustomerPasswordReset
+  customerRegister(input: CustomerRegisterInput!): CustomerRegister
   staffCreate(input: StaffCreateInput!): StaffCreate
   staffUpdate(id: ID!, input: StaffInput!): StaffUpdate
+  staffDelete(id: ID!): StaffDelete
   addressCreate(input: AddressCreateInput!): AddressCreate
   addressUpdate(id: ID!, input: AddressInput!): AddressUpdate
   addressDelete(id: ID!): AddressDelete
@@ -866,9 +941,9 @@ type Mutations {
   pageCreate(input: PageInput!): PageCreate
   pageDelete(id: ID!): PageDelete
   pageUpdate(id: ID!, input: PageInput!): PageUpdate
-  productAttributeCreate(input: ProductAttributesInput!): ProductAttributeCreate
-  productAttributeDelete(id: ID!): ProductAttributeDelete
-  productAttributeUpdate(id: ID!, input: ProductAttributesInput!): ProductAttributeUpdate
+  attributeCreate(input: AttributesInput!): AttributeCreate
+  attributeDelete(id: ID!): AttributeDelete
+  attributeUpdate(id: ID!, input: AttributesInput!): AttributeUpdate
   productCreate(input: ProductCreateInput!): ProductCreate
   productDelete(id: ID!): ProductDelete
   productUpdate(id: ID!, input: ProductInput!): ProductUpdate
@@ -1199,60 +1274,6 @@ type Product implements Node {
   imageById(id: ID): ProductImage
 }
 
-type ProductAttribute implements Node {
-  id: ID!
-  slug: String
-  name: String
-  values: [ProductAttributeValue]
-}
-
-type ProductAttributeCountableConnection {
-  pageInfo: PageInfo!
-  edges: [ProductAttributeCountableEdge!]!
-  totalCount: Int
-}
-
-type ProductAttributeCountableEdge {
-  node: ProductAttribute!
-  cursor: String!
-}
-
-type ProductAttributeCreate {
-  errors: [Error]
-  productAttribute: ProductAttribute
-}
-
-type ProductAttributeDelete {
-  errors: [Error]
-  productAttribute: ProductAttribute
-}
-
-type ProductAttributeUpdate {
-  errors: [Error]
-  productAttribute: ProductAttribute
-}
-
-type ProductAttributeValue implements Node {
-  id: ID!
-  sortOrder: Int!
-  name: String
-  value: String!
-  slug: String
-  type: ProductAttributeValueType
-}
-
-enum ProductAttributeValueType {
-  COLOR
-  GRADIENT
-  URL
-  STRING
-}
-
-input ProductAttributesInput {
-  slug: String!
-  name: String!
-}
-
 type ProductAvailability {
   available: Boolean
   onSale: Boolean
@@ -1371,8 +1392,8 @@ type ProductType implements Node {
   id: ID!
   name: String!
   hasVariants: Boolean!
-  productAttributes(before: String, after: String, first: Int, last: Int, id: ID, slug: String): ProductAttributeCountableConnection
-  variantAttributes(before: String, after: String, first: Int, last: Int, id: ID, slug: String): ProductAttributeCountableConnection
+  productAttributes(before: String, after: String, first: Int, last: Int, id: ID, slug: String): AttributeCountableConnection
+  variantAttributes(before: String, after: String, first: Int, last: Int, id: ID, slug: String): AttributeCountableConnection
   isShippingRequired: Boolean!
   taxRate: TaxRateType
   weight: Weight
@@ -1487,7 +1508,7 @@ type ProductVariantUpdate {
 
 type Query {
   addressValidator(input: AddressValidationInput!): AddressValidationData
-  attributes(query: String, inCategory: ID, before: String, after: String, first: Int, last: Int, id: ID, slug: String): ProductAttributeCountableConnection
+  attributes(query: String, inCategory: ID, before: String, after: String, first: Int, last: Int, id: ID, slug: String): AttributeCountableConnection
   categories(query: String, level: Int, before: String, after: String, first: Int, last: Int, id: ID, name: String): CategoryCountableConnection
   category(id: ID): Category
   collection(id: ID): Collection
@@ -1579,8 +1600,8 @@ type SaleUpdate {
 }
 
 type SelectedAttribute {
-  attribute: ProductAttribute
-  value: ProductAttributeValue
+  attribute: Attribute
+  value: AttributeValue
 }
 
 input SeoInput {
@@ -1644,6 +1665,7 @@ type ShippingZone implements Node {
   id: ID!
   name: String!
   countries: [String]
+  default: Boolean!
   shippingMethods: [ShippingMethod]
   priceRange: MoneyRange
 }
@@ -1672,6 +1694,7 @@ type ShippingZoneDelete {
 input ShippingZoneInput {
   name: String
   countries: [String]
+  default: Boolean
 }
 
 type ShippingZoneUpdate {
@@ -1732,13 +1755,20 @@ type StaffCreate {
 input StaffCreateInput {
   email: String
   note: String
+  isActive: Boolean
   permissions: [String]
   sendPasswordEmail: Boolean
+}
+
+type StaffDelete {
+  errors: [Error]
+  user: User
 }
 
 input StaffInput {
   email: String
   note: String
+  isActive: Boolean
   permissions: [String]
 }
 

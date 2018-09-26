@@ -1,16 +1,17 @@
 import json
 import re
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
+import pytest
 
 import graphene
-import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import reverse
+from saleor.account.models import Address, User
+from saleor.graphql.account.mutations import (
+    SetPassword, StaffDelete, StaffUpdate)
 from tests.utils import get_graphql_content
-
-from saleor.account.models import Address
-from saleor.graphql.account.mutations import SetPassword
 
 from .utils import assert_no_permission, convert_dict_keys_to_camel_case
 
@@ -245,6 +246,39 @@ def test_who_can_see_user(
     assert content['data']['customers']['totalCount'] == 1
 
 
+def test_customer_register(user_api_client):
+    query = """
+        mutation RegisterCustomer($password: String!, $email: String!) {
+            customerRegister(input: {password: $password, email: $email}) {
+                errors {
+                    field
+                    message
+                }
+                user {
+                    id
+                }
+            }
+        }
+    """
+    email = 'customer@example.com'
+    variables = json.dumps({'email': email, 'password': 'Password'})
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    data = content['data']['customerRegister']
+    assert not data['errors']
+    assert User.objects.filter(email=email).exists()
+
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    data = content['data']['customerRegister']
+    assert data['errors']
+    assert data['errors'][0]['field'] == 'email'
+    assert data['errors'][0]['message'] == (
+        'User with this Email already exists.')
+
+
 @patch('saleor.account.emails.send_password_reset_email.delay')
 def test_customer_create(
         send_password_reset_mock, admin_api_client, user_api_client, address):
@@ -449,8 +483,11 @@ def test_staff_create(
 
 def test_staff_update(admin_api_client, staff_user, user_api_client):
     query = """
-    mutation UpdateStaff($id: ID!, $permissions: [String]) {
-        staffUpdate(id: $id, input: {permissions: $permissions}) {
+    mutation UpdateStaff(
+            $id: ID!, $permissions: [String], $is_active: Boolean) {
+        staffUpdate(
+                id: $id,
+                input: {permissions: $permissions, isActive: $is_active}) {
             errors {
                 field
                 message
@@ -459,12 +496,13 @@ def test_staff_update(admin_api_client, staff_user, user_api_client):
                 permissions {
                     code
                 }
+                isActive
             }
         }
     }
     """
     id = graphene.Node.to_global_id('User', staff_user.id)
-    variables = json.dumps({'id': id, 'permissions': []})
+    variables = json.dumps({'id': id, 'permissions': [], 'is_active': False})
 
     # check unauthorized access
     response = user_api_client.post(
@@ -478,6 +516,72 @@ def test_staff_update(admin_api_client, staff_user, user_api_client):
     data = content['data']['staffUpdate']
     assert data['errors'] == []
     assert data['user']['permissions'] == []
+    assert data['user']['isActive'] == False
+
+
+def test_staff_delete(admin_api_client, staff_user, user_api_client):
+    query = """
+        mutation DeleteStaff($id: ID!) {
+            staffDelete(id: $id) {
+                errors {
+                    field
+                    message
+                }
+                user {
+                    id
+                }
+            }
+        }
+    """
+    user_id = graphene.Node.to_global_id('User', staff_user.id)
+    variables = json.dumps({'id': user_id})
+
+    # check unauthorized access
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    assert_no_permission(response)
+
+    response = admin_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    assert 'errors' not in content
+    data = content['data']['staffDelete']
+    assert data['errors'] == []
+    assert not User.objects.filter(pk=staff_user.id).exists()
+
+
+def test_staff_delete_errors(staff_user, customer_user, admin_user):
+    errors = StaffDelete.clean_user(customer_user, staff_user, [])
+    assert errors[0].field == 'id'
+    assert errors[0].message == (
+        'Only staff users can be deleted with this mutation.')
+    errors = StaffDelete.clean_user(staff_user, staff_user, [])
+    assert errors[0].field == 'id'
+    assert errors[0].message == (
+        'You cannot delete your own account via dashboard.')
+
+    errors = StaffDelete.clean_user(admin_user, staff_user, [])
+    assert errors[0].field == 'id'
+    assert errors[0].message == (
+        'Only superuser can delete his own account.')
+    errors = StaffDelete.clean_user(staff_user, admin_user, [])
+    assert not errors
+
+
+def test_staff_update_errors(staff_user, customer_user, admin_user):
+    errors = StaffUpdate.clean_is_active(None, customer_user, staff_user, [])
+    assert not errors
+
+    errors = StaffUpdate.clean_is_active(False, staff_user, staff_user, [])
+    assert errors[0].field == 'isActive'
+    assert errors[0].message == 'Cannot deactivate your own account.'
+
+    errors = StaffUpdate.clean_is_active(False, admin_user, staff_user, [])
+    assert errors[0].field == 'isActive'
+    assert errors[0].message == 'Cannot deactivate superuser\'s account.'
+
+    errors = StaffUpdate.clean_is_active(False, customer_user, staff_user, [])
+    assert not errors
 
 
 def test_set_password(user_api_client, customer_user):
@@ -713,3 +817,33 @@ def test_address_validator_uses_geip_when_country_code_missing(
     data = content['data']['addressValidator']
     assert data['countryCode'] == 'US'
     assert data['countryName'] == 'UNITED STATES'
+
+
+@patch('saleor.account.emails.send_password_reset_email.delay')
+def test_customer_reset_password(
+        send_password_reset_mock, user_api_client, customer_user):
+    query = """
+        mutation CustomerPasswordReset($email: String!) {
+            customerPasswordReset(input: {email: $email}) {
+                errors {
+                    field
+                    message
+                }
+            }
+        }
+    """
+    # we have no user with given email
+    variables = json.dumps({'email': 'non-existing-email@email.com'})
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    assert 'errors' not in content
+    assert not send_password_reset_mock.called
+
+    variables = json.dumps({'email': customer_user.email})
+    response = user_api_client.post(
+        reverse('api'), {'query': query, 'variables': variables})
+    content = get_graphql_content(response)
+    assert 'errors' not in content
+    assert send_password_reset_mock.called
+    assert send_password_reset_mock.mock_calls[0][1][1] == customer_user.email

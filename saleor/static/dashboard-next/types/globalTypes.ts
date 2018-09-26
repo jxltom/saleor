@@ -378,6 +378,15 @@ export interface OrderAddNoteInput {
   message?: string | null;
 }
 
+export interface OrderLineCreateInput {
+  quantity: number;
+  variantId: string;
+}
+
+export interface OrderLineInput {
+  quantity: number;
+}
+
 export interface OrderUpdateInput {
   billingAddress?: AddressInput | null;
   userEmail?: string | null;
@@ -396,6 +405,21 @@ export interface ProductTypeInput {
   isShippingRequired?: boolean | null;
   weight?: any | null;
   taxRate?: TaxRateType | null;
+}
+
+export interface StaffCreateInput {
+  email?: string | null;
+  note?: string | null;
+  isActive?: boolean | null;
+  permissions?: (string | null)[] | null;
+  sendPasswordEmail?: boolean | null;
+}
+
+export interface StaffInput {
+  email?: string | null;
+  note?: string | null;
+  isActive?: boolean | null;
+  permissions?: (string | null)[] | null;
 }
 
 //==============================================================
