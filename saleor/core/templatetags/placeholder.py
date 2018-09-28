@@ -1,4 +1,4 @@
-from django.templatetags.static.staticfiles import static
+from django.templatetags.static import static
 from django.template import Library
 
 register = Library()
