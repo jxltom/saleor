@@ -12,7 +12,8 @@ RUN \
 RUN pip install pipenv
 ADD Pipfile /app/
 ADD Pipfile.lock /app/
-RUN pipenv install --system --deploy
+WORKDIR /app
+RUN pipenv install --system --deploy --dev
 
 ### Build static assets
 FROM node:10 as build-nodejs
