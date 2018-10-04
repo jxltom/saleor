@@ -229,7 +229,7 @@ class StaffCreate(ModelMutation):
 
     @classmethod
     def user_is_allowed(cls, user, input):
-        return user.is_staff
+        return user.has_perm('account.manage_staff')
 
     @classmethod
     def clean_input(cls, info, instance, input, errors):
@@ -412,7 +412,7 @@ class AddressCreate(ModelMutation):
 
     @classmethod
     def user_is_allowed(cls, user, input):
-        return user.has_perm('account.edit_user')
+        return user.has_perm('account.manage_users')
 
 
 class AddressUpdate(ModelMutation):
@@ -429,7 +429,7 @@ class AddressUpdate(ModelMutation):
 
     @classmethod
     def user_is_allowed(cls, user, input):
-        return user.has_perm('account.edit_user')
+        return user.has_perm('account.manage_users')
 
 
 class AddressDelete(ModelDeleteMutation):
@@ -443,4 +443,4 @@ class AddressDelete(ModelDeleteMutation):
 
     @classmethod
     def user_is_allowed(cls, user, input):
-        return user.has_perm('account.edit_user')
+        return user.has_perm('account.manage_users')
