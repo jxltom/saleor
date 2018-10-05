@@ -89,7 +89,7 @@ Installation
 
    .. code-block:: console
 
-    $ pip install -r requirements.txt
+    $ python -m pip install -r requirements.txt
 
 
 #. Set ``SECRET_KEY`` environment variable.
