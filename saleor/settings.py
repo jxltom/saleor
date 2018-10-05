@@ -75,6 +75,7 @@ LANGUAGES = [
     ('pt-br', _('Portuguese (Brazil)')),
     ('ro', _('Romanian')),
     ('ru', _('Russian')),
+    ('ru-ru', _('Russian (Russia)')),
     ('sk', _('Slovak')),
     ('tr', _('Turkish')),
     ('uk', _('Ukrainian')),
@@ -122,7 +123,8 @@ STATICFILES_DIRS = [
     ('assets', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'assets')),
     ('favicons', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'favicons')),
     ('images', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'images')),
-    ('dashboard', os.path.join(PROJECT_ROOT, 'saleor', 'static', 'dashboard'))]
+    ('dashboard_images', os.path.join(
+        PROJECT_ROOT, 'saleor', 'static', 'dashboard', 'images'))]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder']
