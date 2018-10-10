@@ -73,7 +73,7 @@ All commands need to be performed in either PowerShell or a Command Shell.
 
    .. code-block:: powershell
 
-    python -m python -m pip install -r requirements.txt
+    python -m pip install -r requirements.txt
 
 
 #. Set ``SECRET_KEY`` environment variable.
