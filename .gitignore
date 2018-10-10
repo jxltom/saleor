@@ -33,5 +33,3 @@ dist/
 webpack-bundle.json
 /templates/templated_email/compiled/*
 !/templates/templated_email/compiled/.gitkeep
-
-coverage\.xml
