@@ -5,6 +5,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AuthorizationKeyType {
+  FACEBOOK = "FACEBOOK",
+  GOOGLE_OAUTH2 = "GOOGLE_OAUTH2",
+}
+
 export enum FulfillmentStatus {
   CANCELED = "CANCELED",
   FULFILLED = "FULFILLED",
@@ -55,6 +60,19 @@ export enum PaymentStatusEnum {
   WAITING = "WAITING",
 }
 
+export enum PermissionEnum {
+  IMPERSONATE_USERS = "IMPERSONATE_USERS",
+  MANAGE_DISCOUNTS = "MANAGE_DISCOUNTS",
+  MANAGE_MENUS = "MANAGE_MENUS",
+  MANAGE_ORDERS = "MANAGE_ORDERS",
+  MANAGE_PAGES = "MANAGE_PAGES",
+  MANAGE_PRODUCTS = "MANAGE_PRODUCTS",
+  MANAGE_SETTINGS = "MANAGE_SETTINGS",
+  MANAGE_SHIPPING = "MANAGE_SHIPPING",
+  MANAGE_STAFF = "MANAGE_STAFF",
+  MANAGE_USERS = "MANAGE_USERS",
+}
+
 export enum TaxRateType {
   ACCOMMODATION = "ACCOMMODATION",
   ADMISSION_TO_CULTURAL_EVENTS = "ADMISSION_TO_CULTURAL_EVENTS",
@@ -82,6 +100,13 @@ export enum TaxRateType {
   WATER = "WATER",
 }
 
+export enum WeightUnitsEnum {
+  g = "g",
+  kg = "kg",
+  lb = "lb",
+  oz = "oz",
+}
+
 export interface AddressInput {
   firstName?: string | null;
   lastName?: string | null;
@@ -99,6 +124,11 @@ export interface AddressInput {
 export interface AttributeValueInput {
   slug: string;
   value: string;
+}
+
+export interface AuthorizationKeyInput {
+  key?: string | null;
+  password?: string | null;
 }
 
 export interface DraftOrderInput {
@@ -162,6 +192,20 @@ export interface ProductTypeInput {
   isShippingRequired?: boolean | null;
   weight?: any | null;
   taxRate?: TaxRateType | null;
+}
+
+export interface ShopSettingsInput {
+  headerText?: string | null;
+  description?: string | null;
+  includeTaxesInPrices?: boolean | null;
+  displayGrossPrices?: boolean | null;
+  trackInventoryByDefault?: boolean | null;
+  defaultWeightUnit?: WeightUnitsEnum | null;
+}
+
+export interface SiteDomainInput {
+  domain?: string | null;
+  name?: string | null;
 }
 
 export interface StaffCreateInput {

@@ -202,8 +202,30 @@ type AttributeValueUpdate {
 }
 
 type AuthorizationKey {
-  name: String!
+  name: AuthorizationKeyType!
   key: String!
+}
+
+type AuthorizationKeyAdd {
+  errors: [Error]
+  authorizationKey: AuthorizationKey
+  shop: Shop
+}
+
+type AuthorizationKeyDelete {
+  errors: [Error]
+  authorizationKey: AuthorizationKey
+  shop: Shop
+}
+
+input AuthorizationKeyInput {
+  key: String!
+  password: String!
+}
+
+enum AuthorizationKeyType {
+  FACEBOOK
+  GOOGLE_OAUTH2
 }
 
 type Category implements Node {
@@ -542,7 +564,7 @@ type Margin {
 type Menu implements Node {
   id: ID!
   name: String!
-  items(before: String, after: String, first: Int, last: Int): MenuItemCountableConnection
+  items: [MenuItem]!
 }
 
 type MenuCountableConnection {
@@ -585,7 +607,7 @@ type MenuItem implements Node {
   collection: Collection
   page: Page
   level: Int!
-  children(before: String, after: String, first: Int, last: Int): MenuItemCountableConnection
+  children: [MenuItem]!
 }
 
 type MenuItemCountableConnection {
@@ -649,6 +671,8 @@ type MoneyRange {
 }
 
 type Mutations {
+  authorizationKeyAdd(input: AuthorizationKeyInput!, keyType: AuthorizationKeyType!): AuthorizationKeyAdd
+  authorizationKeyDelete(keyType: AuthorizationKeyType!): AuthorizationKeyDelete
   assignNavigation(menu: ID, navigationType: NavigationType!): AssignNavigation
   tokenCreate(email: String!, password: String!): CreateToken
   tokenRefresh(token: String): Refresh
@@ -994,8 +1018,21 @@ enum PaymentStatusEnum {
 }
 
 type PermissionDisplay {
-  code: String!
+  code: PermissionEnum!
   name: String!
+}
+
+enum PermissionEnum {
+  MANAGE_USERS
+  MANAGE_STAFF
+  IMPERSONATE_USERS
+  MANAGE_DISCOUNTS
+  MANAGE_MENUS
+  MANAGE_ORDERS
+  MANAGE_PAGES
+  MANAGE_PRODUCTS
+  MANAGE_SHIPPING
+  MANAGE_SETTINGS
 }
 
 type Product implements Node {

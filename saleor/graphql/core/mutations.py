@@ -108,7 +108,7 @@ class BaseMutation(graphene.Mutation):
         except ValidationError as validation_errors:
             message_dict = validation_errors.message_dict
             for field in message_dict:
-                if field in cls._meta.exclude:
+                if hasattr(cls._meta, 'exclude') and field in cls._meta.exclude:
                     continue
                 for message in message_dict[field]:
                     field = snake_to_camel_case(field)
@@ -150,7 +150,7 @@ class ModelMutation(BaseMutation):
 
         Fields containing IDs or lists of IDs are automatically resolved into
         model instances. `instance` argument is the model instance the mutation
-        is operating on (befor setting the input data). `input` is raw input
+        is operating on (before setting the input data). `input` is raw input
         data the mutation receives. `errors` is a list of errors that occurred
         during mutation's execution.
 
