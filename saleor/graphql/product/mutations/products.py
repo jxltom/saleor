@@ -11,25 +11,27 @@ from ...core.types.money import TaxRateType
 from ...core.utils import clean_seo_fields
 from ...file_upload.types import Upload
 from ...shipping.types import WeightScalar
-from ..types import Collection, Product, ProductImage, ProductVariant
+from ..types import Category, Collection, Product, ProductImage, ProductVariant
 from ..utils import attributes_to_hstore, update_variants_names
 
 
 class CategoryInput(graphene.InputObjectType):
     description = graphene.String(description='Category description')
     name = graphene.String(description='Category name')
-    parent = graphene.ID(
-        description='''
-        ID of the parent category. If empty, category will be top level
-        category.''', name='parent')
+
     slug = graphene.String(description='Category slug')
     seo = SeoInput(description='Search engine optimization fields.')
+    background_image = Upload(description='Background image file.')
 
 
 class CategoryCreate(ModelMutation):
     class Arguments:
         input = CategoryInput(
             required=True, description='Fields required to create a category.')
+        parent_id = graphene.ID(
+            description='''
+                ID of the parent category. If empty, category will be top level
+                category.''', name='parent')
 
     class Meta:
         description = 'Creates a new category.'
@@ -40,12 +42,23 @@ class CategoryCreate(ModelMutation):
         cleaned_input = super().clean_input(info, instance, input, errors)
         if 'slug' not in cleaned_input:
             cleaned_input['slug'] = slugify(cleaned_input['name'])
+        parent_id = input['parent_id']
+        if parent_id:
+            parent = cls.get_node_or_error(
+                info, parent_id, errors, field='parent', only_type=Category)
+            cleaned_input['parent'] = parent
         clean_seo_fields(cleaned_input)
         return cleaned_input
 
     @classmethod
     def user_is_allowed(cls, user, input):
         return user.has_perm('product.manage_products')
+
+    @classmethod
+    def mutate(cls, root, info, **data):
+        parent_id = data.pop('parent_id', None)
+        data['input']['parent_id'] = parent_id
+        return super().mutate(root, info, **data)
 
 
 class CategoryUpdate(CategoryCreate):
@@ -79,17 +92,20 @@ class CollectionInput(graphene.InputObjectType):
         description='Informs whether a collection is published.')
     name = graphene.String(description='Name of the collection.')
     slug = graphene.String(description='Slug of the collection.')
-    products = graphene.List(
-        graphene.ID,
-        description='List of products to be added to the collection.',
-        name='products')
     background_image = Upload(description='Background image file.')
     seo = SeoInput(description='Search engine optimization fields.')
 
 
+class CollectionCreateInput(CollectionInput):
+    products = graphene.List(
+        graphene.ID,
+        description='List of products to be added to the collection.',
+        name='products')
+
+
 class CollectionCreate(ModelMutation):
     class Arguments:
-        input = CollectionInput(
+        input = CollectionCreateInput(
             required=True,
             description='Fields required to create a collection.')
 
@@ -104,6 +120,8 @@ class CollectionCreate(ModelMutation):
     @classmethod
     def clean_input(cls, info, instance, input, errors):
         cleaned_input = super().clean_input(info, instance, input, errors)
+        if 'slug' not in cleaned_input:
+            cleaned_input['slug'] = slugify(cleaned_input['name'])
         clean_seo_fields(cleaned_input)
         return cleaned_input
 

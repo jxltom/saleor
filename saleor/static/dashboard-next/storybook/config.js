@@ -28,21 +28,18 @@ function loadStories() {
   require("./stories/components/Timeline");
   require("./stories/components/messages");
 
-  // Attributes
-  require("./stories/attributes/AttributeDetailsPage");
-  require("./stories/attributes/AttributeListPage");
-
   // Authentication
   require("./stories/auth/LoginPage");
   require("./stories/auth/LoginLoading");
 
   // Categories
-  require("./stories/categories/CategoryDeleteDialog");
-  require("./stories/categories/CategoryDetailsPage");
-  require("./stories/categories/CategoryEditPage");
   require("./stories/categories/CategoryProducts");
+  require("./stories/categories/CategoryCreatePage");
+  require("./stories/categories/CategoryUpdatePage");
+  require("./stories/categories/CategoryListPage");
 
   // Collections
+  require("./stories/collections/CollectionCreatePage");
   require("./stories/collections/CollectionDetailsPage");
   require("./stories/collections/CollectionListPage");
 
@@ -55,8 +52,8 @@ function loadStories() {
   require("./stories/customers/CustomerListPage");
 
   // Staff
-  require("./stories/staff/StaffListPage")
-  require("./stories/staff/StaffDetailsPage")
+  require("./stories/staff/StaffListPage");
+  require("./stories/staff/StaffDetailsPage");
 
   // Pages
   require("./stories/pages/PageContent");
@@ -95,8 +92,10 @@ function loadStories() {
   require("./stories/vouchers/VoucherListPage");
 
   // Product types
-  require("./stories/productTypes/ProductTypeListPage");
+  require("./stories/productTypes/ProductTypeAttributeEditDialog");
+  require("./stories/productTypes/ProductTypeCreatePage");
   require("./stories/productTypes/ProductTypeDetailsPage");
+  require("./stories/productTypes/ProductTypeListPage");
 
   // Site settings
   require("./stories/siteSettings/SiteSettingsKeyDialog");

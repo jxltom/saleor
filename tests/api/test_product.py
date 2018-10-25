@@ -1,16 +1,18 @@
 from unittest.mock import MagicMock, Mock
 
-import pytest
-
 import graphene
+import pytest
 from django.utils.text import slugify
 from graphql_relay import to_global_id
 from prices import Money
+from tests.api.utils import get_graphql_content
+from tests.utils import create_image, create_pdf_file_with_image_ext
+
+from saleor.graphql.core.types import ReportingPeriod
+from saleor.graphql.product.types import StockAvailability
 from saleor.graphql.product.utils import update_variants_names
 from saleor.product.models import (
     Category, Collection, Product, ProductImage, ProductType, ProductVariant)
-from tests.api.utils import get_graphql_content
-from tests.utils import create_image, create_pdf_file_with_image_ext
 
 from .utils import assert_no_permission, get_multipart_request_body
 
@@ -1018,6 +1020,30 @@ def test_delete_collection(
         collection.refresh_from_db()
 
 
+def test_auto_create_slug_on_collection(
+        staff_api_client, product_list, permission_manage_products):
+    query = """
+        mutation createCollection(
+            $name: String!, $isPublished: Boolean!) {
+            collectionCreate(
+                input: {name: $name, isPublished: $isPublished}) {
+                collection {
+                    name
+                    slug
+                }
+            }
+        }
+    """
+    name = 'test name123'
+    variables = {'name': name, 'isPublished': True}
+    response = staff_api_client.post_graphql(
+        query, variables, permissions=[permission_manage_products])
+    content = get_graphql_content(response)
+    data = content['data']['collectionCreate']['collection']
+    assert data['name'] == name
+    assert data['slug'] == slugify(name)
+
+
 def test_add_products_to_collection(
         staff_api_client, collection, product_list,
         permission_manage_products):
@@ -1295,6 +1321,28 @@ def test_category_image_query(user_api_client, non_default_category):
     assert data['backgroundImage']['url'] == thumbnail_url
 
 
+def test_category_image_query_without_associated_file(
+        user_api_client, non_default_category):
+    category = non_default_category
+    category_id = graphene.Node.to_global_id('Category', category.pk)
+    query = """
+        query fetchCategory($id: ID!){
+            category(id: $id) {
+                name
+                backgroundImage {
+                   url
+                }
+            }
+        }
+    """
+    variables = {'id': category_id}
+    response = user_api_client.post_graphql(query, variables)
+    content = get_graphql_content(response)
+    data = content['data']['category']
+    assert data['name'] == category.name
+    assert data['backgroundImage'] is None
+
+
 def test_collection_image_query(user_api_client, collection):
     image_file, image_name = create_image()
     collection.background_image = image_file
@@ -1315,6 +1363,27 @@ def test_collection_image_query(user_api_client, collection):
     data = content['data']['collection']
     thumbnail_url = collection.background_image.thumbnail['120x120'].url
     assert data['backgroundImage']['url'] == thumbnail_url
+
+
+def test_collection_image_query_without_associated_file(
+        user_api_client, collection):
+    collection_id = graphene.Node.to_global_id('Collection', collection.pk)
+    query = """
+        query fetchCollection($id: ID!){
+            collection(id: $id) {
+                name
+                backgroundImage {
+                   url
+                }
+            }
+        }
+    """
+    variables = {'id': collection_id}
+    response = user_api_client.post_graphql(query, variables)
+    content = get_graphql_content(response)
+    data = content['data']['collection']
+    assert data['name'] == collection.name
+    assert data['backgroundImage'] is None
 
 
 @pytest.mark.parametrize('product_price, variant_override, api_variant_price', [
@@ -1359,3 +1428,80 @@ def test_product_variant_price(
     data = content['data']['product']
     variant_price = data['variants']['edges'][0]['node']['price']
     assert variant_price['amount'] == api_variant_price
+
+
+def test_stock_availability_filter(user_api_client, product):
+    query = """
+    query Products($stockAvailability: StockAvailability) {
+        products(stockAvailability: $stockAvailability) {
+            totalCount
+            edges {
+                node {
+                    id
+                }
+            }
+        }
+    }
+    """
+
+    # fetch products in stock
+    variables = {'stockAvailability': StockAvailability.IN_STOCK.name}
+    response = user_api_client.post_graphql(query, variables)
+    content = get_graphql_content(response)
+    assert content['data']['products']['totalCount'] == 1
+
+    # fetch out of stock
+    variables = {'stockAvailability': StockAvailability.OUT_OF_STOCK.name}
+    response = user_api_client.post_graphql(query, variables)
+    content = get_graphql_content(response)
+    assert content['data']['products']['totalCount'] == 0
+
+    # Change product stock availability and test again
+    product.variants.update(quantity=0)
+
+    # There should be no products in stock
+    variables = {'stockAvailability': StockAvailability.IN_STOCK.name}
+    response = user_api_client.post_graphql(query, variables)
+    content = get_graphql_content(response)
+    assert content['data']['products']['totalCount'] == 0
+
+
+def test_product_sales(
+        staff_api_client, order_with_lines, permission_manage_products,
+        permission_manage_orders):
+    query = """
+    query TopProducts($period: ReportingPeriod!) {
+        reportProductSales(period: $period) {
+            edges {
+                node {
+                    revenue(period: $period) {
+                        gross {
+                            amount
+                        }
+                    }
+                    quantityOrdered
+                    sku
+                }
+            }
+        }
+    }
+    """
+    variables = {'period': ReportingPeriod.TODAY.name}
+    permissions = [permission_manage_orders, permission_manage_products]
+    response = staff_api_client.post_graphql(query, variables, permissions)
+    content = get_graphql_content(response)
+    edges = content['data']['reportProductSales']['edges']
+
+    node_a = edges[0]['node']
+    line_a = order_with_lines.lines.get(product_sku=node_a['sku'])
+    assert node_a['quantityOrdered'] == line_a.quantity
+    assert (
+        node_a['revenue']['gross']['amount'] ==
+        line_a.quantity * line_a.unit_price_gross.amount)
+
+    node_b = edges[1]['node']
+    line_b = order_with_lines.lines.get(product_sku=node_b['sku'])
+    assert node_b['quantityOrdered'] == line_b.quantity
+    assert (
+        node_b['revenue']['gross']['amount'] ==
+        line_b.quantity * line_b.unit_price_gross.amount)

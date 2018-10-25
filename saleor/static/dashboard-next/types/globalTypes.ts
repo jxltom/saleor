@@ -5,6 +5,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AttributeTypeEnum {
+  PRODUCT = "PRODUCT",
+  VARIANT = "VARIANT",
+}
+
 export enum AuthorizationKeyType {
   FACEBOOK = "FACEBOOK",
   GOOGLE_OAUTH2 = "GOOGLE_OAUTH2",
@@ -121,14 +126,46 @@ export interface AddressInput {
   phone?: string | null;
 }
 
+export interface AttributeCreateInput {
+  name: string;
+  values?: (AttributeValueCreateInput | null)[] | null;
+}
+
+export interface AttributeUpdateInput {
+  name?: string | null;
+  removeValues?: (string | null)[] | null;
+  addValues?: (AttributeValueCreateInput | null)[] | null;
+}
+
+export interface AttributeValueCreateInput {
+  name: string;
+  value?: string | null;
+}
+
 export interface AttributeValueInput {
   slug: string;
   value: string;
 }
 
 export interface AuthorizationKeyInput {
-  key?: string | null;
-  password?: string | null;
+  key: string;
+  password: string;
+}
+
+export interface CategoryInput {
+  description?: string | null;
+  name?: string | null;
+  slug?: string | null;
+  seo?: SeoInput | null;
+}
+
+export interface CollectionInput {
+  isPublished?: boolean | null;
+  name?: string | null;
+  slug?: string | null;
+  products?: (string | null)[] | null;
+  backgroundImage?: any | null;
+  seo?: SeoInput | null;
 }
 
 export interface DraftOrderInput {
@@ -192,6 +229,11 @@ export interface ProductTypeInput {
   isShippingRequired?: boolean | null;
   weight?: any | null;
   taxRate?: TaxRateType | null;
+}
+
+export interface SeoInput {
+  title?: string | null;
+  description?: string | null;
 }
 
 export interface ShopSettingsInput {
