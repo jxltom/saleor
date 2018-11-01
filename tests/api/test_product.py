@@ -194,7 +194,7 @@ def test_filter_product_by_category(user_api_client, product):
     category = product.category
     query = """
     query getProducts($categoryId: ID) {
-        products(category: $categoryId) {
+        products(categories: [$categoryId]) {
             edges {
                 node {
                     name
@@ -229,29 +229,67 @@ def test_fetch_product_by_id(user_api_client, product):
     assert product_data['name'] == product.name
 
 
-def test_filter_product_by_attributes(user_api_client, product):
+def test_filter_products_by_attributes(user_api_client, product):
     product_attr = product.product_type.product_attributes.first()
-    category = product.category
     attr_value = product_attr.values.first()
     filter_by = '%s:%s' % (product_attr.slug, attr_value.slug)
     query = """
     query {
-        category(id: "%(category_id)s") {
-            products(attributes: ["%(filter_by)s"]) {
-                edges {
-                    node {
-                        name
-                    }
+        products(attributes: ["%(filter_by)s"]) {
+            edges {
+                node {
+                    name
                 }
             }
         }
     }
-    """ % {
-        'category_id': graphene.Node.to_global_id('Category', category.id),
-        'filter_by': filter_by}
+    """ % {'filter_by': filter_by}
     response = user_api_client.post_graphql(query)
     content = get_graphql_content(response)
-    product_data = content['data']['category']['products']['edges'][0]['node']
+    product_data = content['data']['products']['edges'][0]['node']
+    assert product_data['name'] == product.name
+
+
+def test_filter_products_by_categories(
+        user_api_client, categories_tree, product):
+    category = categories_tree.children.first()
+    product.category = category
+    product.save()
+    query = """
+    query {
+        products(categories: ["%(category_id)s"]) {
+            edges {
+                node {
+                    name
+                }
+            }
+        }
+    }
+    """ % {'category_id': graphene.Node.to_global_id('Category', category.id)}
+    response = user_api_client.post_graphql(query)
+    content = get_graphql_content(response)
+    product_data = content['data']['products']['edges'][0]['node']
+    assert product_data['name'] == product.name
+
+
+def test_filter_products_by_collections(
+        user_api_client, collection, product):
+    collection.products.add(product)
+    query = """
+    query {
+        products(collections: ["%(collection_id)s"]) {
+            edges {
+                node {
+                    name
+                }
+            }
+        }
+    }
+    """ % {'collection_id': graphene.Node.to_global_id(
+        'Collection', collection.id)}
+    response = user_api_client.post_graphql(query)
+    content = get_graphql_content(response)
+    product_data = content['data']['products']['edges'][0]['node']
     assert product_data['name'] == product.name
 
 
@@ -855,7 +893,7 @@ def test_product_image_delete(
         query, variables, permissions=[permission_manage_products])
     content = get_graphql_content(response)
     data = content['data']['productImageDelete']
-    assert data['image']['url'] == image_obj.image.url
+    assert image_obj.image.url in data['image']['url']
     with pytest.raises(image_obj._meta.model.DoesNotExist):
         image_obj.refresh_from_db()
     assert node_id == data['image']['id']
@@ -1318,7 +1356,7 @@ def test_category_image_query(user_api_client, non_default_category):
     content = get_graphql_content(response)
     data = content['data']['category']
     thumbnail_url = category.background_image.thumbnail['120x120'].url
-    assert data['backgroundImage']['url'] == thumbnail_url
+    assert thumbnail_url in data['backgroundImage']['url']
 
 
 def test_category_image_query_without_associated_file(
@@ -1362,7 +1400,7 @@ def test_collection_image_query(user_api_client, collection):
     content = get_graphql_content(response)
     data = content['data']['collection']
     thumbnail_url = collection.background_image.thumbnail['120x120'].url
-    assert data['backgroundImage']['url'] == thumbnail_url
+    assert thumbnail_url in data['backgroundImage']['url']
 
 
 def test_collection_image_query_without_associated_file(
