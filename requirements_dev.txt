@@ -3,7 +3,7 @@ amqp==2.3.2
 aniso8601==3.0.2
 apipkg==1.5
 astroid==2.0.4
-atomicwrites==1.2.1
+atomicwrites==1.2.1; python_version != '3.1.*'
 attrs==18.2.0
 autopep8==1.4.2
 babel==2.6.0
@@ -146,4 +146,4 @@ weasyprint==0.42.3
 webencodings==0.5.1
 wrapt==1.10.11
 yapf==0.24.0
-yarl==1.2.6 ; python_version >= '3.4'
+yarl==1.2.6; python_version >= '3.4'
