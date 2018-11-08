@@ -1,16 +1,4 @@
 version: 2
-
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-        - build:
-            filters:
-              branches:
-                only: master
-              tags:
-                only: /demo.*/
-
 jobs:
   build:
     working_directory: /app
@@ -37,8 +25,19 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker run -d --name db -e POSTGRES_USER=saleor -e POSTGRES_PASSWORD=saleor postgres:9.4-alpine
+            docker run -d --name db -e POSTGRES_USER=saleor -e POSTGRES_PASSWORD=saleor postgres:9.6-alpine
             docker run --network container:db --rm -e DATABASE_URL -e SECRET_KEY mirumee/saleor:latest pytest
           environment:
             DATABASE_URL: postgres://saleor:saleor@localhost:5432/saleor
             SECRET_KEY: irrelevant
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+        - build:
+            filters:
+              branches:
+                only: master
+              tags:
+                only: /demo.*/
