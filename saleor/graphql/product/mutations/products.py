@@ -7,6 +7,9 @@ from graphql_jwt.decorators import permission_required
 
 from ....product import models
 from ....product.tasks import update_variants_names
+from ....product.thumbnails import (
+    create_category_background_image_thumbnails,
+    create_collection_background_image_thumbnails, create_product_thumbnails)
 from ....product.utils.attributes import get_name_from_attributes
 from ...core.mutations import BaseMutation, ModelDeleteMutation, ModelMutation
 from ...core.types.common import Decimal, SeoInput
@@ -62,6 +65,12 @@ class CategoryCreate(ModelMutation):
         data['input']['parent_id'] = parent_id
         return super().mutate(root, info, **data)
 
+    @classmethod
+    def save(cls, info, instance, cleaned_input):
+        instance.save()
+        if cleaned_input.get('background_image'):
+            create_category_background_image_thumbnails.delay(instance.pk)
+
 
 class CategoryUpdate(CategoryCreate):
     class Arguments:
@@ -73,6 +82,12 @@ class CategoryUpdate(CategoryCreate):
     class Meta:
         description = 'Updates a category.'
         model = models.Category
+
+    @classmethod
+    def save(cls, info, instance, cleaned_input):
+        if cleaned_input.get('background_image'):
+            create_category_background_image_thumbnails.delay(instance.pk)
+        instance.save()
 
 
 class CategoryDelete(ModelDeleteMutation):
@@ -94,6 +109,7 @@ class CollectionInput(graphene.InputObjectType):
         description='Informs whether a collection is published.')
     name = graphene.String(description='Name of the collection.')
     slug = graphene.String(description='Slug of the collection.')
+    description = graphene.String(description='Description of the collection.')
     background_image = Upload(description='Background image file.')
     seo = SeoInput(description='Search engine optimization fields.')
 
@@ -127,6 +143,12 @@ class CollectionCreate(ModelMutation):
         clean_seo_fields(cleaned_input)
         return cleaned_input
 
+    @classmethod
+    def save(cls, info, instance, cleaned_input):
+        instance.save()
+        if cleaned_input.get('background_image'):
+            create_collection_background_image_thumbnails.delay(instance.pk)
+
 
 class CollectionUpdate(CollectionCreate):
     class Arguments:
@@ -139,6 +161,12 @@ class CollectionUpdate(CollectionCreate):
     class Meta:
         description = 'Updates a collection.'
         model = models.Collection
+
+    @classmethod
+    def save(cls, info, instance, cleaned_input):
+        if cleaned_input.get('background_image'):
+            create_collection_background_image_thumbnails.delay(instance.pk)
+        instance.save()
 
 
 class CollectionDelete(ModelDeleteMutation):
@@ -551,6 +579,7 @@ class ProductImageCreate(BaseMutation):
         if not errors:
             image = product.images.create(
                 image=image_data, alt=input.get('alt', ''))
+            create_product_thumbnails.delay(image.pk)
         return ProductImageCreate(product=product, image=image, errors=errors)
 
 
