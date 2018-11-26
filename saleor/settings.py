@@ -58,8 +58,11 @@ DATABASES = {
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
+    ('ar', _('Arabic')),
     ('bg', _('Bulgarian')),
+    ('bn', _('Bengali')),
     ('cs', _('Czech')),
+    ('da', _('Danish')),
     ('de', _('German')),
     ('en', _('English')),
     ('es', _('Spanish')),
@@ -69,6 +72,7 @@ LANGUAGES = [
     ('it', _('Italian')),
     ('ja', _('Japanese')),
     ('ko', _('Korean')),
+    ('mn', _('Mongolian')),
     ('nb', _('Norwegian')),
     ('nl', _('Dutch')),
     ('pl', _('Polish')),
@@ -76,6 +80,7 @@ LANGUAGES = [
     ('ro', _('Romanian')),
     ('ru', _('Russian')),
     ('sk', _('Slovak')),
+    ('sv', _('Swedish')),
     ('tr', _('Turkish')),
     ('uk', _('Ukrainian')),
     ('vi', _('Vietnamese')),
@@ -370,6 +375,7 @@ TEST_RUNNER = 'tests.runner.PytestTestRunner'
 
 ALLOWED_HOSTS = get_list(
     os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1'))
+ALLOWED_GRAPHQL_ORIGINS = os.environ.get('ALLOWED_GRAPHQL_ORIGINS', '*')
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
