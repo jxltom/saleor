@@ -47,7 +47,7 @@ class GraphQLView(View):
     def dispatch(self, request, *args, **kwargs):
         # Handle options method the GraphQlView restricts it.
         if request.method == 'GET':
-            if not settings.DEBUG:
+            if settings.DEBUG:
                 return render_to_response('graphql/playground.html')
             response = self.handle_query(request, *args, **kwargs)
         elif request.method == 'OPTIONS':
