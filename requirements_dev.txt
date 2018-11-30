@@ -1,25 +1,14 @@
 -i https://pypi.python.org/simple
-apipkg==1.5; python_version != '3.0.*'
+apipkg==1.5
 astroid==2.1.0
-atomicwrites==1.2.1; python_version != '3.2.*'
+atomicwrites==1.2.1
 attrs==18.2.0
-autopep8==1.4.2
-babel==2.6.0
-billiard==3.5.0.4
-bleach==2.1.4
-boto3==1.9.39
-botocore==1.12.39
-braintree==3.49.0
-cairocffi==0.9.0
-cairosvg==2.2.1 ; python_version >= '3.0'
-celery[redis]==4.2.1
-certifi==2018.10.15
-cffi==1.11.5
+certifi==2018.11.29
 chardet==3.0.4
 codecov==2.0.15
 coverage==4.5.2
 django-extensions==2.1.4
-execnet==1.5.0; python_version != '3.0.*'
+execnet==1.5.0
 filelock==3.0.10
 freezegun==0.3.11
 google-i18n-address==2.3.2
@@ -46,9 +35,9 @@ maxminddb==1.4.1
 mccabe==0.6.1
 measurement==2.0.1
 more-itertools==4.3.0
-multidict==4.5.1; python_version >= '3.4.1'
-pluggy==0.8.0; python_version != '3.0.*'
-py==1.7.0; python_version != '3.0.*'
+multidict==4.5.2
+pluggy==0.8.0
+py==1.7.0
 pycodestyle==2.4.0
 pycparser==2.19
 pydocstyle==3.0.0
@@ -57,11 +46,10 @@ pyjwt==1.6.4
 pylint-celery==0.3
 pylint-django==2.0.4
 pylint-plugin-utils==0.4
-pylint==2.1.1
-pyphen==0.9.5
+pylint==2.2.2
 pytest-cov==2.6.0
 pytest-django==3.4.4
-pytest-forked==0.2; python_version != '3.0.*'
+pytest-forked==0.2
 pytest-mock==1.10.0
 pytest-vcr==1.0.1
 pytest-xdist==1.24.1
@@ -80,10 +68,11 @@ tinycss2==0.6.1
 toml==0.10.0
 tox==3.5.3
 transifex-client==0.13.5
+typed-ast==1.1.0 ; python_version < '3.7' and implementation_name == 'cpython'
 unidecode==1.0.23
-urllib3==1.22; python_version >= '3.4'
-vcrpy==2.0.1; python_version >= '3.4.1'
-virtualenv==16.1.0; python_version >= '2.7'
+urllib3==1.22 ; python_version >= '3.4'
+vcrpy==2.0.1
+virtualenv==16.1.0
 wrapt==1.10.11
 yapf==0.25.0
-yarl==1.2.6; python_version >= '3.4.1'
+yarl==1.2.6 ; python_version >= '3.4'
