@@ -137,15 +137,23 @@ class Order(models.Model):
         return super().save(*args, **kwargs)
 
     def is_fully_paid(self):
+        total_paid = self._total_paid()
+        return total_paid.gross >= self.total.gross
+
+    def is_partly_paid(self):
+        total_paid = self._total_paid()
+        return total_paid.gross.amount > 0
+
+    def get_user_current_email(self):
+        return self.user.email if self.user else self.user_email
+
+    def _total_paid(self):
         payments = self.payments.filter(
             charge_status=ChargeStatus.CHARGED)
         total_captured = [
             payment.get_captured_amount() for payment in payments]
         total_paid = sum(total_captured, ZERO_TAXED_MONEY)
-        return total_paid.gross >= self.total.gross
-
-    def get_user_current_email(self):
-        return self.user.email if self.user else self.user_email
+        return total_paid
 
     def _index_billing_phone(self):
         return self.billing_address.phone
@@ -184,6 +192,18 @@ class Order(models.Model):
         return self.payments.filter(
             is_active=True,
             transactions__kind=TransactionKind.AUTH).exists()
+
+        """
+        payments_with_auth = self.payments.filter(
+            is_active=True,
+            transactions__kind=TransactionKind.AUTH)
+        payments_with_void = self.payments.filter(
+            is_active=True,
+            transactions__kind=TransactionKind.VOID)
+
+        return payments_with_auth.exists() and \
+            payments_with_auth.count() != payments_with_void.count()
+        """
 
     @property
     def quantity_fulfilled(self):
