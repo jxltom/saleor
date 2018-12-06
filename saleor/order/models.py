@@ -193,18 +193,6 @@ class Order(models.Model):
             is_active=True,
             transactions__kind=TransactionKind.AUTH).exists()
 
-        """
-        payments_with_auth = self.payments.filter(
-            is_active=True,
-            transactions__kind=TransactionKind.AUTH)
-        payments_with_void = self.payments.filter(
-            is_active=True,
-            transactions__kind=TransactionKind.VOID)
-
-        return payments_with_auth.exists() and \
-            payments_with_auth.count() != payments_with_void.count()
-        """
-
     @property
     def quantity_fulfilled(self):
         return sum([line.quantity_fulfilled for line in self])
