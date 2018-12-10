@@ -697,8 +697,12 @@ def test_can_refund(payment_dummy: Payment):
 
 
 def test_payment_get_authorized_amount(payment_txn_preauth):
+    authorized_amount = payment_txn_preauth.transactions.first().amount
     assert payment_txn_preauth.get_authorized_amount().amount == \
-        payment_txn_preauth.transactions.first().amount
+        authorized_amount
+    assert payment_txn_preauth.order.total_authorized.amount == \
+        authorized_amount
+
 
     payment_txn_preauth.transactions.all().delete()
     assert payment_txn_preauth.get_authorized_amount().amount == Decimal(0)
