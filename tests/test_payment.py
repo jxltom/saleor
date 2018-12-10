@@ -565,3 +565,11 @@ def test_can_refund(payment_dummy: Payment):
 
     payment_dummy.charge_status = ChargeStatus.CHARGED
     assert payment_dummy.can_refund()
+
+
+def test_payment_get_authorized_amount(payment_txn_preauth):
+    assert payment_txn_preauth.get_authorized_amount().amount == \
+        payment_txn_preauth.transactions.first().amount
+
+    payment_txn_preauth.transactions.all().delete()
+    assert payment_txn_preauth.get_authorized_amount().amount == Decimal(0)
