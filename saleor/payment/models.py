@@ -99,6 +99,12 @@ class Payment(models.Model):
     def get_authorized_amount(self):
         money = zero_money()
 
+        # There is no authorized amount anymore when capture is succeeded
+        # since capture can only be made once, even it is a partial capture
+        if self.transactions.filter(
+                kind=TransactionKind.CAPTURE, is_success=True).exists():
+            return money
+
         # Calculate authorized amount from all succeeded auth transactions
         for transaction in self.transactions.filter(
                 kind=TransactionKind.AUTH, is_success=True).all():
@@ -151,19 +157,22 @@ class Payment(models.Model):
             self.is_active and self.charge_status == ChargeStatus.NOT_CHARGED)
 
     def can_capture(self):
-        # FIXME should also have an auth transaction
         not_charged = self.charge_status == ChargeStatus.NOT_CHARGED
-        not_fully_charged = (
-            self.charge_status == ChargeStatus.CHARGED
-            and self.get_total() > self.get_captured_amount())
-        return self.is_active and not_charged or not_fully_charged
+        is_authorized = self.transactions.filter(
+            kind=TransactionKind.AUTH, is_success=True).exists()
+        return self.is_active and is_authorized and not_charged
 
     def can_charge(self):
-        return self.can_capture()
+        not_charged = (self.charge_status == ChargeStatus.NOT_CHARGED)
+        return self.is_active and not_charged
 
     def can_void(self):
+        is_authorized = self.transactions.filter(
+            kind=TransactionKind.AUTH, is_success=True).exists()
         return (
-            self.is_active and self.charge_status == ChargeStatus.NOT_CHARGED)
+            self.is_active
+            and self.charge_status == ChargeStatus.NOT_CHARGED
+            and is_authorized)
 
     def can_refund(self):
         return (
