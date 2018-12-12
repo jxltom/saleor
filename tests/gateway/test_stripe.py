@@ -97,9 +97,9 @@ def stripe_charge_success_response():
         'id': TRANSACTION_TOKEN,
         'amount': get_amount_for_stripe(
             TRANSACTION_AMOUNT, TRANSACTION_CURRENCY),
-        "amount_refunded": 0,
+        'amount_refunded': 0,
         'currency': get_currency_for_stripe(TRANSACTION_CURRENCY),
-        "status": "succeeded"}
+        'status': 'succeeded'}
 
 
 @pytest.fixture()
@@ -245,21 +245,19 @@ def test_get_client_token():
 
 
 def test_get_error_response_from_exc():
-    stripe_error = \
-        stripe.error.StripeError(json_body=dict(message=ERROR_MESSAGE))
-    invalid_request_error = \
-        stripe.error.InvalidRequestError(message=ERROR_MESSAGE, param=None)
+    stripe_error = stripe.error.StripeError(
+        json_body={'message': ERROR_MESSAGE})
+    invalid_request_error = stripe.error.InvalidRequestError(
+        message=ERROR_MESSAGE, param=None)
 
-    assert _get_error_response_from_exc(stripe_error) == \
-        dict(message=ERROR_MESSAGE)
-    assert _get_error_response_from_exc(invalid_request_error) == dict()
+    assert _get_error_response_from_exc(stripe_error) == {
+        'message': ERROR_MESSAGE}
+    assert _get_error_response_from_exc(invalid_request_error) == {}
 
 
-def test_create_transaction(
+def test_create_transaction_with_charge_success_response(
         stripe_payment,
-        stripe_charge_success_response,
-        stripe_partial_charge_success_response,
-        stripe_refund_success_response):
+        stripe_charge_success_response):
     txn = _create_transaction(
         payment=stripe_payment, amount=None, kind='ANYKIND',
         response=stripe_charge_success_response)
@@ -268,6 +266,10 @@ def test_create_transaction(
     assert isclose(txn.amount, TRANSACTION_AMOUNT)
     assert txn.currency == TRANSACTION_CURRENCY
 
+
+def test_create_transaction_with_partial_charge_success_response(
+        stripe_payment,
+        stripe_partial_charge_success_response):
     txn = _create_transaction(
         payment=stripe_payment, amount=None, kind='ANYKIND',
         response=stripe_partial_charge_success_response)
@@ -277,6 +279,10 @@ def test_create_transaction(
         txn.amount, TRANSACTION_AMOUNT - TRANSACTION_REFUND_AMOUNT)
     assert txn.currency == TRANSACTION_CURRENCY
 
+
+def test_create_transaction_with_refund_success_response(
+        stripe_payment,
+        stripe_refund_success_response):
     txn = _create_transaction(
         payment=stripe_payment, amount=None, kind='ANYKIND',
         response=stripe_refund_success_response)
@@ -285,14 +291,17 @@ def test_create_transaction(
     assert isclose(txn.amount, TRANSACTION_REFUND_AMOUNT)
     assert txn.currency == TRANSACTION_CURRENCY
 
-    stripe_error_response = dict()
+
+def test_create_transaction_with_error_response(stripe_payment):
+    payment = stripe_payment
+    stripe_error_response = {}
     txn = _create_transaction(
-        payment=stripe_payment, amount=stripe_payment.total, kind='ANYKIND',
+        payment=payment, amount=payment.total, kind='ANYKIND',
         response=stripe_error_response)
     assert txn.token == ''
     assert txn.is_success is False
-    assert txn.amount == stripe_payment.total
-    assert txn.currency == stripe_payment.currency
+    assert txn.amount == payment.total
+    assert txn.currency == payment.currency
 
 
 @pytest.mark.integration
@@ -350,8 +359,8 @@ def test_capture(
         stripe_charge_success_response):
     payment = stripe_authorized_payment
     response = stripe_charge_success_response
-    mock_charge_retrieve.return_value = \
-        Mock(capture=Mock(return_value=response))
+    mock_charge_retrieve.return_value = Mock(
+        capture=Mock(return_value=response))
 
     txn, error = capture(payment, TRANSACTION_AMOUNT, **gateway_params)
 
@@ -374,8 +383,8 @@ def test_partial_capture(
         stripe_partial_charge_success_response):
     payment = stripe_authorized_payment
     response = stripe_partial_charge_success_response
-    mock_charge_retrieve.return_value = \
-        Mock(capture=Mock(return_value=response))
+    mock_charge_retrieve.return_value = Mock(
+        capture=Mock(return_value=response))
 
     txn, error = capture(payment, TRANSACTION_AMOUNT, **gateway_params)
 
@@ -409,8 +418,7 @@ def test_capture_error_response(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == payment.currency
-    assert txn.gateway_response == \
-        _get_error_response_from_exc(stripe_error)
+    assert txn.gateway_response == _get_error_response_from_exc(stripe_error)
 
 
 @pytest.mark.integration
@@ -428,7 +436,7 @@ def test_capture_not_authorized(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == TRANSACTION_CURRENCY
-    assert txn.gateway_response == dict()
+    assert txn.gateway_response == {}
 
 
 @pytest.mark.integration
@@ -476,8 +484,7 @@ def test_charge_error_response(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == payment.currency
-    assert txn.gateway_response == \
-        _get_error_response_from_exc(stripe_error)
+    assert txn.gateway_response == _get_error_response_from_exc(stripe_error)
 
 
 @pytest.mark.integration
@@ -555,8 +562,7 @@ def test_refund_error_response(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == TRANSACTION_CURRENCY
-    assert txn.gateway_response == \
-        _get_error_response_from_exc(stripe_error)
+    assert txn.gateway_response == _get_error_response_from_exc(stripe_error)
 
 
 @pytest.mark.integration
@@ -574,7 +580,7 @@ def test_refund_not_charged_or_captured(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == TRANSACTION_CURRENCY
-    assert txn.gateway_response == dict()
+    assert txn.gateway_response == {}
 
 
 @pytest.mark.integration
@@ -626,8 +632,7 @@ def test_void_error_response(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == TRANSACTION_CURRENCY
-    assert txn.gateway_response == \
-        _get_error_response_from_exc(stripe_error)
+    assert txn.gateway_response == _get_error_response_from_exc(stripe_error)
 
 
 @pytest.mark.integration
@@ -645,4 +650,4 @@ def test_void_not_authorized(
     assert not txn.is_success
     assert txn.amount == payment.total
     assert txn.currency == TRANSACTION_CURRENCY
-    assert txn.gateway_response == dict()
+    assert txn.gateway_response == {}
