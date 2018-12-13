@@ -498,6 +498,8 @@ type CustomerDelete {
 input CustomerInput {
   defaultBillingAddress: AddressInput
   defaultShippingAddress: AddressInput
+  firstName: String
+  lastName: String
   email: String
   isActive: Boolean
   note: String
@@ -1830,10 +1832,12 @@ type StaffCreate {
 }
 
 input StaffCreateInput {
+  firstName: String
+  lastName: String
   email: String
   isActive: Boolean
   note: String
-  permissions: [String]
+  permissions: [PermissionEnum]
   sendPasswordEmail: Boolean
 }
 
@@ -1843,10 +1847,12 @@ type StaffDelete {
 }
 
 input StaffInput {
+  firstName: String
+  lastName: String
   email: String
   isActive: Boolean
   note: String
-  permissions: [String]
+  permissions: [PermissionEnum]
 }
 
 type StaffUpdate {
@@ -1939,6 +1945,8 @@ type User implements Node {
   id: ID!
   lastLogin: DateTime
   email: String!
+  firstName: String!
+  lastName: String!
   addresses: [Address]
   isStaff: Boolean!
   token: UUID!
@@ -1970,6 +1978,8 @@ type UserCountableEdge {
 input UserCreateInput {
   defaultBillingAddress: AddressInput
   defaultShippingAddress: AddressInput
+  firstName: String
+  lastName: String
   email: String
   isActive: Boolean
   note: String
