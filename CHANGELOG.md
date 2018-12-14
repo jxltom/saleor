@@ -12,3 +12,4 @@ Add Stripe payment gateway - #3408 by @jxltom
 Improve several payment validations - #3418 by @jxltom
 Do not show `Pay For Order` if order is partly paid since partial payment is not supported - #3398 by @jxltom
 Improve several payment validations - #3418 by @jxltom
+Add Stripe payment gateway - #3408 by @jxltom
