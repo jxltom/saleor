@@ -112,7 +112,7 @@ class Payment(models.Model):
         authorized_txns = [
             txn for txn in transactions
             if txn.kind == TransactionKind.AUTH and txn.is_success]
-        
+
         # Calculate authorized amount from all succeeded auth transactions
         for txn in authorized_txns:
             money += Money(
