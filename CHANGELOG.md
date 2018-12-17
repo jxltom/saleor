@@ -15,3 +15,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Bump `urllib3` and `elasticsearch` to latest versions - #3460 by @maarcingebala
 - Add Stripe payment gateway - #3408 by @jxltom
 - Prefetch payment and payment transaction to optimize db queries - #3455 by @jxltom
+- Support sorting products by update date - #3470 by @jxltom
