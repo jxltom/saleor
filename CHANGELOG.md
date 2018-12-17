@@ -24,3 +24,4 @@ Add Stripe payment gateway - #3408 by @jxltom
 - Improve several payment validations - #3418 by @jxltom
 - Fix decimal value argument in GraphQL = #3457 by @fowczarek
 - Bump `urllib3` and `elasticsearch` to latest versions - #3460 by @maarcingebala
+- Add Stripe payment gateway - #3408 by @jxltom
