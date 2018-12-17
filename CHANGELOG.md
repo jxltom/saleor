@@ -14,3 +14,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix decimal value argument in GraphQL = #3457 by @fowczarek
 - Bump `urllib3` and `elasticsearch` to latest versions - #3460 by @maarcingebala
 - Add Stripe payment gateway - #3408 by @jxltom
+- Prefetch payment and payment transaction to optimize db queries - #3455 by @jxltom
