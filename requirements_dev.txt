@@ -33,7 +33,7 @@ pydocstyle==3.0.0
 pygments==2.2.0
 pyjwt==1.6.4
 pylint-celery==0.3
-pylint-django==2.0.4
+pylint-django==2.0.5
 pylint-plugin-utils==0.4
 pylint==2.2.2
 pytest-cov==2.6.0
