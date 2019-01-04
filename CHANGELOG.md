@@ -2,6 +2,9 @@
 All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/mirumee/saleor/releases) page.
 
 ## [Unreleased]
+- New translations:
+  - Catalan
+  - Serbian
 - Use `PermissionEnum` as input parameter type for `permissions` field - #3434 by @maarcingebala
 - Fix minor visual bugs in Dashboard 2.0 - #3433 by @dominik-zeglen
 - Display warning if order draft has missing data - #3431 by @dominik-zeglen
@@ -27,3 +30,18 @@ All notable, unreleased changes to this project will be documented in this file.
 - Change filed type to choice field of tax rate in product - #3478 by @fowczarek
 - Update Pipfile.lock - #3480 by @maarcingebala
 - Add Stripe payment gateway - #3408 by @jxltom
+- Remove Elasticsearch from `docker-compose.yml` - #3482 by @maarcingebala
+- Add error page if object was not found - #3463 by @dominik-zeglen
+- Fix simple product's inventory data saving bug - #3474 by @dominik-zeglen
+- Replace `thumbnailUrl` with `thumbnail { url }` - #3484 by @dominik-zeglen
+- Change mutation errors field from [Error] to [Error!] - #3489 by @fowczarek
+- Update favicons to the new style - #3483 by @dominik-zeglen
+- Add publication date to collections - #3369 by @k-brk
+- Resolve to `None` when empty object ID was passed as mutation argument - #3497 by @maarcingebala
+- Change "Feature on Homepage" switch behavior - #3481 by @dominik-zeglen
+- Expand payment section in order view - #3502 by @dominik-zeglen
+- Fixed migrations for default currency - #3235 by @bykof
+- Filter attributes by collection in API - #3508 by @maarcingebala
+- Fixed hard-coded site name in order PDFs - #3526 by @NyanKiyoshi
+- Extract enums to separate files - #3523 by @maarcingebala
+- Add default variant create to Product mutations - #3505 by @fowczarek
