@@ -3,7 +3,9 @@ All notable, unreleased changes to this project will be documented in this file.
 
 ## [Unreleased]
 - New translations:
+  - Azerbaijani
   - Catalan
+  - Hindi
   - Serbian
 - Use `PermissionEnum` as input parameter type for `permissions` field - #3434 by @maarcingebala
 - Fix minor visual bugs in Dashboard 2.0 - #3433 by @dominik-zeglen
@@ -46,3 +48,11 @@ All notable, unreleased changes to this project will be documented in this file.
 - Extract enums to separate files - #3523 by @maarcingebala
 - Add default variant create to Product mutations - #3505 by @fowczarek
 - Fix attribute filters in parent category - #3535 by @fowczarek
+- Fixed the no shipping orders payment crash on Stripe - #3550 by @NyanKiyoshi
+- Change TypeScript loader to speed up the build process - #3545 by @patrys
+- Fix storybook dependencies conflict - #3544 by @dominik-zeglen
+- Unique validation SKU when default variant create in GraphQL API - #3555 by @fowczarek
+- Bump backend dependencies - #3557 by @maarcingebala. This PR removes security issue CVE-2019-3498 which was present in Django 2.1.4. Saleor however wasn't vulnerable to this issue as it doesn't use the affected `django.views.defaults.page_not_found()` view.
+- Restyle product selection dialogs - #3499 by @dominik-zeglen, @maarcingebala
+- Fix checkoutLinesAdd mutation when empty checkout - #3563 by @fowczarek
+- Catch GraphqQL syntax errors and output it to errors field - #3576 by @jxltom
