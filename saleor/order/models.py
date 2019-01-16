@@ -176,12 +176,6 @@ class Order(models.Model):
     def get_last_payment(self):
         return max(self.payments.all(), default=None, key=attrgetter('pk'))
 
-    def get_last_payment_status(self):
-        last_payment = self.get_last_payment()
-        if last_payment:
-            return last_payment.charge_status
-        return None
-
     def get_payment_status(self):
         last_payment = self.get_last_payment()
         if last_payment:
