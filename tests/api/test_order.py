@@ -115,8 +115,8 @@ def test_order_query(
     assert order_data['canFinalize'] is True
     assert order_data['status'] == order.status.upper()
     assert order_data['statusDisplay'] == order.get_status_display()
-    assert order_data['paymentStatus'] == order.get_last_payment_status()
-    payment_status_display = order.get_last_payment_status_display()
+    assert order_data['paymentStatus'] == order.get_payment_status()
+    payment_status_display = order.get_payment_status_display()
     assert order_data['paymentStatusDisplay'] == payment_status_display
     assert order_data['isPaid'] == order.is_fully_paid()
     assert order_data['userEmail'] == order.user_email
