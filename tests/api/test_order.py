@@ -8,12 +8,13 @@ from saleor.graphql.core.enums import ReportingPeriod
 from saleor.graphql.order.mutations.orders import (
     clean_order_cancel, clean_order_capture, clean_order_mark_as_paid,
     clean_refund_payment, clean_void_payment)
-from saleor.graphql.order.enums import OrderEventsEmailsEnum, OrderStatusFilter
+from saleor.graphql.order.enums import (
+    OrderEventsEmailsEnum, OrderStatusFilter)
 from saleor.graphql.order.utils import can_finalize_draft_order
 from saleor.graphql.payment.types import PaymentChargeStatusEnum
 from saleor.order import OrderEvents, OrderEventsEmails, OrderStatus
 from saleor.order.models import Order, OrderEvent
-from saleor.payment import CustomPaymentChoices
+from saleor.payment import ChargeStatus, CustomPaymentChoices
 from saleor.payment.models import Payment
 from saleor.shipping.models import ShippingMethod
 from tests.api.utils import get_graphql_content
@@ -939,6 +940,7 @@ def test_order_capture(
             orderCapture(id: $id, amount: $amount) {
                 order {
                     paymentStatus
+                    paymentStatusDisplay
                     isPaid
                     totalCaptured {
                         amount
@@ -956,6 +958,9 @@ def test_order_capture(
     data = content['data']['orderCapture']['order']
     order.refresh_from_db()
     assert data['paymentStatus'] == PaymentChargeStatusEnum.CHARGED.name
+    payment_status_display = dict(ChargeStatus.CHOICES).get(
+        ChargeStatus.CHARGED)
+    assert data['paymentStatusDisplay'] == payment_status_display
     assert data['isPaid']
     assert data['totalCaptured']['amount'] == float(amount)
 
@@ -1042,6 +1047,7 @@ def test_order_void(
                 orderVoid(id: $id) {
                     order {
                         paymentStatus
+                        paymentStatusDisplay
                     }
                 }
             }
@@ -1053,6 +1059,9 @@ def test_order_void(
     content = get_graphql_content(response)
     data = content['data']['orderVoid']['order']
     assert data['paymentStatus'] == PaymentChargeStatusEnum.NOT_CHARGED.name
+    payment_status_display = dict(ChargeStatus.CHOICES).get(
+        ChargeStatus.NOT_CHARGED)
+    assert data['paymentStatusDisplay'] == payment_status_display
     event_payment_voided = order.events.last()
     assert event_payment_voided.type == OrderEvents.PAYMENT_VOIDED.value
     assert event_payment_voided.user == staff_user
@@ -1067,6 +1076,7 @@ def test_order_refund(
             orderRefund(id: $id, amount: $amount) {
                 order {
                     paymentStatus
+                    paymentStatusDisplay
                     isPaid
                     status
                 }
@@ -1083,6 +1093,9 @@ def test_order_refund(
     order.refresh_from_db()
     assert data['status'] == order.status.upper()
     assert data['paymentStatus'] == PaymentChargeStatusEnum.FULLY_REFUNDED.name
+    payment_status_display = dict(ChargeStatus.CHOICES).get(
+        ChargeStatus.FULLY_REFUNDED)
+    assert data['paymentStatusDisplay'] == payment_status_display
     assert data['isPaid'] == False
 
     order_event = order.events.last()
