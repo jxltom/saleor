@@ -83,3 +83,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Unify grid handling - #3520 by @dominik-zeglen
 - Add missing migrations for tax rate choices - #3629 by @jxltom
 - Fix bug where product variant can not have attributes with same slug - #3626 by @jxltom
+- Support filtering products by same attribute slug and value slug - #3628 by @jxltom
