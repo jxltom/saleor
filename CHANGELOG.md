@@ -85,3 +85,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Add missing migrations for tax rate choices - #3629 by @jxltom
 - Fix bug where node order is not preserved in GraphQL API - #3630 by @jxltom
+- Fix bug where node order is not preserved in GraphQL API - #3632 by @jxltom
