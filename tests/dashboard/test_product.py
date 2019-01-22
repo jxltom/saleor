@@ -970,7 +970,7 @@ def test_get_formfield_name_with_unicode_characters(db):
         text_attribute.pk)
 
 
-def test_product_variant_form(product, color_attribute):
+def test_product_variant_form(product, size_attribute):
     variant = product.variants.first()
     variant.name = ''
     variant.save()
@@ -978,7 +978,7 @@ def test_product_variant_form(product, color_attribute):
     example_size = 'Small Size'
     data = {
         'attribute-{}-{}'.format(
-            color_attribute.slug, color_attribute.pk): example_size,
+            size_attribute.slug, size_attribute.pk): example_size,
         'sku': '1111', 'quantity': 2}
 
     form = ProductVariantForm(data, instance=variant)
