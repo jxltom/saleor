@@ -197,7 +197,7 @@ class ProductFilter(SortedFilterSet):
             filters[attr_slug] = AttributeMultipleChoiceFilter(
                 merged_attributes=self._merged_attributes,
                 # By default the translated name of the first one in
-                # # attributes with same slug is used
+                # attributes with same slug is used
                 label=attributes[attr_slug][0].translated.name,
                 widget=CheckboxSelectMultiple,
                 choices=choices)
