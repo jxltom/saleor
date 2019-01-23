@@ -91,3 +91,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add ShopFetchTaxRates mutation - #3622 by @fowczarek
 - Add taxes section - #3622 by @dominik-zeglen
 - Display payment status in account order list page and account order detail page - #3637 by @jxltom
+- Support filtering products by same attribute slug and value slug - #3628 by @jxltom
