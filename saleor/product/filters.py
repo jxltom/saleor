@@ -190,7 +190,7 @@ class ProductFilter(SortedFilterSet):
         for attr_slug in attributes:
             choices = self._merged_attributes.get_choices(attr_slug)
 
-            # Add attribute with empty values is unnecessary
+            # Rendering attribute with empty values is unnecessary
             if not choices:
                 continue
 
