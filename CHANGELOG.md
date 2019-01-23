@@ -87,6 +87,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add missing migrations for tax rate choices - #3629 by @jxltom
 - Fix bug where node order is not preserved in GraphQL API - #3630 by @jxltom
 - Fix bug where node order is not preserved in GraphQL API - #3632 by @jxltom
+- Validate files uploaded in API in a unified way - #3633 by @fowczarek
 - Add ShopFetchTaxRates mutation - #3622 by @fowczarek
 - Add taxes section - #3622 by @dominik-zeglen
 - Display payment status in account order list page and account order detail page - #3637 by @jxltom
