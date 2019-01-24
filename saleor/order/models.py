@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import ExpressionWrapper, F, Max, Sum
+from django.db.models import F, Max, Sum
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import pgettext_lazy
