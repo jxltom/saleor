@@ -94,3 +94,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Expose in API list of supported payment gateways - #3639 by @fowczarek
+- Display payment status in account order list page and account order detail page - #3637 by @jxltom
