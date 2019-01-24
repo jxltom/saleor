@@ -2,13 +2,10 @@ import json
 import logging
 from decimal import Decimal
 from functools import wraps
-from typing import Dict, List, Optional
+from typing import Dict
 
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import transaction
-from django.forms.models import model_to_dict
-from prices import Money
 
 from . import (
     ChargeStatus, GatewayError, OperationType, PaymentError, TransactionKind,
