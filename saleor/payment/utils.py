@@ -173,9 +173,7 @@ def clean_authorize(payment: Payment):
         raise PaymentError('Charged transactions cannot be authorized again.')
 
 
-def call_gateway(
-        operation_type, transaction_kind,
-        payment, payment_token, **extra_params):
+def call_gateway(operation_type, payment, payment_token, **extra_params):
     """Helper that calls the passed gateway function and handles exceptions.
 
     Additionally does validation of the returned gateway response."""
@@ -192,6 +190,21 @@ def call_gateway(
     except AttributeError:
         error_msg = 'Gateway doesn\'t implement {} operation'.format(
             operation_type.name)
+        logger.exception(error_msg)
+        raise PaymentError(error_msg)
+
+    # The transaction kind is provided as a default value
+    # for creating transactions when gateway has invalid response
+    # The PROCESS_PAYMENT operation has CAPTURE as default transaction kind
+    # For other operations, the transaction kind is same wtih operation type
+    default_transaction_kind = TransactionKind.CAPTURE
+    if operation_type != OperationType.PROCESS_PAYMENT:
+        default_transaction_kind = getattr(
+            TransactionKind, OperationType(operation_type).name)
+
+    # Validate the default transaction kind
+    if default_transaction_kind not in dict(TransactionKind.CHOICES):
+        error_msg = 'The default transaction kind is invalid'
         logger.exception(error_msg)
         raise PaymentError(error_msg)
 
@@ -214,7 +227,7 @@ def call_gateway(
         for response in gateway_response:
             transactions.append(create_transaction(
                 payment=payment,
-                kind=transaction_kind,
+                kind=default_transaction_kind,
                 payment_information=payment_information,
                 error_msg=error_msg,
                 gateway_response=response))
@@ -277,7 +290,6 @@ def gateway_process_payment(
     """Performs whole payment process on a gateway."""
     transaction = call_gateway(
         operation_type=OperationType.PROCESS_PAYMENT,
-        transaction_kind=TransactionKind.CAPTURE,
         payment=payment, payment_token=payment_token, amount=payment.total)
 
     payment.charge_status = ChargeStatus.CHARGED
@@ -309,7 +321,6 @@ def gateway_charge(
 
     transaction = call_gateway(
         operation_type=OperationType.CHARGE,
-        transaction_kind=TransactionKind.CHARGE,
         payment=payment, payment_token=payment_token, amount=amount)
 
     payment.charge_status = ChargeStatus.CHARGED
@@ -333,7 +344,6 @@ def gateway_authorize(payment: Payment, payment_token: str) -> Transaction:
 
     return call_gateway(
         operation_type=OperationType.AUTH,
-        transaction_kind=TransactionKind.AUTH,
         payment=payment, payment_token=payment_token)
 
 
@@ -352,7 +362,6 @@ def gateway_capture(payment: Payment, amount: Decimal = None) -> Transaction:
 
     transaction = call_gateway(
         operation_type=OperationType.CAPTURE,
-        transaction_kind=TransactionKind.CAPTURE,
         payment=payment, payment_token=payment_token, amount=amount)
 
     payment.charge_status = ChargeStatus.CHARGED
@@ -378,7 +387,6 @@ def gateway_void(payment) -> Transaction:
 
     transaction = call_gateway(
         operation_type=OperationType.VOID,
-        transaction_kind=TransactionKind.VOID,
         payment=payment, payment_token=payment_token)
 
     payment.is_active = False
@@ -413,7 +421,6 @@ def gateway_refund(payment, amount: Decimal = None) -> Transaction:
 
     transaction = call_gateway(
         operation_type=OperationType.REFUND,
-        transaction_kind=TransactionKind.REFUND,
         payment=payment, payment_token=payment_token, amount=amount)
 
     changed_fields = ['captured_amount']

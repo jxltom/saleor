@@ -848,7 +848,7 @@ def test_call_gateway_invalid_response(
 
     with pytest.raises(PaymentError) as e:
         call_gateway(
-            operation_type=OperationType.AUTH, transaction_kind='auth',
+            operation_type=OperationType.AUTH,
             payment=payment_dummy, payment_token='token')
     assert str(e.value) == 'Gateway response validation failed'
 
@@ -863,7 +863,7 @@ def test_call_gateway_function_not_implemented(
 
     with pytest.raises(PaymentError) as e:
         call_gateway(
-            operation_type=OperationType.AUTH, transaction_kind='auth',
+            operation_type=OperationType.AUTH,
             payment=payment_dummy, payment_token='token')
     assert str(e.value) == 'Gateway doesn\'t implement AUTH operation'
 
@@ -877,6 +877,6 @@ def test_call_gateway_generic_error(
 
     with pytest.raises(PaymentError) as e:
         call_gateway(
-            operation_type=OperationType.AUTH, transaction_kind='auth',
+            operation_type=OperationType.AUTH,
             payment=payment_dummy, payment_token='token')
     assert str(e.value) == 'Gateway encountered an error'

@@ -98,3 +98,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Expose in API list of supported payment gateways - #3639 by @fowczarek
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Remove unused imports - #3645 by @jxltom
+- Infer default transaction kind from operation type instead of passing it manually  - #3645 by @jxltom
