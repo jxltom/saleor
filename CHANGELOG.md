@@ -97,3 +97,4 @@ All notable, unreleased changes to this project will be documented in this file.
 - Display payment status in account order list page and account order detail page - #3637 by @jxltom
 - Expose in API list of supported payment gateways - #3639 by @fowczarek
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
+- Remove unused imports - #3645 by @jxltom

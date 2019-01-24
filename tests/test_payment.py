@@ -4,7 +4,6 @@ from unittest.mock import Mock, patch
 import pytest
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.forms.models import model_to_dict
 from django.template.loader import get_template
 
 from saleor.order import OrderEvents, OrderEventsEmails
