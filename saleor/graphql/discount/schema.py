@@ -8,6 +8,10 @@ from .mutations import (
     VoucherRemoveCatalogues, VoucherUpdate)
 from .resolvers import resolve_sales, resolve_vouchers
 from .types import Sale, Voucher
+from .mutations import (
+    SaleCreate, SaleDelete, SaleUpdate, VoucherCreate, VoucherDelete,
+    VoucherUpdate)
+from .resolvers import resolve_sales, resolve_vouchers
 
 
 class DiscountQueries(graphene.ObjectType):
