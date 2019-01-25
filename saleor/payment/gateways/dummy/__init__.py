@@ -1,7 +1,6 @@
 import uuid
 from typing import Dict
 
-
 from .forms import DummyPaymentForm
 
 TEMPLATE_PATH = 'order/payment/dummy.html'
