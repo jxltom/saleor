@@ -2,9 +2,11 @@ import graphene
 from graphql_jwt.decorators import permission_required
 
 from ..core.fields import PrefetchingConnectionField
-# FIXME: Types are imported before mutations on purpose. Otherwise these types
-# are missing in Graphene's type registry and mutations cannot be created
-# properly. This happens only in the `saleor.graphql.discount` module.
+from .mutations import (
+    SaleAddCatalogues, SaleCreate, SaleDelete, SaleRemoveCatalogues,
+    SaleUpdate, VoucherAddCatalogues, VoucherCreate, VoucherDelete,
+    VoucherRemoveCatalogues, VoucherUpdate)
+from .resolvers import resolve_sales, resolve_vouchers
 from .types import Sale, Voucher
 from .mutations import (
     SaleCreate, SaleDelete, SaleUpdate, VoucherCreate, VoucherDelete,
@@ -49,7 +51,11 @@ class DiscountMutations(graphene.ObjectType):
     sale_create = SaleCreate.Field()
     sale_delete = SaleDelete.Field()
     sale_update = SaleUpdate.Field()
+    sale_catalogues_add = SaleAddCatalogues.Field()
+    sale_catalogues_remove = SaleRemoveCatalogues.Field()
 
     voucher_create = VoucherCreate.Field()
     voucher_delete = VoucherDelete.Field()
     voucher_update = VoucherUpdate.Field()
+    voucher_catalogues_add = VoucherAddCatalogues.Field()
+    voucher_catalogues_remove = VoucherRemoveCatalogues.Field()
