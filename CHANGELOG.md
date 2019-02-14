@@ -64,6 +64,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Generate voucher code if it wasn't provided in mutation - #3717 by @Kwaidan00
 - Reuse Storefront's 1.0 payment logic in API - #3715 by @maarcingebala
 - Remove unused imports - #3645 by @jxltom
+- Disable style-loader in dev mode - #3720 by @jxltom
 
 
 ## 2.3.0
