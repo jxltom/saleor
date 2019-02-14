@@ -96,6 +96,8 @@ class Order(models.Model):
     shipping_method_name = models.CharField(
         max_length=255, null=True, default=None, blank=True, editable=False)
     token = models.CharField(max_length=36, unique=True, blank=True)
+    # Token of a checkout instance that this order was created from
+    checkout_token = models.CharField(max_length=36, blank=True)
     total_net = MoneyField(
         currency=settings.DEFAULT_CURRENCY,
         max_digits=settings.DEFAULT_MAX_DIGITS,

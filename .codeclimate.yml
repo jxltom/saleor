@@ -38,6 +38,7 @@ exclude_patterns:
 - "**/__pycache__/"
 - "**/migrations/"
 - "node_modules/"
+- "tests/"
 ratings:
   paths:
   - saleor/**
