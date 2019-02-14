@@ -65,6 +65,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Reuse Storefront's 1.0 payment logic in API - #3715 by @maarcingebala
 - Remove unused imports - #3645 by @jxltom
 - Disable style-loader in dev mode - #3720 by @jxltom
+- Fix logo size in different browser and devices with different sizes -3722 # by @jxltom
 
 
 ## 2.3.0
