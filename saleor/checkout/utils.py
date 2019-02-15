@@ -177,8 +177,8 @@ def get_or_create_user_cart(user, cart_queryset=Cart.objects.all()):
         'billing_address': user.default_billing_address}
 
     cart = cart_queryset.filter(user=user).first()
-    if not cart:
-        cart = Cart.objects.create(user=user, defaults=defaults)
+    if cart is None:
+        cart = Cart.objects.create(user=user, **defaults)
     return cart
 
 
