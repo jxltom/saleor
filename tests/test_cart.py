@@ -78,9 +78,9 @@ def test_get_or_create_anonymous_cart_from_token(anonymous_cart, user_cart):
 
 
 def test_get_or_create_user_cart(
-        customer_user, anonymous_cart, user_cart, admin_user):
+        customer_user, admin_user, user_cart):
     cart = utils.get_or_create_user_cart(customer_user)
-    assert Cart.objects.all().count() == 2
+    assert Cart.objects.all().count() == 1
     assert cart == user_cart
 
     # test against creating new carts
@@ -88,7 +88,7 @@ def test_get_or_create_user_cart(
     queryset = Cart.objects.all()
     carts = list(queryset)
     cart = utils.get_or_create_user_cart(admin_user)
-    assert Cart.objects.all().count() == 3
+    assert Cart.objects.all().count() == 2
     assert cart in carts
     assert cart.user == admin_user
 
