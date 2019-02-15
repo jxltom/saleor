@@ -71,6 +71,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add discount section - #3654 by @dominik-zeglen
 - Get or create checkout when accesing checkout of a user in GraphQL API - #3725 by @jxltom
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
+- Fix bug where cart can not be got or created when user has multiple carts - #3727 by @jxltom
 
 
 ## 2.3.0
