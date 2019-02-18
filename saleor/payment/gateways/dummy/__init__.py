@@ -1,3 +1,4 @@
+from decimal import Decimal
 import uuid
 from typing import Dict
 
@@ -105,7 +106,13 @@ def process_payment(payment_information: Dict, connection_params) -> Dict:
     responses = [authorize(payment_information, connection_params)]
     if charge_status == ChargeStatus.NOT_CHARGED:
         return responses
+
+    # Only capture half of the authorized amount when set to partially charged
+    if charge_status == ChargeStatus.PARTIALLY_CHARGED:
+        payment_information['amount'] = (
+            payment_information['amount'] / Decimal(2))
     responses.append(capture(payment_information, connection_params))
+
     if charge_status == ChargeStatus.FULLY_REFUNDED:
         responses.append(refund(payment_information, connection_params))
     return responses

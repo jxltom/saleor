@@ -263,7 +263,11 @@ class ManagePaymentForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean(self):
-        if self.payment.charge_status != self.clean_status:
+        # Convert clean_status to a tuple if it is not a collection yet
+        if len(self.clean_status) == 1:
+            self.clean_status = (self.clean_status, )
+
+        if self.payment.charge_status not in self.clean_status:
             raise forms.ValidationError(self.clean_error)
 
     def payment_error(self, message):
@@ -293,7 +297,10 @@ class CapturePaymentForm(ManagePaymentForm):
 
 class RefundPaymentForm(ManagePaymentForm):
 
-    clean_status = ChargeStatus.CHARGED
+    clean_status = (
+        ChargeStatus.PARTIALLY_CHARGED,
+        ChargeStatus.FULLY_CHARGED,
+        ChargeStatus.PARTIALLY_REFUNDED)
     clean_error = pgettext_lazy('Payment form error',
                                 'Only confirmed payments can be refunded')
 
@@ -309,23 +316,16 @@ class RefundPaymentForm(ManagePaymentForm):
         return self.try_payment_action(gateway_refund)
 
 
-class VoidPaymentForm(forms.Form):
+class VoidPaymentForm(ManagePaymentForm):
+
+    clean_status = ChargeStatus.NOT_CHARGED
+    clean_error = pgettext_lazy('Payment form error',
+                                'Only pre-authorized payments can be voided')
 
     def __init__(self, *args, **kwargs):
-        self.payment = kwargs.pop('payment')
         super().__init__(*args, **kwargs)
-
-    def clean(self):
-        if self.payment.charge_status != ChargeStatus.NOT_CHARGED:
-            raise forms.ValidationError(
-                pgettext_lazy(
-                    'Payment form error',
-                    'Only pre-authorized payments can be voided'))
-
-    def payment_error(self, message):
-        self.add_error(
-            None, pgettext_lazy(
-                'Payment form error', 'Payment gateway error: %s') % message)
+        self.payment = kwargs.pop('payment')
+        self.fields.pop('amount')
 
     def void(self):
         try:
