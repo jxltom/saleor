@@ -266,8 +266,8 @@ class ManagePaymentForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean(self):
-        # Convert clean_status to a tuple if it is not a collection yet
-        if len(self.clean_status) == 1:
+        # Convert clean_status to a tuple if it is not a tuple or list yet
+        if not isinstance(self.clean_status, (tuple, list)):
             self.clean_status = (self.clean_status, )
 
         if self.payment.charge_status not in self.clean_status:
