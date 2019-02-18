@@ -259,6 +259,7 @@ class ManagePaymentForm(forms.Form):
         decimal_places=settings.DEFAULT_DECIMAL_PLACES)
 
     def __init__(self, *args, **kwargs):
+        self.clean_status = None
         self.payment = kwargs.pop('payment')
         super().__init__(*args, **kwargs)
 
