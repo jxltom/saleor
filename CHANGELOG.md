@@ -72,6 +72,9 @@ All notable, unreleased changes to this project will be documented in this file.
 - Get or create checkout when accesing checkout of a user in GraphQL API - #3725 by @jxltom
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
 - Fix bug where cart can not be got or created when user has multiple carts - #3727 by @jxltom
+- Disable style-loader in dev mode - #3720 by @jxltom
+- Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
+- Fix access to unpublished objects via API - #3724 by @Kwaidan00
 
 
 ## 2.3.0
