@@ -262,7 +262,6 @@ class ManagePaymentForm(forms.Form):
     clean_status = None
 
     def __init__(self, *args, **kwargs):
-        self.clean_status = None
         self.payment = kwargs.pop('payment')
         super().__init__(*args, **kwargs)
 
