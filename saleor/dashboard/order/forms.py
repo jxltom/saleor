@@ -252,11 +252,14 @@ class OrderNoteForm(forms.Form):
 
 
 class ManagePaymentForm(forms.Form):
+
     amount = forms.DecimalField(
         label=pgettext_lazy(
             'Payment management form (capture, refund, void)', 'Amount'),
         max_digits=settings.DEFAULT_MAX_DIGITS,
         decimal_places=settings.DEFAULT_DECIMAL_PLACES)
+
+    clean_status = None
 
     def __init__(self, *args, **kwargs):
         self.payment = kwargs.pop('payment')
