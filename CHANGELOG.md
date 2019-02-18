@@ -15,6 +15,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Disable style-loader in dev mode - #3720 by @jxltom
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
 - Fix access to unpublished objects via API - #3724 by @Kwaidan00
+- Support partially charged and partially refunded payment status - #3735 by @jxltom
 
 
 ## 2.3.0
