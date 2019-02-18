@@ -76,6 +76,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
 - Fix access to unpublished objects via API - #3724 by @Kwaidan00
 - Fix bug where payment is not filtered from active ones when creating payment - #3731 by @jxltom
+- Support partially charged and partially refunded payment status - #3735 by @jxltom
 
 
 ## 2.3.0
