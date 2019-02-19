@@ -86,6 +86,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Sort order's payment and history descendingly - #3746 by @jxltom
 - Sort order's payment and history descendingly - #3747 by @jxltom
 - Add login navbar for checkout pages #3748 by @jxltom
+- Filter order by payment status from order's last payment - #3749 @jxltom
 
 
 ## 2.3.0
