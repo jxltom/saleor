@@ -85,6 +85,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Create checkout when accesing checkout if user has no available checkouts in me API - #3745 by @jxltom
 - Sort order's payment and history descendingly - #3746 by @jxltom
 - Sort order's payment and history descendingly - #3747 by @jxltom
+- Add login navbar for checkout pages #3748 by @jxltom
 
 
 ## 2.3.0
