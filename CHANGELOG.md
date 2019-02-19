@@ -82,6 +82,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Enable existing search with backend picker in products query - #3736 by @michaljelonek
 - Fix bug where payment is not filtered from active ones when creating payment - #3731 by @jxltom
 - Support partially charged and partially refunded payment status - #3735 by @jxltom
+- Create checkout when accesing checkout if user has no available checkouts in me API - #3745 by @jxltom
 
 
 ## 2.3.0
