@@ -72,7 +72,8 @@ class OrderFilter(SortedFilterSet):
 
     def filter_by_payment_status(self, queryset, name, value):
         return queryset.annotate(last_payment_pk=Max('payments__pk')).filter(
-            payments__pk=F('last_payment_pk'), payments__charge_status=value)
+            Q(payments__pk=F('last_payment_pk'), payments__charge_status=value) |
+            Q(payments__isnull=True))
 
     def get_summary_message(self):
         counter = self.qs.count()
