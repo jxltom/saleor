@@ -88,6 +88,9 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add login navbar for checkout pages #3748 by @jxltom
 - Filter order by payment status from order's last payment - #3749 @jxltom
 
+- Use exact image versions in docker-compose - #3742 by @ashishnitinpatil
+- Add mutation to connect voucher with checkout - #3739 by @Kwaidan00
+- Update S3 deployment documentation to include CORS configuration note - #3743 by @NyanKiyoshi
 
 ## 2.3.0
 ### API
