@@ -324,6 +324,8 @@ class OrderLine(models.Model):
     def __str__(self):
         return self.product_name
 
+    __repr__ = __str__
+
     def get_total(self):
         return self.unit_price * self.quantity
 
@@ -376,7 +378,7 @@ class FulfillmentLine(models.Model):
         OrderLine, related_name='+', on_delete=models.CASCADE)
     fulfillment = models.ForeignKey(
         Fulfillment, related_name='lines', on_delete=models.CASCADE)
-    quantity = models.IntegerField(validators=[MinValueValidator(1)])
+    quantity = models.IntegerField(validators=[MinValueValidator(0)])
 
 
 class OrderEvent(models.Model):

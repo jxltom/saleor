@@ -94,6 +94,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add header and footer for checkout success pages #3751 by @jxltom
 - Add header and footer for checkout success pages #3752 by @jxltom
 - Fix storefront styles after bootstrap is updated to 4.3.1 - #3753 by @jxltom
+- Support fulfill order with 0 quantity only if total quantity is larger than 0 - #3754 by @jxltom
 
 
 ## 2.3.0
