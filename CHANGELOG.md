@@ -93,6 +93,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Update S3 deployment documentation to include CORS configuration note - #3743 by @NyanKiyoshi
 - Add header and footer for checkout success pages #3751 by @jxltom
 - Add header and footer for checkout success pages #3752 by @jxltom
+- Fix storefront styles after bootstrap is updated to 4.3.1 - #3753 by @jxltom
 
 
 ## 2.3.0
