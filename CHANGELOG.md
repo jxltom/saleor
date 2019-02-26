@@ -106,6 +106,7 @@ All notable, unreleased changes to this project will be documented in this file.
 
 - Add missing type definition for dashboard 2.0 - #3776 by @jxltom
 - Fix bug where errors are not returned when creating fulfillment with non-existed order line - #3777 by @jxltom
+- Do not return cancelled fulfillments in me API - #3778 by @jxltom
 
 ## 2.3.0
 ### API
