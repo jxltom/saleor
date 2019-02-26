@@ -57,6 +57,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Restyle product selection dialogs - #3499 by @dominik-zeglen, @maarcingebala
 - Fix checkoutLinesAdd mutation when empty checkout - #3563 by @fowczarek
 - Catch GraphqQL syntax errors and output it to errors field - #3576 by @jxltom
+  - Estonian
   - Indonesian
 - Fix problem with l10n in Braintree payment gateway template - #3691 by @Kwaidan00
 - Improve vouchers country limiting  - #3707 by @michaljelonek
@@ -107,6 +108,13 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add missing type definition for dashboard 2.0 - #3776 by @jxltom
 - Fix bug where errors are not returned when creating fulfillment with non-existed order line - #3777 by @jxltom
 - Do not return cancelled fulfillments in me API - #3778 by @jxltom
+- Fix bug where errors are not returned when creating fulfillment with non-existed order line - #3777 by @jxltom
+- Support fulfill order with 0 quantity only if total quantity is larger than 0 - #3754 by @jxltom
+- Fix storefront styles after bootstrap is updated to 4.3.1 - #3753 by @jxltom
+- Fix logo size in different browser and devices with different sizes - #3722 by @jxltom
+- Add missing type definition for dashboard 2.0 - #3776 by @jxltom
+- Fix access to private variant fields in API - #3773 by maarcingebala
+
 
 ## 2.3.0
 ### API
