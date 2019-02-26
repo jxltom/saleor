@@ -104,6 +104,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix storefront styles after bootstrap is updated to 4.3.1 - #3753 by @jxltom
 - Support fulfill order with 0 quantity only if total quantity is larger than 0 - #3754 by @jxltom
 
+- Add missing type definition for dashboard 2.0 - #3776 by @jxltom
 
 ## 2.3.0
 ### API
