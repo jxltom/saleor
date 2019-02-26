@@ -57,11 +57,6 @@ input AddressInput {
   phone: String
 }
 
-enum AddressTypeEnum {
-  BILLING
-  SHIPPING
-}
-
 type AddressUpdate {
   errors: [Error!]
   address: Address
@@ -516,11 +511,6 @@ type CreditCard {
   expYear: Int!
 }
 
-type CustomerAddressCreate {
-  errors: [Error!]
-  address: Address
-}
-
 type CustomerCreate {
   errors: [Error!]
   user: User
@@ -557,10 +547,6 @@ type CustomerRegister {
 input CustomerRegisterInput {
   email: String!
   password: String!
-}
-
-type CustomerSetDefaultAddress {
-  errors: [Error!]
 }
 
 type CustomerUpdate {
@@ -964,8 +950,6 @@ type Mutations {
   customerPasswordReset(input: CustomerPasswordResetInput!): CustomerPasswordReset
   customerRegister(input: CustomerRegisterInput!): CustomerRegister
   customerUpdate(id: ID!, input: CustomerInput!): CustomerUpdate
-  customerAddressCreate(input: AddressInput!): CustomerAddressCreate
-  customerSetDefaultAddress(id: ID!, type: AddressTypeEnum!): CustomerSetDefaultAddress
   loggedUserUpdate(input: UserAddressInput!): LoggedUserUpdate
   staffCreate(input: StaffCreateInput!): StaffCreate
   staffDelete(id: ID!): StaffDelete
