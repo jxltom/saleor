@@ -236,6 +236,7 @@ type Category implements Node {
   name: String!
   slug: String!
   description: String!
+  descriptionJson: JSONString!
   parent: Category
   backgroundImage(size: Int): Image
   level: Int!
@@ -268,6 +269,7 @@ type CategoryDelete {
 
 input CategoryInput {
   description: String
+  descriptionJson: JSONString
   name: String
   slug: String
   seo: SeoInput
@@ -429,6 +431,7 @@ type Collection implements Node {
   products(before: String, after: String, first: Int, last: Int): ProductCountableConnection
   backgroundImage(size: Int): Image
   description: String!
+  descriptionJson: JSONString!
   publishedDate: Date @deprecated(reason: "publishedDate is deprecated, use publicationDate instead")
 }
 
@@ -458,6 +461,7 @@ input CollectionCreateInput {
   name: String
   slug: String
   description: String
+  descriptionJson: JSONString
   backgroundImage: Upload
   backgroundImageAlt: String
   seo: SeoInput
@@ -475,6 +479,7 @@ input CollectionInput {
   name: String
   slug: String
   description: String
+  descriptionJson: JSONString
   backgroundImage: Upload
   backgroundImageAlt: String
   seo: SeoInput
@@ -1201,6 +1206,7 @@ type Page implements Node {
   slug: String!
   title: String!
   content: String!
+  contentJson: JSONString!
   created: DateTime!
   availableOn: Date @deprecated(reason: "availableOn is deprecated, use publicationDate instead")
   isVisible: Boolean @deprecated(reason: "isVisible is deprecated, use isPublished instead")
@@ -1238,6 +1244,7 @@ input PageInput {
   slug: String
   title: String
   content: String
+  contentJson: JSONString
   isPublished: Boolean
   publicationDate: String
   seo: SeoInput
@@ -1348,6 +1355,7 @@ type Product implements Node {
   productType: ProductType!
   name: String!
   description: String!
+  descriptionJson: JSONString!
   category: Category!
   price: Money
   attributes: [SelectedAttribute!]!
@@ -1401,6 +1409,7 @@ input ProductCreateInput {
   chargeTaxes: Boolean
   collections: [ID]
   description: String
+  descriptionJson: JSONString
   isPublished: Boolean
   name: String
   price: Decimal
@@ -1466,6 +1475,7 @@ input ProductInput {
   chargeTaxes: Boolean
   collections: [ID]
   description: String
+  descriptionJson: JSONString
   isPublished: Boolean
   name: String
   price: Decimal
