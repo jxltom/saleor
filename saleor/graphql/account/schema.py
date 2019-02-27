@@ -38,8 +38,7 @@ class AccountQueries(graphene.ObjectType):
 
     @login_required
     def resolve_me(self, info):
-        info.context.kwargs = dict(
-            create_user_checkout=True, ignore_cancelled_fulfillment=True)
+        info.context.kwargs = dict(create_user_checkout=True)
         return info.context.user
 
     @permission_required('account.manage_staff')

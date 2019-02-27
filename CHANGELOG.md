@@ -119,6 +119,7 @@ All notable, unreleased changes to this project will be documented in this file.
 ## 2.3.1
 - Fix access to private variant fields in API - #3773 by maarcingebala
 
+- Only include cancelled fulfillments for staff in fulfillment API - #3778 by @jxltom
 
 ## 2.3.0
 ### API
