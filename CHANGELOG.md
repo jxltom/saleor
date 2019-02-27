@@ -114,6 +114,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix logo size in different browser and devices with different sizes - #3722 by @jxltom
 - Add missing type definition for dashboard 2.0 - #3776 by @jxltom
 - Add mutations to manage addresses for authenticated customers - #3772 by @Kwaidan00, @maarcingebala
+- Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
 
 - Limit access of quantity and allocated quantity to staff in GraphQL API #3780 by @jxltom
 
