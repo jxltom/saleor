@@ -487,7 +487,7 @@ class CustomerAddressCreate(ModelMutation):
         user = info.context.user
         instance.user_addresses.add(user)
 
-        address_type = cleaned_input['type']
+        address_type = cleaned_input.get('type', None)
         if address_type:
             utils.change_user_default_address(user, instance, address_type)
 
