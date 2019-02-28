@@ -36,6 +36,12 @@ class DefaultAddressInput(AddressInput):
 class Address(CountableDjangoObjectType):
     country = graphene.Field(
         CountryDisplay, required=True, description='Default shop\'s country')
+    is_default_shipping_address = graphene.Boolean(
+        required=False,
+        description='Address is user\'s default shipping address')
+    is_default_billing_address = graphene.Boolean(
+        required=False,
+        description='Address is user\'s default billing address')
 
     class Meta:
         exclude_fields = ['user_set', 'user_addresses']
@@ -46,6 +52,38 @@ class Address(CountableDjangoObjectType):
     def resolve_country(self, info):
         return CountryDisplay(
             code=self.country.code, country=self.country.name)
+
+    def resolve_is_default_shipping_address(self, info):
+        """
+        This field is added through annotation when using the
+        `resolve_addresses` resolver. It's invalid for
+        `resolve_default_shipping_address` and
+        `resolve_default_billing_address`
+        """
+        user_default_shipping_address_pk = getattr(
+            self, 'user_default_shipping_address_pk', None)
+        if user_default_shipping_address_pk is None:
+            return None
+
+        if user_default_shipping_address_pk == self.pk:
+            return True
+        return False
+
+    def resolve_is_default_billing_address(self, info):
+        """
+        This field is added through annotation when using the
+        `resolve_addresses` resolver. It's invalid for
+        `resolve_default_shipping_address` and
+        `resolve_default_billing_address`
+        """
+        user_default_billing_address_pk = getattr(
+            self, 'user_default_billing_address_pk', None)
+        if user_default_billing_address_pk is None:
+            return None
+
+        if user_default_billing_address_pk == self.pk:
+            return True
+        return False
 
 
 class User(CountableDjangoObjectType):
@@ -72,7 +110,7 @@ class User(CountableDjangoObjectType):
         model = get_user_model()
 
     def resolve_addresses(self, info, **kwargs):
-        return self.addresses.all()
+        return self.get_addresses()
 
     def resolve_checkout(self, info, **kwargs):
         context_kwargs = getattr(info.context, 'kwargs', {})

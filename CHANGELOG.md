@@ -121,6 +121,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Only include cancelled fulfillments for staff in fulfillment API - #3778 by @jxltom
 - Support setting as default address directly when creating customer address #3782 by @jxltom
 - Fix incorrect cart badge location - #3786 by @jxltom
+- Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 
 ## 2.3.1
 - Fix access to private variant fields in API - #3773 by maarcingebala
