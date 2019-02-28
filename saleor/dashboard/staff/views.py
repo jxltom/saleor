@@ -42,7 +42,7 @@ def staff_details(request, pk):
         msg = pgettext_lazy(
             'Dashboard message', 'Updated staff member %s') % (staff_member,)
         messages.success(request, msg)
-        redirect('dashboard:staff-list')
+        return redirect('dashboard:staff-list')
     ctx = {'staff_member': staff_member, 'form': form}
     return TemplateResponse(request, 'dashboard/staff/detail.html', ctx)
 
@@ -57,7 +57,8 @@ def staff_create(request):
         staff = User()
         created = True
     form = StaffForm(
-        request.POST or None, instance=staff, initial={'is_staff': True})
+        request.POST or None,
+        instance=staff, user=request.user, initial={'is_staff': True})
     if form.is_valid():
         form.save()
         msg = pgettext_lazy(
