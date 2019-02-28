@@ -80,6 +80,8 @@ type AddressValidationData {
   countryAreaType: String
   countryAreaChoices: [ChoiceValue]
   cityType: String
+  cityChoices: [ChoiceValue]
+  cityAreaType: String
   cityAreaChoices: [ChoiceValue]
   postalCodeType: String
   postalCodeMatchers: [String]
