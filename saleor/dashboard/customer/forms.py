@@ -73,9 +73,7 @@ class CustomerForm(forms.ModelForm):
             'note': pgettext_lazy(
                 'Customer form: customer note field', 'Notes'),
             'is_active': pgettext_lazy(
-                'Customer form: is active toggle', 'User is active'),
-            'is_staff': pgettext_lazy(
-                'Customer form: is staff toggle', 'User is staff')}
+                'Customer form: is active toggle', 'User is active')}
 
 
 class CustomerNoteForm(forms.ModelForm):
