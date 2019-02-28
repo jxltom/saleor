@@ -95,6 +95,7 @@ def test_query_user(
     user = customer_user
     user.default_shipping_address.country = 'US'
     user.default_shipping_address.save()
+    user.addresses.add(address.get_copy())
 
     query = """
     query User($id: ID!) {
