@@ -47,7 +47,6 @@ class CustomerForm(forms.ModelForm):
 
         # Disable editing following fields if user edits his own account
         if self.user == self.instance:
-            self.fields['email'].disabled = True
             self.fields['note'].disabled = True
             self.fields['is_active'].disabled = True
 
@@ -63,8 +62,7 @@ class CustomerForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = [
-            'first_name', 'last_name', 'email', 'note', 'is_active']
+        fields = ['first_name', 'last_name', 'email', 'note', 'is_active']
         labels = {
             'first_name': pgettext_lazy(
                 'Customer form: Given name field', 'Given name'),
