@@ -115,7 +115,7 @@ class User(CountableDjangoObjectType):
     def resolve_checkout(self, info, **kwargs):
         context_kwargs = getattr(info.context, 'kwargs', {})
         if context_kwargs.get('create_user_checkout', False):
-            return get_or_create_user_cart(self)
+            return get_or_create_user_cart(self)[0]
         return get_user_cart(self)
 
     def resolve_permissions(self, info, **kwargs):
