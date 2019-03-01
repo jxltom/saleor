@@ -123,9 +123,14 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix incorrect cart badge location - #3786 by @jxltom
 - Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 - Add city choices and city area type to address validator API - #3788 by @jxltom
+- Add function to recalculate order's total weight - #3755 by @Kwaidan00, @maarcingebala
+- Unify behavior after creating checkout in API and Storefront 1.0; code formatting improvements - #3790 by @maarcingebala
+- Support partially charged and partially refunded payment status - #3735 by @jxltom
+
 
 ## 2.3.1
 - Fix access to private variant fields in API - #3773 by maarcingebala
+- Limit access of quantity and allocated quantity to staff in GraphQL API #3780 by @jxltom
 
 
 ## 2.3.0
