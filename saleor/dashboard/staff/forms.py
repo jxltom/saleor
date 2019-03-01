@@ -17,7 +17,7 @@ class StaffForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email',
-                  'user_permissions', 'is_active', 'is_staff', 'is_superuser']
+                  'user_permissions', 'is_active', 'is_staff']
         labels = {
             'first_name': pgettext_lazy(
                 'Customer form: Given name field', 'Given name'),
@@ -28,35 +28,31 @@ class StaffForm(forms.ModelForm):
             'is_active': pgettext_lazy(
                 'User active toggle', 'User is active'),
             'is_staff': pgettext_lazy(
-                'User staff toggle', 'User is staff'),
-            'is_superuser': pgettext_lazy(
-                'User superuser toggle', 'User is superuser')}
+                'User staff toggle', 'User is staff')}
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
         # Non-superuser couldn't edit superuser's profile
-        if (self.user and not self.user.is_superuser
-                and self.instance.is_superuser):
-            self.fields['email'].disabled = True
-            self.fields['user_permissions'].disabled = True
-            self.fields['is_active'].disabled = True
-            self.fields['is_staff'].disabled = True
+        if self.instance.is_superuser:
+            if self.user is None or not self.user.is_superuser:
+                self.fields['email'].disabled = True
+                self.fields['user_permissions'].disabled = True
+                self.fields['is_active'].disabled = True
+                self.fields['is_staff'].disabled = True
 
-        # Disable editing other staff's email for non superuser staff
-        if (self.user and not self.user.is_superuser
-                and self.instance.is_staff):
-            self.fields['email'].disabled = True
+        # Disable editing other staff's email for non-superuser staff
+        if self.instance.is_staff:
+            if self.user is None or not self.user.is_superuser:
+                self.fields['email'].disabled = True
 
-        # Disable users editing their own following fields
+        # Disable users editing their own following fields except for email
         if self.user == self.instance:
+            self.fields['email'].disabled = False
             self.fields['user_permissions'].disabled = True
             self.fields['is_active'].disabled = True
             self.fields['is_staff'].disabled = True
-
-        # Expose superuser field but disable editing
-        self.fields['is_superuser'].disabled = True
 
         address = self.instance.default_billing_address
         if not address:
