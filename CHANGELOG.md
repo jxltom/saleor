@@ -85,6 +85,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support partially charged and partially refunded payment status - #3735 by @jxltom
 - Create checkout when accesing checkout if user has no available checkouts in me API - #3745 by @jxltom
 - Sort order's payment and history descendingly - #3746 by @jxltom
+- Create checkout when accesing checkout if user has no available checkouts in me API - #3745 by @jxltom
 - Sort order's payment and history descendingly - #3747 by @jxltom
 - Add login navbar for checkout pages #3748 by @jxltom
 - Filter order by payment status from order's last payment - #3749 @jxltom
