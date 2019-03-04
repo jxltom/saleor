@@ -128,6 +128,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Unify behavior after creating checkout in API and Storefront 1.0; code formatting improvements - #3790 by @maarcingebala
 - Support partially charged and partially refunded payment status - #3735 by @jxltom
 - Add pages section in Dashboard 2.0; introduce Draftail WYSIWYG editor - #3751 by @dominik-zeglen
+- Several improvement on checkout and payment API #3795 by @jxltom
 
 
 ## 2.3.1
