@@ -129,6 +129,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support partially charged and partially refunded payment status - #3735 by @jxltom
 - Add pages section in Dashboard 2.0; introduce Draftail WYSIWYG editor - #3751 by @dominik-zeglen
 - Several improvement on checkout and payment API #3795 by @jxltom
+- Add translations to GraphQL API - #3789 by @michaljelonek
 
 
 ## 2.3.1
