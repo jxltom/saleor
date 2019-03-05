@@ -161,11 +161,14 @@ class User(PermissionsMixin, AbstractBaseUser):
         return self.email
 
     def get_addresses(self):
-        return self.addresses.annotate(
-            user_default_shipping_address_pk=Value(
-                self.default_shipping_address.pk, models.IntegerField()),
-            user_default_billing_address_pk=Value(
-                self.default_billing_address.pk, models.IntegerField())).all()
+        qs = self.addresses
+        if self.default_shipping_address:
+            qs = qs.annotate(user_default_shipping_address_pk=Value(
+                self.default_shipping_address.pk, models.IntegerField()))
+        if self.default_billing_address:
+            qs = qs.annotate(user_default_billing_address_pk=Value(
+                self.default_billing_address.pk, models.IntegerField()))
+        return qs.all()
 
 
 class CustomerNote(models.Model):
