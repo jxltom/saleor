@@ -132,6 +132,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support partially charged and partially refunded payment status - #3735 by @jxltom
 - Add translations to GraphQL API - #3789 by @michaljelonek
 - Several improvement on checkout and payment API #3795 by @jxltom
+- Add missing types for dashboard 2.0 after adding translations to API - #3802 by @jxltom
 
 
 ## 2.3.1
