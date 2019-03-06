@@ -626,12 +626,19 @@ def test_checkout_customer_detach_without_customer(
 
 MUTATION_CHECKOUT_SHIPPING_ADDRESS_UPDATE = """
     mutation checkoutShippingAddressUpdate(
-            $checkoutId: ID!, $shippingAddress: AddressInput!) {
+            $checkoutId: ID!,
+            $shippingAddress: AddressInput,
+            $shippingAddressId: ID) {
         checkoutShippingAddressUpdate(
-                checkoutId: $checkoutId, shippingAddress: $shippingAddress) {
+                checkoutId: $checkoutId,
+                shippingAddress: $shippingAddress,
+                shippingAddressId: $shippingAddressId) {
             checkout {
                 token,
                 id
+                shippingAddress {
+                    id
+                }
             },
             errors {
                 field,
@@ -649,8 +656,7 @@ def test_checkout_shipping_address_update(
 
     shipping_address = graphql_address_data
     variables = {
-        'checkoutId': checkout_id,
-        'shippingAddress': shipping_address}
+        'checkoutId': checkout_id, 'shippingAddress': shipping_address}
 
     response = user_api_client.post_graphql(
         MUTATION_CHECKOUT_SHIPPING_ADDRESS_UPDATE, variables)
@@ -679,8 +685,7 @@ def test_checkout_shipping_address_update_invalid_country_code(
     shipping_address = graphql_address_data
     shipping_address['country'] = 'CODE'
     variables = {
-        'checkoutId': checkout_id,
-        'shippingAddress': shipping_address}
+        'checkoutId': checkout_id, 'shippingAddress': shipping_address}
 
     response = user_api_client.post_graphql(
         MUTATION_CHECKOUT_SHIPPING_ADDRESS_UPDATE, variables)
@@ -690,20 +695,73 @@ def test_checkout_shipping_address_update_invalid_country_code(
     assert data['errors'][0]['field'] == 'country'
 
 
-def test_checkout_billing_address_update(
-        user_api_client, cart_with_item, graphql_address_data):
+def test_checkout_shipping_address_update_by_id(
+        user_api_client, cart_with_item, address):
     cart = cart_with_item
     assert cart.shipping_address is None
     checkout_id = graphene.Node.to_global_id('Checkout', cart.pk)
 
-    query = """
+    address_id = graphene.Node.to_global_id('Address', address.pk)
+    variables = {
+        'checkoutId': checkout_id, 'shippingAddressId': address_id}
+
+    response = user_api_client.post_graphql(
+        MUTATION_CHECKOUT_SHIPPING_ADDRESS_UPDATE, variables)
+    content = get_graphql_content(response)
+    data = content['data']['checkoutShippingAddressUpdate']
+    assert not data['errors']
+    assert address.pk == int(graphene.Node.from_global_id(
+        data['checkout']['shippingAddress']['id'])[1])
+    cart.refresh_from_db()
+    assert cart.shipping_address is not None
+    assert cart.shipping_address.first_name == address.first_name
+    assert cart.shipping_address.last_name == address.last_name
+    assert cart.shipping_address.street_address_1 == address.street_address_1
+    assert cart.shipping_address.street_address_2 == address.street_address_2
+    assert cart.shipping_address.postal_code == address.postal_code
+    assert cart.shipping_address.country == address.country
+    assert cart.shipping_address.city == address.city
+
+
+def test_checkout_shipping_address_update_invalid_argument(
+        user_api_client, cart_with_item, graphql_address_data, address):
+    cart = cart_with_item
+    assert cart.shipping_address is None
+    checkout_id = graphene.Node.to_global_id('Checkout', cart.pk)
+
+    shipping_address = graphql_address_data
+    address_id = graphene.Node.to_global_id('Address', address.pk)
+    variables = {
+        'checkoutId': checkout_id,
+        'shippingAddress': shipping_address,
+        'shippingAddressId': address_id}
+
+    response = user_api_client.post_graphql(
+        MUTATION_CHECKOUT_SHIPPING_ADDRESS_UPDATE, variables)
+    content = get_graphql_content(response)
+    data = content['data']['checkoutShippingAddressUpdate']
+    assert len(data['errors']) == 2
+    for error in data['errors']:
+        assert error['message'] == (
+            'One and only one of shipping address or shipping address ID '
+            'can be provided.')
+
+
+MUTATION_CHECKOUT_BILLING_ADDRESS_UPDATE = """
     mutation checkoutBillingAddressUpdate(
-            $checkoutId: ID!, $billingAddress: AddressInput!) {
+            $checkoutId: ID!,
+            $billingAddress: AddressInput,
+            $billingAddressId: ID) {
         checkoutBillingAddressUpdate(
-                checkoutId: $checkoutId, billingAddress: $billingAddress) {
+                checkoutId: $checkoutId,
+                billingAddress: $billingAddress,
+                billingAddressId: $billingAddressId) {
             checkout {
                 token,
                 id
+                billingAddress {
+                    id
+                }
             },
             errors {
                 field,
@@ -712,11 +770,19 @@ def test_checkout_billing_address_update(
         }
     }
     """
-    billing_address = graphql_address_data
 
+
+def test_checkout_billing_address_update(
+        user_api_client, cart_with_item, graphql_address_data):
+    cart = cart_with_item
+    assert cart.billing_address is None
+    checkout_id = graphene.Node.to_global_id('Checkout', cart.pk)
+
+    billing_address = graphql_address_data
     variables = {'checkoutId': checkout_id, 'billingAddress': billing_address}
 
-    response = user_api_client.post_graphql(query, variables)
+    response = user_api_client.post_graphql(
+        MUTATION_CHECKOUT_BILLING_ADDRESS_UPDATE, variables)
     content = get_graphql_content(response)
     data = content['data']['checkoutBillingAddressUpdate']
     assert not data['errors']
@@ -731,6 +797,57 @@ def test_checkout_billing_address_update(
     assert cart.billing_address.postal_code == billing_address['postalCode']
     assert cart.billing_address.country == billing_address['country']
     assert cart.billing_address.city == billing_address['city']
+
+
+def test_checkout_billing_address_update_by_id(
+        user_api_client, cart_with_item, address):
+    cart = cart_with_item
+    assert cart.billing_address is None
+    checkout_id = graphene.Node.to_global_id('Checkout', cart.pk)
+
+    address_id = graphene.Node.to_global_id('Address', address.pk)
+    variables = {'checkoutId': checkout_id, 'billingAddressId': address_id}
+
+    response = user_api_client.post_graphql(
+        MUTATION_CHECKOUT_BILLING_ADDRESS_UPDATE, variables)
+    content = get_graphql_content(response)
+    data = content['data']['checkoutBillingAddressUpdate']
+    assert not data['errors']
+    assert address.pk == int(graphene.Node.from_global_id(
+        data['checkout']['billingAddress']['id'])[1])
+    cart.refresh_from_db()
+    assert cart.billing_address is not None
+    assert cart.billing_address.first_name == address.first_name
+    assert cart.billing_address.last_name == address.last_name
+    assert cart.billing_address.street_address_1 == address.street_address_1
+    assert cart.billing_address.street_address_2 == address.street_address_2
+    assert cart.billing_address.postal_code == address.postal_code
+    assert cart.billing_address.country == address.country
+    assert cart.billing_address.city == address.city
+
+
+def test_checkout_billling_address_update_invalid_argument(
+        user_api_client, cart_with_item, graphql_address_data, address):
+    cart = cart_with_item
+    assert cart.billing_address is None
+    checkout_id = graphene.Node.to_global_id('Checkout', cart.pk)
+
+    billing_address = graphql_address_data
+    address_id = graphene.Node.to_global_id('Address', address.pk)
+    variables = {
+        'checkoutId': checkout_id,
+        'billingAddress': billing_address,
+        'billingAddressId': address_id}
+
+    response = user_api_client.post_graphql(
+        MUTATION_CHECKOUT_BILLING_ADDRESS_UPDATE, variables)
+    content = get_graphql_content(response)
+    data = content['data']['checkoutBillingAddressUpdate']
+    assert len(data['errors']) == 2
+    for error in data['errors']:
+        assert error['message'] == (
+            'One and only one of billing address or billing address ID '
+            'can be provided.')
 
 
 CHECKOUT_EMAIL_UPDATE_MUTATION = """
