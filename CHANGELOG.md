@@ -136,6 +136,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add missing types for dashboard 2.0 after adding translations to API - #3802 by @jxltom
 - Add city choices and city area type to address validator API - #3788 by @jxltom
 - Several improvement on checkout and payment API #3795 by @jxltom
+- Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 
 
 ## 2.3.1
