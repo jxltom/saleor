@@ -137,6 +137,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Several improvement on checkout and payment API #3795 by @jxltom
 - Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 - Support setting as default address directly when creating customer address #3782 by @jxltom
+- Support assigning other shipping/billing addresses in update checkout addresses API - #3806 by @jxltom
 
 
 ## 2.3.1
