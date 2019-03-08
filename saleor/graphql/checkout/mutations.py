@@ -411,7 +411,7 @@ class CheckoutShippingAddressUpdate(BaseMutation, I18nMixin):
             cls.add_error(errors, 'shipping_address', msg)
             cls.add_error(errors, 'shipping_address_id', msg)
 
-        if shipping_address and checkout:
+        if shipping_address is not None and checkout is not None:
             # Validate shipping address
             # if shipping address is provided directly
             shipping_address, errors = cls.validate_address(
