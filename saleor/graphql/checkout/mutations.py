@@ -46,7 +46,6 @@ def clean_shipping_address(checkout, shipping_address, errors, remove=True):
 
 def clean_shipping_method(
         checkout, shipping_method, errors, discounts, taxes, remove=True):
-    # FIXME Add tests for this function
     if not shipping_method:
         return errors
 
@@ -59,7 +58,8 @@ def clean_shipping_method(
                     'checkout without the shipping address.')))
 
     shipping_method_is_valid = is_valid_shipping_method(
-        checkout, taxes, discounts, shipping_method=shipping_method)
+        checkout, taxes, discounts,
+        shipping_method=shipping_method, remove=remove)
     if not shipping_method_is_valid:
         errors.append(
             Error(
@@ -258,7 +258,6 @@ class CheckoutLinesAdd(BaseMutation):
                 add_variant_to_cart(
                     checkout, variant, quantity, replace=replace)
 
-        # FIXME test if below function is called
         clean_shipping_address(
             checkout=checkout, shipping_address=checkout.shipping_address,
             errors=errors)
@@ -310,7 +309,6 @@ class CheckoutLineDelete(BaseMutation):
         if line and line in checkout.lines.all():
             line.delete()
 
-        # FIXME test if below function is called
         clean_shipping_address(
             checkout=checkout, shipping_address=checkout.shipping_address,
             errors=errors)
@@ -428,7 +426,6 @@ class CheckoutShippingAddressUpdate(BaseMutation, I18nMixin):
         if errors:
             return CheckoutShippingAddressUpdate(errors=errors)
 
-        # FIXME test if below function is called
         clean_shipping_address(
             checkout=checkout, shipping_address=shipping_address,
             errors=errors, remove=False)
