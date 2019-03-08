@@ -416,7 +416,7 @@ class CheckoutShippingAddressUpdate(BaseMutation, I18nMixin):
             # if shipping address is provided directly
             shipping_address, errors = cls.validate_address(
                 shipping_address, errors, instance=checkout.shipping_address)
-        elif shipping_address_id:
+        elif shipping_address_id is not None:
             # Query and validate shipping address
             # if shipping address ID is provided
             shipping_address = cls.get_node_or_error(
