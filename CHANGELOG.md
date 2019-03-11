@@ -75,6 +75,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
 - Fix bug where cart can not be got or created when user has multiple carts - #3727 by @jxltom
 - Disable style-loader in dev mode - #3720 by @jxltom
+- Update typescript types after apollo is upgraded - #3823 by @jxltom
 
 
 ## 2.4.0
