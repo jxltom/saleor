@@ -886,7 +886,7 @@ def create_order(cart: Cart, tracking_code: str, discounts, taxes):
     return order
 
 
-def is_fully_paid(cart: Cart, taxes, discounts):
+def can_be_fully_paid(cart: Cart, taxes, discounts):
     """Check if provided payment methods cover the checkout's total amount.
     Note that these payments may not be captured or charged at all."""
     payments = [
@@ -912,7 +912,7 @@ def ready_to_place_order(cart: Cart, taxes, discounts):
     if not cart.billing_address:
         return False, pgettext_lazy(
             'order placement_error', 'Billing address is not set')
-    if not is_fully_paid(cart, taxes, discounts):
+    if not can_be_fully_paid(cart, taxes, discounts):
         return False, pgettext_lazy(
             'order placement error', (
                 'Provided payment methods can not '
