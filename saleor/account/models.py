@@ -34,7 +34,7 @@ class AddressQueryset(models.QuerySet):
             user_default_shipping_address_pk=Value(
                 default_shipping_address_pk, models.IntegerField()),
             user_default_billing_address_pk=Value(
-                default_billing_address_pk, models.IntegerField())).all()
+                default_billing_address_pk, models.IntegerField()))
 
 
 class Address(models.Model):
@@ -178,9 +178,6 @@ class User(PermissionsMixin, AbstractBaseUser):
             return '%s %s (%s)' % (
                 address.first_name, address.last_name, self.email)
         return self.email
-
-    def get_addresses(self):
-        return self.addresses.annotate_default(self)
 
 
 class CustomerNote(models.Model):
