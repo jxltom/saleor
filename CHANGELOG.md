@@ -83,6 +83,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Resort imports by upgraded isort - #3836 by @jxltom
 - Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 - Several improvement on checkout and payment API #3795 by @jxltom
+- Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
 
 
 ## 2.4.0
