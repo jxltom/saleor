@@ -79,6 +79,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add languageCode enum to API - #3819 by @michaljelonek
 - Bump backend dependencies - #3827 by @maarcingebala
 - Fix django-recaptcha tests after upgraded to 1.5.0 - 3832 by @jxltom
+- Fix django-recaptcha tests after upgraded to 1.5.0 - 3835 by @jxltom
 
 
 ## 2.4.0
