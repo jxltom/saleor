@@ -43,6 +43,9 @@ class CustomerDeleteForm(forms.Form):
 class CustomerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
+        if self.user is None:
+            raise ValueError('The user argument cannot be None.')
+
         super().__init__(*args, **kwargs)
 
         # Disable editing following fields if user edits his own account
