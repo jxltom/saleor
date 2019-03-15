@@ -84,6 +84,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 - Several improvement on checkout and payment API #3795 by @jxltom
 - Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
+- Improvements on shipping validation - #3812 by @jxltom
 
 
 ## 2.4.0
