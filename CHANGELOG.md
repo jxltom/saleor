@@ -85,6 +85,8 @@ All notable, unreleased changes to this project will be documented in this file.
 - Several improvement on checkout and payment API #3795 by @jxltom
 - Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
 - Improvements on shipping validation - #3812 by @jxltom
+- Add bulk delete mutations - #3838 by @michaljelonek
+- Fix product creating - #3837 by @dominik-zeglen
 
 
 ## 2.4.0
