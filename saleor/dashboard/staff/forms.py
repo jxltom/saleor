@@ -33,10 +33,8 @@ class StaffForm(forms.ModelForm):
                 'User superuser toggle', 'User is superuser')}
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        if self.user is None:
-            raise ValueError('The user argument cannot be None.')
-
+        # The user argument is required
+        self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
         # Non-superuser couldn't edit superuser's profile
