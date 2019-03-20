@@ -88,6 +88,10 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add bulk delete mutations - #3838 by @michaljelonek
 - Fix product creating - #3837 by @dominik-zeglen
 - Fix schema after bulk mutations are added - #3843 by @jxltom
+- Add address book view - #3826 by @dominik-zeglen
+- New translations:
+  - Thai
+- Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
 
 
 ## 2.4.0
