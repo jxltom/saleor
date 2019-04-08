@@ -18,7 +18,7 @@ from ...product.utils.costs import (
 from ..core.connection import CountableDjangoObjectType
 from ..core.enums import ReportingPeriod, TaxRateType
 from ..core.fields import PrefetchingConnectionField
-from ..core.types import Money, MoneyRange, TaxedMoney, TaxedMoneyRange
+from ..core.types import Image, Money, MoneyRange, TaxedMoney, TaxedMoneyRange
 from ..translations.enums import LanguageCodeEnum
 from ..translations.resolvers import resolve_translation
 from ..translations.types import (
@@ -65,15 +65,6 @@ def resolve_attribute_value_type(attribute_value):
     if '://' in attribute_value:
         return AttributeValueType.URL
     return AttributeValueType.STRING
-
-
-def resolve_background_image(background_image, alt, size, info):
-    if size:
-        url = get_thumbnail(background_image, size, method='thumbnail')
-    else:
-        url = background_image.url
-    url = info.context.build_absolute_uri(url)
-    return Image(url, alt)
 
 
 class AttributeValue(CountableDjangoObjectType):
@@ -148,6 +139,38 @@ class SelectedAttribute(graphene.ObjectType):
         description = 'Represents a custom attribute.'
 
 
+class DigitalContentUrl(CountableDjangoObjectType):
+    url = graphene.String(description='Url for digital content')
+
+    class Meta:
+        model = models.DigitalContentUrl
+        only_fields = ['token', 'content', 'created', 'download_num', 'url']
+        interfaces = (relay.Node,)
+
+    def resolve_url(self, info):
+        return self.get_absolute_url()
+
+
+class DigitalContent(CountableDjangoObjectType):
+    urls = gql_optimizer.field(
+        graphene.List(
+            lambda: DigitalContentUrl,
+            description='List of urls for the digital variant'),
+        model_field='urls')
+
+    class Meta:
+        model = models.DigitalContent
+        only_fields = [
+            'urls', 'content_file', 'use_default_settings',
+            'automatic_fulfillment', 'product_variant', 'max_downloads',
+            'url_valid_days', ]
+        interfaces = (relay.Node,)
+
+    def resolve_urls(self, info, **kwargs):
+        qs = self.urls.all()
+        return gql_optimizer.query(qs, info)
+
+
 class ProductOrder(graphene.InputObjectType):
     field = graphene.Argument(
         ProductOrderField, required=True,
@@ -194,6 +217,9 @@ class ProductVariant(CountableDjangoObjectType):
             'Returns translated Product Variant fields '
             'for the given language code.'),
         resolver=resolve_translation)
+    digital_content = gql_optimizer.field(graphene.Field(
+        DigitalContent, description='Digital content for the product variant'),
+        model_field='digital_content')
 
     class Meta:
         description = dedent("""Represents a version of a product such as
@@ -201,6 +227,10 @@ class ProductVariant(CountableDjangoObjectType):
         exclude_fields = ['order_lines', 'variant_images', 'translations']
         interfaces = [relay.Node]
         model = models.ProductVariant
+
+    @permission_required('product.manage_products')
+    def resolve_digital_content(self, info):
+        return getattr(self, 'digital_content', None)
 
     def resolve_stock_quantity(self, info):
         return self.quantity_available
@@ -269,16 +299,6 @@ class ProductAvailability(graphene.ObjectType):
 
     class Meta:
         description = 'Represents availability of a product in the storefront.'
-
-
-class Image(graphene.ObjectType):
-    url = graphene.String(
-        required=True,
-        description='The URL of the image.')
-    alt = graphene.String(description='Alt text for an image.')
-
-    class Meta:
-        description = 'Represents an image.'
 
 
 class Product(CountableDjangoObjectType):
@@ -502,10 +522,14 @@ class Collection(CountableDjangoObjectType):
         model = models.Collection
 
     def resolve_background_image(self, info, size=None, **kwargs):
-        if not self.background_image:
-            return None
-        return resolve_background_image(
-            self.background_image, self.background_image_alt, size, info)
+        if self.background_image:
+            return Image.get_adjusted(
+                image=self.background_image,
+                alt=self.background_image_alt,
+                size=size,
+                rendition_key_set='background_images',
+                info=info,
+            )
 
     def resolve_products(self, info, **kwargs):
         if hasattr(self, 'prefetched_products'):
@@ -568,10 +592,14 @@ class Category(CountableDjangoObjectType):
         return gql_optimizer.query(qs, info)
 
     def resolve_background_image(self, info, size=None, **kwargs):
-        if not self.background_image:
-            return None
-        return resolve_background_image(
-            self.background_image, self.background_image_alt, size, info)
+        if self.background_image:
+            return Image.get_adjusted(
+                image=self.background_image,
+                alt=self.background_image_alt,
+                size=size,
+                rendition_key_set='background_images',
+                info=info,
+            )
 
     def resolve_children(self, info, **kwargs):
         qs = self.children.all()

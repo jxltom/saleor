@@ -101,6 +101,20 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add light/dark theme - #3856 by @dominik-zeglen
 - Fix bug where logo-document is not renamed to logo-light - #3867 by @jxltom
 - Copy addresses in checkoutCreate and draftOrderCreate mutations - #3866 by @pawelzar
+- Fix default product tax rate in Dashboard 1.0 - #3880 by @pawelzar
+- Introduce avatars for staff accounts - #3878 by @pawelzar
+- Fix unfocusing rich text editor - #3902 by @dominik-zeglen
+- Fix phone number validation in GraphQL when country prefix not given - #3905 by @patrys
+- Fix product create view crash - #3910 by @dominik-zeglen
+- Add ability to create another variant from the variant details view = #3914 by @dominik-zeglen
+- Add back arrows to configure sections - #3917 by @dominik-zeglen
+- Display avatars in staff views - #3922 by @dominik-zeglen
+- Prevent user from changing his own status and permissions - #3922 by @dominik-zeglen
+- Support for digital product - #3868 by @korycins
+- Add translation interface - #3884 by @dominik-zeglen
+- Drop support for Django 2.1 and Django 1.11 (previous LTS)
+- Fix variants for juices in example data - #3926 by @michaljelonek
+- Fix logo in docs - #3928 by @michaljelonek
 
 
 ## 2.4.0

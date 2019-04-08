@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.utils.translation import pgettext_lazy
 from django_countries.fields import Country, CountryField
 from phonenumber_field.modelfields import PhoneNumber, PhoneNumberField
+from versatileimagefield.fields import VersatileImageField
 
 from .validators import validate_possible_number
 
@@ -66,6 +67,10 @@ class Address(models.Model):
 
     def __eq__(self, other):
         return self.as_data() == other.as_data()
+
+    def __hash__(self):
+        # FIXME: in Django 2.2 this is not present if __eq__ is defined
+        return super().__hash__()
 
     def as_data(self):
         """Return the address as a dict suitable for passing as kwargs.
@@ -135,6 +140,8 @@ class User(PermissionsMixin, AbstractBaseUser):
     default_billing_address = models.ForeignKey(
         Address, related_name='+', null=True, blank=True,
         on_delete=models.SET_NULL)
+    avatar = VersatileImageField(
+        upload_to='user-avatars', blank=True, null=True)
 
     USERNAME_FIELD = 'email'
 
