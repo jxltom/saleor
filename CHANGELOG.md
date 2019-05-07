@@ -132,6 +132,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Resort imports and remove unused imports - #4069 by @jxltom
 - Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 - Fix typo in CheckoutBillingAddressUpdate - #4073 by @jxltom
+- Required checkout ID for updating checkout's shipping and billing address - #4074 by @jxltom
 
 - Resort imports and remove unused imports - #4069 by @jxltom
 
