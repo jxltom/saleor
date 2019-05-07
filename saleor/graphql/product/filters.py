@@ -2,7 +2,7 @@ import functools
 import operator
 
 import django_filters
-from django.db.models import Q, Sum
+from django.db.models import Sum
 from graphene_django.filter import GlobalIDFilter, GlobalIDMultipleChoiceFilter
 
 from ...product.filters import MergedAttributes
