@@ -126,6 +126,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix crash in Dashboard 1.0 when updating an order address's phone number - #4061 by @NyanKiyoshi
 - Improvements on shipping validation - #3812 by @jxltom
 - Update test function names since ready_to_place_order is renamed to clean_checkout- #4070 by @jxltom
+- Add migrations since mptt model is updated - #4071 by @jxltom
 
 - Resort imports and remove unused imports - #4069 by @jxltom
 
