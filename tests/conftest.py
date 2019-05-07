@@ -91,6 +91,32 @@ def checkout_with_voucher(checkout, product, voucher):
 
 
 @pytest.fixture
+def checkout_with_item_and_address(checkout_with_item, address):
+    checkout_with_item.shipping_address = address
+    checkout_with_item.save()
+    return checkout_with_item
+
+
+@pytest.fixture
+def checkout_with_invalid_shipping_method(
+        checkout_with_item_and_address, shipping_zone_without_countries):
+    shipping_method = shipping_zone_without_countries.shipping_methods.first()
+    checkout_with_item_and_address.shipping_method = shipping_method
+    checkout_with_item_and_address.save()
+    return checkout_with_item_and_address
+
+
+@pytest.fixture
+def checkout_with_voucher(checkout, product, voucher):
+    variant = product.variants.get()
+    add_variant_to_checkout(checkout, variant, 3)
+    checkout.voucher_code = voucher.code
+    checkout.discount_amount = Money('20.00', 'USD')
+    checkout.save()
+    return checkout
+
+
+@pytest.fixture
 def address(db):  # pylint: disable=W0613
     return Address.objects.create(
         first_name='John', last_name='Doe',

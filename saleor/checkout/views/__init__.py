@@ -65,6 +65,8 @@ def checkout_shipping_method(request, checkout):
     """Display the shipping method selection step."""
     discounts = request.discounts
     taxes = get_taxes_for_checkout(checkout, request.taxes)
+
+    # Clear previous shipping method if invalid
     is_valid_shipping_method(checkout, request.taxes, discounts)
 
     form = CheckoutShippingMethodForm(

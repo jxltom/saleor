@@ -791,7 +791,7 @@ def test_get_taxes_for_checkout(checkout, vatlayer):
 
 
 def test_get_taxes_for_checkout_with_shipping_address(checkout, address, vatlayer):
-    address.country = 'DE'
+    address.country = Country('DE')
     address.save()
     checkout.shipping_address = address
     checkout.save()
@@ -802,7 +802,7 @@ def test_get_taxes_for_checkout_with_shipping_address(checkout, address, vatlaye
 def test_get_taxes_for_checkout_with_shipping_address_taxes_not_handled(
         checkout, settings, address, vatlayer):
     settings.VATLAYER_ACCESS_KEY = ''
-    address.country = 'DE'
+    address.country = Country('DE')
     address.save()
     checkout.shipping_address = address
     checkout.save()
