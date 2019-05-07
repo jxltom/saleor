@@ -130,6 +130,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Update test function names since ready_to_place_order is renamed to clean_checkout- #4070 by @jxltom
 - Resort imports and remove unused imports - #4069 by @jxltom
+- Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 
 - Resort imports and remove unused imports - #4069 by @jxltom
 
