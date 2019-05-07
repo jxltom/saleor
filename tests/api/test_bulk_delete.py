@@ -13,6 +13,18 @@ from saleor.shipping.models import ShippingMethod, ShippingZone
 
 from .utils import get_graphql_content
 
+MUTATION_DELETE_ORDER_LINES = """
+    mutation draftOrderLinesBulkDelete($ids: [ID]!) {
+        draftOrderLinesBulkDelete(ids: $ids) {
+            count
+            errors {
+                field
+                message
+            }
+        }
+    }
+    """
+
 
 @pytest.fixture
 def attribute_list():
@@ -48,35 +60,11 @@ def category_list():
 
 
 @pytest.fixture
-def collection_list():
-    collection_1 = Collection.objects.create(name='Collection 1')
-    collection_2 = Collection.objects.create(name='Collection 2')
-    collection_3 = Collection.objects.create(name='Collection 3')
-    return collection_1, collection_2, collection_3
-
-
-@pytest.fixture
 def menu_list():
     menu_1 = Menu.objects.create(name='test-navbar-1', json_content={})
     menu_2 = Menu.objects.create(name='test-navbar-2', json_content={})
     menu_3 = Menu.objects.create(name='test-navbar-3', json_content={})
     return menu_1, menu_2, menu_3
-
-
-@pytest.fixture
-def menu_item_list(menu):
-    menu_item_1 = MenuItem.objects.create(menu=menu, name='Link 1')
-    menu_item_2 = MenuItem.objects.create(menu=menu, name='Link 2')
-    menu_item_3 = MenuItem.objects.create(menu=menu, name='Link 3')
-    return menu_item_1, menu_item_2, menu_item_3
-
-
-@pytest.fixture
-def page_list():
-    page_1 = Page.objects.create(slug='page-1', title='Page 1')
-    page_2 = Page.objects.create(slug='page-2', title='Page 2')
-    page_3 = Page.objects.create(slug='page-3', title='Page 3')
-    return page_1, page_2, page_3
 
 
 @pytest.fixture
@@ -128,18 +116,6 @@ def voucher_list():
     voucher_2 = Voucher.objects.create(code='voucher-2', discount_value=2)
     voucher_3 = Voucher.objects.create(code='voucher-3', discount_value=3)
     return voucher_1, voucher_2, voucher_3
-
-
-@pytest.fixture
-def user_list():
-    user_1 = User.objects.create_user('user-1@example.com', 'pass')
-    user_2 = User.objects.create_user('user-2@example.com', 'pass')
-    staff_1 = User.objects.create_user(
-        'staff-1@example.com', 'pass', is_staff=True)
-    staff_2 = User.objects.create_user(
-        'staff-2@example.com', 'pass', is_staff=True)
-    superuser = User.objects.create_superuser('superuser@example.com', 'pass')
-    return user_1, user_2, staff_1, staff_2, superuser
 
 
 def test_delete_attributes(
@@ -286,6 +262,48 @@ def test_delete_draft_orders(
         id__in=[order.id for order in orders]).count() == len(orders)
 
 
+def test_fail_to_delete_non_draft_order_lines(
+        staff_api_client, order_with_lines, permission_manage_orders):
+    order = order_with_lines
+    order_lines = [line for line in order]
+    # Ensure we cannot delete a non-draft order
+    order.status = OrderStatus.CANCELED
+    order.save()
+
+    variables = {'ids': [
+        graphene.Node.to_global_id('OrderLine', order_line.id)
+        for order_line in order_lines]}
+    response = staff_api_client.post_graphql(
+        MUTATION_DELETE_ORDER_LINES, variables,
+        permissions=[permission_manage_orders])
+
+    content = get_graphql_content(response)
+    assert 'errors' in content['data']['draftOrderLinesBulkDelete']
+    assert content['data']['draftOrderLinesBulkDelete']['count'] == 0
+
+
+def test_delete_draft_order_lines(
+        staff_api_client, order_with_lines, permission_manage_orders):
+    order = order_with_lines
+    order_lines = [line for line in order]
+    # Only lines in draft order can be deleted
+    order.status = OrderStatus.DRAFT
+    order.save()
+
+    variables = {'ids': [
+        graphene.Node.to_global_id('OrderLine', order_line.id)
+        for order_line in order_lines]}
+
+    response = staff_api_client.post_graphql(
+        MUTATION_DELETE_ORDER_LINES, variables,
+        permissions=[permission_manage_orders])
+    content = get_graphql_content(response)
+
+    assert content['data']['draftOrderLinesBulkDelete']['count'] == 2
+    assert not order_models.OrderLine.objects.filter(
+        id__in=[order_line.pk for order_line in order_lines]).exists()
+
+
 def test_delete_menus(
         staff_api_client, menu_list, permission_manage_menus):
     query = """
@@ -347,7 +365,7 @@ def test_delete_pages(
         query, variables, permissions=[permission_manage_pages])
     content = get_graphql_content(response)
 
-    assert content['data']['pageBulkDelete']['count'] == 3
+    assert content['data']['pageBulkDelete']['count'] == len(page_list)
     assert not Page.objects.filter(
         id__in=[page.id for page in page_list]).exists()
 
@@ -509,8 +527,8 @@ def test_delete_shipping_zones(
 
 
 def test_delete_staff_members(
-        staff_api_client, user_list, permission_manage_staff):
-    *users, staff_1, staff_2, superuser = user_list
+        staff_api_client, user_list, permission_manage_staff, superuser):
+    *users, staff_1, staff_2 = user_list
     users.append(superuser)
 
     query = """
