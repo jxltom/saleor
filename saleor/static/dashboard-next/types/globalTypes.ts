@@ -47,6 +47,7 @@ export enum LanguageCodeEnum {
   FR = "FR",
   HI = "HI",
   HU = "HU",
+  HY = "HY",
   ID = "ID",
   IT = "IT",
   JA = "JA",
@@ -55,6 +56,7 @@ export enum LanguageCodeEnum {
   NB = "NB",
   NL = "NL",
   PL = "PL",
+  PT = "PT",
   PT_BR = "PT_BR",
   RO = "RO",
   RU = "RU",
@@ -113,8 +115,12 @@ export enum OrderStatus {
 }
 
 export enum OrderStatusFilter {
+  CANCELED = "CANCELED",
+  FULFILLED = "FULFILLED",
+  PARTIALLY_FULFILLED = "PARTIALLY_FULFILLED",
   READY_TO_CAPTURE = "READY_TO_CAPTURE",
   READY_TO_FULFILL = "READY_TO_FULFILL",
+  UNFULFILLED = "UNFULFILLED",
 }
 
 export enum PaymentChargeStatusEnum {
@@ -219,7 +225,7 @@ export interface AddressInput {
   city?: string | null;
   cityArea?: string | null;
   postalCode?: string | null;
-  country: string;
+  country?: string | null;
   countryArea?: string | null;
   phone?: string | null;
 }
@@ -382,6 +388,7 @@ export interface ProductTypeInput {
   productAttributes?: (string | null)[] | null;
   variantAttributes?: (string | null)[] | null;
   isShippingRequired?: boolean | null;
+  isDigital?: boolean | null;
   weight?: any | null;
   taxRate?: TaxRateType | null;
 }
@@ -437,6 +444,9 @@ export interface ShopSettingsInput {
   chargeTaxesOnShipping?: boolean | null;
   trackInventoryByDefault?: boolean | null;
   defaultWeightUnit?: WeightUnitsEnum | null;
+  automaticFulfillmentDigitalProducts?: boolean | null;
+  defaultDigitalMaxDownloads?: number | null;
+  defaultDigitalUrlValidDays?: number | null;
 }
 
 export interface SiteDomainInput {

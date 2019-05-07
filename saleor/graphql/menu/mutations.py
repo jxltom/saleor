@@ -1,5 +1,4 @@
 from collections import namedtuple
-from textwrap import dedent
 from typing import List
 
 import graphene
@@ -30,9 +29,9 @@ class MenuItemCreateInput(MenuItemInput):
         description='Menu to which item belongs to.', name='menu',
         required=True)
     parent = graphene.ID(
-        description=dedent('''
+        description='''
         ID of the parent menu. If empty, menu will be top level
-        menu.'''),
+        menu.''',
         name='parent')
 
 
@@ -54,10 +53,7 @@ class MenuCreate(ModelMutation):
     class Meta:
         description = 'Creates a new Menu'
         model = models.Menu
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
     @classmethod
     def clean_input(cls, info, instance, data):
@@ -69,7 +65,8 @@ class MenuCreate(ModelMutation):
             page = item.get('page')
             url = item.get('url')
             if len([i for i in [category, collection, page, url] if i]) > 1:
-                raise ValidationError({'items': 'More than one item provided.'})
+                raise ValidationError(
+                    {'items': 'More than one item provided.'})
 
             if category:
                 category = cls.get_node_or_error(
@@ -109,10 +106,7 @@ class MenuUpdate(ModelMutation):
     class Meta:
         description = 'Updates a menu.'
         model = models.Menu
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
 
 class MenuDelete(ModelDeleteMutation):
@@ -123,27 +117,21 @@ class MenuDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a menu.'
         model = models.Menu
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
 
 class MenuItemCreate(ModelMutation):
     class Arguments:
         input = MenuItemCreateInput(
             required=True,
-            description=dedent("""Fields required to update a menu item.
+            description="""Fields required to update a menu item.
             Only one of 'url', 'category', 'page', 'collection' is allowed
-            per item"""))
+            per item""")
 
     class Meta:
         description = 'Creates a new Menu'
         model = models.MenuItem
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
     @classmethod
     def clean_input(cls, info, instance, data):
@@ -163,17 +151,14 @@ class MenuItemUpdate(MenuItemCreate):
             required=True, description='ID of a menu item to update.')
         input = MenuItemInput(
             required=True,
-            description=dedent("""Fields required to update a menu item.
+            description="""Fields required to update a menu item.
             Only one of 'url', 'category', 'page', 'collection' is allowed
-            per item"""))
+            per item""")
 
     class Meta:
         description = 'Updates a menu item.'
         model = models.MenuItem
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
     @classmethod
     def construct_instance(cls, instance, cleaned_data):
@@ -193,10 +178,7 @@ class MenuItemDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a menu item.'
         model = models.MenuItem
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
+        permissions = ('menu.manage_menus', )
 
 
 _MenuMoveOperation = namedtuple(
@@ -216,6 +198,7 @@ class MenuItemMove(BaseMutation):
 
     class Meta:
         description = 'Moves items of menus'
+        permissions = ('menu.manage_menus', )
 
     @staticmethod
     def clean_move(move):
@@ -273,10 +256,6 @@ class MenuItemMove(BaseMutation):
             operations.append(operation)
         return operations
 
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('menu.manage_menus')
-
     @staticmethod
     def perform_operation(operation: _MenuMoveOperation):
         menu_item = operation.menu_item  # type: models.MenuItem
@@ -318,11 +297,7 @@ class AssignNavigation(BaseMutation):
 
     class Meta:
         description = 'Assigns storefront\'s navigation menus.'
-
-    @classmethod
-    def user_is_allowed(cls, instance):
-        return instance.has_perms([
-            'menu.manage_menus', 'site.manage_settings'])
+        permissions = ('menu.manage_menus', 'site.manage_settings')
 
     @classmethod
     def perform_mutation(cls, _root, info, navigation_type, menu=None):

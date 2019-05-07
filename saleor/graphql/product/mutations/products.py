@@ -1,5 +1,3 @@
-from textwrap import dedent
-
 import graphene
 from django.core.exceptions import ValidationError
 from django.db import transaction
@@ -39,13 +37,14 @@ class CategoryCreate(ModelMutation):
         input = CategoryInput(
             required=True, description='Fields required to create a category.')
         parent_id = graphene.ID(
-            description=dedent('''
+            description='''
                 ID of the parent category. If empty, category will be top level
-                category.'''), name='parent')
+                category.''', name='parent')
 
     class Meta:
         description = 'Creates a new category.'
         model = models.Category
+        permissions = ('product.manage_products', )
 
     @classmethod
     def clean_input(cls, info, instance, data):
@@ -62,10 +61,6 @@ class CategoryCreate(ModelMutation):
             validate_image_file(image_data, 'background_image')
         clean_seo_fields(cleaned_input)
         return cleaned_input
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
 
     @classmethod
     def perform_mutation(cls, root, info, **data):
@@ -90,6 +85,7 @@ class CategoryUpdate(CategoryCreate):
     class Meta:
         description = 'Updates a category.'
         model = models.Category
+        permissions = ('product.manage_products', )
 
     @classmethod
     def save(cls, info, instance, cleaned_input):
@@ -106,10 +102,7 @@ class CategoryDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a category.'
         model = models.Category
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
 
 class CollectionInput(graphene.InputObjectType):
@@ -145,10 +138,7 @@ class CollectionCreate(ModelMutation):
     class Meta:
         description = 'Creates a new collection.'
         model = models.Collection
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def clean_input(cls, info, instance, data):
@@ -179,6 +169,7 @@ class CollectionUpdate(CollectionCreate):
     class Meta:
         description = 'Updates a collection.'
         model = models.Collection
+        permissions = ('product.manage_products', )
 
     @classmethod
     def save(cls, info, instance, cleaned_input):
@@ -195,10 +186,7 @@ class CollectionDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a collection.'
         model = models.Collection
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
 
 class CollectionAddProducts(BaseMutation):
@@ -216,10 +204,7 @@ class CollectionAddProducts(BaseMutation):
 
     class Meta:
         description = 'Adds products to a collection.'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, collection_id, products):
@@ -243,10 +228,7 @@ class CollectionRemoveProducts(BaseMutation):
 
     class Meta:
         description = 'Remove products from a collection.'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, collection_id, products):
@@ -292,17 +274,17 @@ class ProductInput(graphene.InputObjectType):
     weight = WeightScalar(
         description='Weight of the Product.', required=False)
     sku = graphene.String(
-        description=dedent("""Stock keeping unit of a product. Note: this
-        field is only used if a product doesn't use variants."""))
+        description="""Stock keeping unit of a product. Note: this
+        field is only used if a product doesn't use variants.""")
     quantity = graphene.Int(
-        description=dedent("""The total quantity of a product available for
+        description="""The total quantity of a product available for
         sale. Note: this field is only used if a product doesn't
-        use variants."""))
+        use variants.""")
     track_inventory = graphene.Boolean(
-        description=dedent("""Determines if the inventory of this product
+        description="""Determines if the inventory of this product
         should be tracked. If false, the quantity won't change when customers
         buy this item. Note: this field is only used if a product doesn't
-        use variants."""))
+        use variants.""")
 
 
 class ProductCreateInput(ProductInput):
@@ -319,6 +301,7 @@ class ProductCreate(ModelMutation):
     class Meta:
         description = 'Creates a new product.'
         model = models.Product
+        permissions = ('product.manage_products', )
 
     @classmethod
     def clean_input(cls, info, instance, data):
@@ -382,10 +365,6 @@ class ProductCreate(ModelMutation):
         if collections is not None:
             instance.collections.set(collections)
 
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
-
 
 class ProductUpdate(ProductCreate):
     class Arguments:
@@ -397,6 +376,7 @@ class ProductUpdate(ProductCreate):
     class Meta:
         description = 'Updates an existing product.'
         model = models.Product
+        permissions = ('product.manage_products', )
 
     @classmethod
     def clean_sku(cls, product_type, cleaned_input):
@@ -435,10 +415,7 @@ class ProductDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a product.'
         model = models.Product
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
 
 class ProductVariantInput(graphene.InputObjectType):
@@ -452,10 +429,9 @@ class ProductVariantInput(graphene.InputObjectType):
     quantity = graphene.Int(
         description='The total quantity of this variant available for sale.')
     track_inventory = graphene.Boolean(
-        description=dedent(
-            """Determines if the inventory of this variant should
+        description="""Determines if the inventory of this variant should
                be tracked. If false, the quantity won't change when customers
-               buy this item."""))
+               buy this item.""")
     weight = WeightScalar(
         description='Weight of the Product Variant.', required=False)
 
@@ -478,6 +454,7 @@ class ProductVariantCreate(ModelMutation):
     class Meta:
         description = 'Creates a new variant for a product'
         model = models.ProductVariant
+        permissions = ('product.manage_products', )
 
     @classmethod
     def clean_product_type_attributes(cls, attributes_qs, attributes_input):
@@ -525,10 +502,6 @@ class ProductVariantCreate(ModelMutation):
         instance.name = get_name_from_attributes(instance, attributes)
         instance.save()
 
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
-
 
 class ProductVariantUpdate(ProductVariantCreate):
     class Arguments:
@@ -541,6 +514,7 @@ class ProductVariantUpdate(ProductVariantCreate):
     class Meta:
         description = 'Updates an existing variant for product'
         model = models.ProductVariant
+        permissions = ('product.manage_products', )
 
 
 class ProductVariantDelete(ModelDeleteMutation):
@@ -551,33 +525,30 @@ class ProductVariantDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a product variant.'
         model = models.ProductVariant
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
 
 class ProductTypeInput(graphene.InputObjectType):
     name = graphene.String(description='Name of the product type.')
     has_variants = graphene.Boolean(
-        description=dedent("""Determines if product of this type has multiple
+        description="""Determines if product of this type has multiple
         variants. This option mainly simplifies product management
         in the dashboard. There is always at least one variant created under
-        the hood."""))
+        the hood.""")
     product_attributes = graphene.List(
         graphene.ID,
         description='List of attributes shared among all product variants.',
         name='productAttributes')
     variant_attributes = graphene.List(
         graphene.ID,
-        description=dedent("""List of attributes used to distinguish between
-        different variants of a product."""),
+        description="""List of attributes used to distinguish between
+        different variants of a product.""",
         name='variantAttributes')
     is_shipping_required = graphene.Boolean(
-        description=dedent("""Determines if shipping is required for products
-        of this variant."""))
+        description="""Determines if shipping is required for products
+        of this variant.""")
     is_digital = graphene.Boolean(
-        description=dedent("Determines if products are digital."),
+        description='Determines if products are digital.',
         required=False)
     weight = WeightScalar(description='Weight of the ProductType items.')
     tax_rate = TaxRateType(description='A type of goods.')
@@ -592,10 +563,7 @@ class ProductTypeCreate(ModelMutation):
     class Meta:
         description = 'Creates a new product type.'
         model = models.ProductType
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def _save_m2m(cls, info, instance, cleaned_data):
@@ -617,6 +585,7 @@ class ProductTypeUpdate(ProductTypeCreate):
     class Meta:
         description = 'Updates an existing product type.'
         model = models.ProductType
+        permissions = ('product.manage_products', )
 
     @classmethod
     def save(cls, info, instance, cleaned_input):
@@ -636,10 +605,7 @@ class ProductTypeDelete(ModelDeleteMutation):
     class Meta:
         description = 'Deletes a product type.'
         model = models.ProductType
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
 
 class ProductImageCreateInput(graphene.InputObjectType):
@@ -661,14 +627,11 @@ class ProductImageCreate(BaseMutation):
             description='Fields required to create a product image.')
 
     class Meta:
-        description = dedent('''Create a product image. This mutation must be
+        description = '''Create a product image. This mutation must be
         sent as a `multipart` request. More detailed specs of the upload format
         can be found here:
-        https://github.com/jaydenseric/graphql-multipart-request-spec''')
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        https://github.com/jaydenseric/graphql-multipart-request-spec'''
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, **data):
@@ -701,10 +664,7 @@ class ProductImageUpdate(BaseMutation):
 
     class Meta:
         description = 'Updates a product image.'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, **data):
@@ -732,10 +692,7 @@ class ProductImageReorder(BaseMutation):
 
     class Meta:
         description = 'Changes ordering of the product image.'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, product_id, images_ids):
@@ -774,10 +731,7 @@ class ProductImageDelete(BaseMutation):
 
     class Meta:
         description = 'Deletes a product image.'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, **data):
@@ -804,10 +758,7 @@ class VariantImageAssign(BaseMutation):
 
     class Meta:
         description = 'Assign an image to a product variant'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, image_id, variant_id):
@@ -841,10 +792,7 @@ class VariantImageUnassign(BaseMutation):
 
     class Meta:
         description = 'Unassign an image from a product variant'
-
-    @classmethod
-    def user_is_allowed(cls, user):
-        return user.has_perm('product.manage_products')
+        permissions = ('product.manage_products', )
 
     @classmethod
     def perform_mutation(cls, _root, info, image_id, variant_id):

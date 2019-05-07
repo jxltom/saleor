@@ -1,10 +1,10 @@
-from textwrap import dedent
-
 import graphene
 from graphql_jwt.decorators import permission_required
 
 from ..core.enums import ReportingPeriod
-from ..core.fields import PrefetchingConnectionField
+from ..core.fields import (
+    FilterInputConnectionField, PrefetchingConnectionField)
+from ..core.types import FilterInputObjectType
 from ..descriptions import DESCRIPTIONS
 from ..translations.mutations import (
     AttributeTranslate, AttributeValueTranslate, CategoryTranslate,
@@ -16,6 +16,7 @@ from .bulk_mutations.products import (
     ProductBulkDelete, ProductBulkPublish, ProductImageBulkDelete,
     ProductTypeBulkDelete, ProductVariantBulkDelete)
 from .enums import StockAvailability
+from .filters import CollectionFilter, ProductFilter, ProductTypeFilter
 from .mutations.attributes import (
     AttributeCreate, AttributeDelete, AttributeUpdate, AttributeValueCreate,
     AttributeValueDelete, AttributeValueUpdate)
@@ -40,6 +41,21 @@ from .types import (
     ProductType, ProductVariant)
 
 
+class ProductFilterInput(FilterInputObjectType):
+    class Meta:
+        filterset_class = ProductFilter
+
+
+class CollectionFilterInput(FilterInputObjectType):
+    class Meta:
+        filterset_class = CollectionFilter
+
+
+class ProductTypeFilterInput(FilterInputObjectType):
+    class Meta:
+        filterset_class = ProductTypeFilter
+
+
 class ProductQueries(graphene.ObjectType):
     digital_content = graphene.Field(
         DigitalContent, id=graphene.Argument(graphene.ID, required=True))
@@ -52,13 +68,11 @@ class ProductQueries(graphene.ObjectType):
         description='List of the shop\'s attributes.',
         query=graphene.String(description=DESCRIPTIONS['attributes']),
         in_category=graphene.Argument(
-            graphene.ID, description=dedent(
-                '''Return attributes for products belonging to the given
-                category.''')),
+            graphene.ID, description='''Return attributes for products 
+            belonging to the given category.'''),
         in_collection=graphene.Argument(
-            graphene.ID, description=dedent(
-                '''Return attributes for products belonging to the given
-                collection.''')), )
+            graphene.ID, description='''Return attributes for products
+            belonging to the given collection.'''), )
     categories = PrefetchingConnectionField(
         Category, query=graphene.String(
             description=DESCRIPTIONS['category']),
@@ -70,15 +84,16 @@ class ProductQueries(graphene.ObjectType):
     collection = graphene.Field(
         Collection, id=graphene.Argument(graphene.ID, required=True),
         description='Lookup a collection by ID.')
-    collections = PrefetchingConnectionField(
-        Collection, query=graphene.String(
+    collections = FilterInputConnectionField(
+        Collection, filter=CollectionFilterInput(), query=graphene.String(
             description=DESCRIPTIONS['collection']),
         description='List of the shop\'s collections.')
     product = graphene.Field(
         Product, id=graphene.Argument(graphene.ID, required=True),
         description='Lookup a product by ID.')
-    products = PrefetchingConnectionField(
+    products = FilterInputConnectionField(
         Product,
+        filter=ProductFilterInput(),
         attributes=graphene.List(
             AttributeScalar, description='Filter products by attributes.'),
         categories=graphene.List(
@@ -86,12 +101,9 @@ class ProductQueries(graphene.ObjectType):
         collections=graphene.List(
             graphene.ID, description='Filter products by collections.'),
         price_lte=graphene.Float(
-            description=dedent(
-                '''Filter by price less than or equal to the given value.''')),
+            description='Filter by price less than or equal to the given value.'),
         price_gte=graphene.Float(
-            description=dedent(
-                '''
-                Filter by price greater than or equal to the given value.''')),
+            description='Filter by price greater than or equal to the given value.'),
         sort_by=graphene.Argument(
             ProductOrder, description='Sort products.'),
         stock_availability=graphene.Argument(
@@ -102,8 +114,9 @@ class ProductQueries(graphene.ObjectType):
     product_type = graphene.Field(
         ProductType, id=graphene.Argument(graphene.ID, required=True),
         description='Lookup a product type by ID.')
-    product_types = PrefetchingConnectionField(
-        ProductType, description='List of the shop\'s product types.')
+    product_types = FilterInputConnectionField(
+        ProductType, filter=ProductTypeFilterInput(),
+        description='List of the shop\'s product types.')
     product_variant = graphene.Field(
         ProductVariant, id=graphene.Argument(graphene.ID, required=True),
         description='Lookup a variant by ID.')

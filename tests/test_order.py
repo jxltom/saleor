@@ -481,8 +481,7 @@ def test_order_payment_flow(
     payment = order.payments.all()[0]
     assert payment.total == order.total.gross.amount
     assert payment.currency == order.total.gross.currency
-    assert payment.transactions.count() == 2
-    assert payment.transactions.first().kind == 'auth'
+    assert payment.transactions.count() == 1
     assert payment.transactions.last().kind == 'capture'
 
 
@@ -585,7 +584,8 @@ def test_get_order_weight_non_existing_product(order_with_lines, product):
 @patch('saleor.order.utils.emails.send_fulfillment_confirmation')
 @patch('saleor.order.utils.get_default_digital_content_settings')
 def test_fulfill_digital_lines(
-        mock_digital_settings, mock_email_fulfillment, order_with_lines):
+        mock_digital_settings, mock_email_fulfillment, order_with_lines,
+        media_root):
     mock_digital_settings.return_value = {'automatic_fulfillment': True}
     line = order_with_lines.lines.all()[0]
 

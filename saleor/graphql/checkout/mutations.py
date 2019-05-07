@@ -1,6 +1,7 @@
 from datetime import date
 
 import graphene
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import transaction
 
@@ -23,6 +24,7 @@ from ...shipping.models import ShippingMethod as ShippingMethodModel
 from ..account.i18n import I18nMixin
 from ..account.types import Address, AddressInput, User
 from ..core.mutations import BaseMutation, ModelMutation
+from ..core.utils import from_global_id_strict_type
 from ..order.types import Order
 from ..product.types import ProductVariant
 from ..shipping.types import ShippingMethod
@@ -63,6 +65,10 @@ def clean_shipping_method(
 def check_lines_quantity(variants, quantities):
     """Check if stock is sufficient for each line in the list of dicts."""
     for variant, quantity in zip(variants, quantities):
+        if quantity > settings.MAX_CHECKOUT_LINE_QUANTITY:
+            raise ValidationError({
+                'quantity': 'Cannot add more than %d times this item.'
+                            '' % settings.MAX_CHECKOUT_LINE_QUANTITY})
         try:
             variant.check_quantity(quantity)
         except InsufficientStock as e:
@@ -466,8 +472,10 @@ class CheckoutShippingMethodUpdate(BaseMutation):
 
     @classmethod
     def perform_mutation(cls, _root, info, checkout_id, shipping_method_id):
-        checkout = cls.get_node_or_error(
+        checkout_id = from_global_id_strict_type(
             info, checkout_id, only_type=Checkout, field='checkout_id')
+        checkout = models.Checkout.objects.prefetch_related(
+            'lines__variant__product__collections').get(pk=checkout_id)
         shipping_method = cls.get_node_or_error(
             info, shipping_method_id, only_type=ShippingMethod,
             field='shipping_method_id')
