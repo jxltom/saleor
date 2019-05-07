@@ -1477,7 +1477,7 @@ def test_query_checkout_lines(
     assert expected_lines_ids == checkout_lines_ids
 
 
-def test_ready_to_place_order(
+def test_clean_checkout(
         checkout_with_item, payment_dummy, address, shipping_method):
     checkout = checkout_with_item
     checkout.shipping_address = address
@@ -1496,7 +1496,7 @@ def test_ready_to_place_order(
     clean_checkout(checkout, None, None)
 
 
-def test_ready_to_place_order_no_shipping_method(checkout_with_item, address):
+def test_clean_checkout_no_shipping_method(checkout_with_item, address):
     checkout = checkout_with_item
     checkout.shipping_address = address
     checkout.save()
@@ -1508,7 +1508,7 @@ def test_ready_to_place_order_no_shipping_method(checkout_with_item, address):
     assert e.value.error_list[0].message == msg
 
 
-def test_ready_to_place_order_no_shipping_address(
+def test_clean_checkout_no_shipping_address(
         checkout_with_item, shipping_method):
     checkout = checkout_with_item
     checkout.shipping_method = shipping_method
@@ -1520,7 +1520,7 @@ def test_ready_to_place_order_no_shipping_address(
     assert e.value.error_list[0].message == msg
 
 
-def test_ready_to_place_order_invalid_shipping_method(
+def test_clean_checkout_invalid_shipping_method(
         checkout_with_item, address, shipping_zone_without_countries):
     checkout = checkout_with_item
     checkout.shipping_address = address
@@ -1535,7 +1535,7 @@ def test_ready_to_place_order_invalid_shipping_method(
     assert e.value.error_list[0].message == msg
 
 
-def test_ready_to_place_order_no_billing_address(
+def test_clean_checkout_no_billing_address(
         checkout_with_item, address, shipping_method):
     checkout = checkout_with_item
     checkout.shipping_address = address
@@ -1548,7 +1548,7 @@ def test_ready_to_place_order_no_billing_address(
     assert e.value.error_list[0].message == msg
 
 
-def test_ready_to_place_order_no_payment(
+def test_clean_checkout_no_payment(
         checkout_with_item, shipping_method, address):
     checkout = checkout_with_item
     checkout.shipping_address = address
