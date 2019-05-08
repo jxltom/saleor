@@ -133,6 +133,10 @@ All notable, unreleased changes to this project will be documented in this file.
 - Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 - Fix typo in CheckoutBillingAddressUpdate - #4073 by @jxltom
 - Required checkout ID for updating checkout's shipping and billing address - #4074 by @jxltom
+- Implement order events - #4018 by @NyanKiyosho 
+  - Implemented new events: `DRAFT_CREATED`, `DRAFT_ADDED_PRODUCTS`, `DRAFT_REMOVED_PRODUCTS`, and `PAYMENT_FAILED`;
+  - Implemented new mail events: `TRACKING_UPDATED`, `DIGITAL_LINKS`;
+  - Refactored logic of events, it's now easier than ever to add and send events.
 
 - Resort imports and remove unused imports - #4069 by @jxltom
 
