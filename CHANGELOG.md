@@ -139,6 +139,8 @@ All notable, unreleased changes to this project will be documented in this file.
   - Refactored logic of events, it's now easier than ever to add and send events.
 
 - Resort imports and remove unused imports - #4069 by @jxltom
+- Add migrations since unnecessary indexes are removed in mptt model in [django-mptt/django-mptt#578](https://github.com/django-mptt/django-mptt/pull/578) - #4071 by @jxltom
+
 
 ## 2.5.0
 
