@@ -84,6 +84,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support is_default_shipping/billing_address for address API - #3787 by @jxltom
 - Several improvement on checkout and payment API #3795 by @jxltom
 - Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
+
 - Dropped Python 3.5 support - #4028 by @korycins
 - Refactor error handling in mutations #3891 by @maarcingebala @akjanik
 - Use only_fields instead of exclude_fields in gql api - #3940 by @michaljelonek
