@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -103,7 +104,7 @@ export interface ProductDetails_product_availability_priceRange {
 }
 
 export interface ProductDetails_product_availability {
-  __typename: "ProductAvailability";
+  __typename: "ProductPricingInfo";
   available: boolean | null;
   priceRange: ProductDetails_product_availability_priceRange | null;
 }
@@ -145,7 +146,7 @@ export interface ProductDetails_product {
   __typename: "Product";
   id: string;
   name: string;
-  description: string;
+  descriptionJson: any;
   seoTitle: string | null;
   seoDescription: string | null;
   category: ProductDetails_product_category;

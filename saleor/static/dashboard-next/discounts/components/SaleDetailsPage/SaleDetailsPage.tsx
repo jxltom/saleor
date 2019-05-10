@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import AppHeader from "../../../components/AppHeader";
 import CardSpacer from "../../../components/CardSpacer";
 import { ConfirmButtonTransitionState } from "../../../components/ConfirmButton";
 import Container from "../../../components/Container";
@@ -11,7 +12,7 @@ import { Tab } from "../../../components/Tab";
 import TabContainer from "../../../components/Tab/TabContainer";
 import i18n from "../../../i18n";
 import { maybe } from "../../../misc";
-import { ListProps, UserError } from "../../../types";
+import { ListProps, TabListActions, UserError } from "../../../types";
 import { SaleType } from "../../../types/globalTypes";
 import { SaleDetails_sale } from "../../types/SaleDetails";
 import DiscountCategories from "../DiscountCategories";
@@ -43,7 +44,10 @@ export function saleDetailsPageTab(tab: string): SaleDetailsPageTab {
 }
 
 export interface SaleDetailsPageProps
-  extends Pick<ListProps, Exclude<keyof ListProps, "onRowClick">> {
+  extends Pick<ListProps, Exclude<keyof ListProps, "onRowClick">>,
+    TabListActions<
+      "categoryListToolbar" | "collectionListToolbar" | "productListToolbar"
+    > {
   activeTab: SaleDetailsPageTab;
   defaultCurrency: string;
   errors: UserError[];
@@ -90,7 +94,13 @@ const SaleDetailsPage: React.StatelessComponent<SaleDetailsPageProps> = ({
   onPreviousPage,
   onProductAssign,
   onProductUnassign,
-  onProductClick
+  onProductClick,
+  categoryListToolbar,
+  collectionListToolbar,
+  productListToolbar,
+  isChecked,
+  selected,
+  toggle
 }) => {
   const initialForm: FormData = {
     endDate: maybe(() => (sale.endDate ? sale.endDate : ""), ""),
@@ -102,8 +112,9 @@ const SaleDetailsPage: React.StatelessComponent<SaleDetailsPageProps> = ({
   return (
     <Form errors={errors} initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, errors: formErrors, hasChanged, submit }) => (
-        <Container width="md">
-          <PageHeader title={maybe(() => sale.name)} onBack={onBack} />
+        <Container>
+          <AppHeader onBack={onBack}>{i18n.t("Sales")}</AppHeader>
+          <PageHeader title={maybe(() => sale.name)} />
           <Grid>
             <div>
               <SaleInfo
@@ -167,6 +178,10 @@ const SaleDetailsPage: React.StatelessComponent<SaleDetailsPageProps> = ({
                   onRowClick={onCategoryClick}
                   pageInfo={pageInfo}
                   discount={sale}
+                  isChecked={isChecked}
+                  selected={selected}
+                  toggle={toggle}
+                  toolbar={categoryListToolbar}
                 />
               ) : activeTab === SaleDetailsPageTab.collections ? (
                 <DiscountCollections
@@ -178,6 +193,10 @@ const SaleDetailsPage: React.StatelessComponent<SaleDetailsPageProps> = ({
                   onRowClick={onCollectionClick}
                   pageInfo={pageInfo}
                   discount={sale}
+                  isChecked={isChecked}
+                  selected={selected}
+                  toggle={toggle}
+                  toolbar={collectionListToolbar}
                 />
               ) : (
                 <DiscountProducts
@@ -189,6 +208,10 @@ const SaleDetailsPage: React.StatelessComponent<SaleDetailsPageProps> = ({
                   onRowClick={onProductClick}
                   pageInfo={pageInfo}
                   discount={sale}
+                  isChecked={isChecked}
+                  selected={selected}
+                  toggle={toggle}
+                  toolbar={productListToolbar}
                 />
               )}
             </div>

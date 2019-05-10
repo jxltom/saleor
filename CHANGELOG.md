@@ -3,22 +3,154 @@
 All notable, unreleased changes to this project will be documented in this file. For the released changes, please visit the [Releases](https://github.com/mirumee/saleor/releases) page.
 
 ## [Unreleased]
+
+- Dropped Python 3.5 support - #4028 by @korycins
+- Refactor error handling in mutations #3891 by @maarcingebala @akjanik
+- Use only_fields instead of exclude_fields in gql api - #3940 by @michaljelonek
+- Add mutation for bulk delete order lines - #3935 by @akjanik
+- Fix dashboard 1.0 missing logo and missing back arrow on collections - #3958 by @NyanKiyoshi
+- Add mutations for publishing and unpublishing multiple pages - #3954 by @akjanik
+- Prefetch collections when getting sales of a bunch of products - #3961 by @NyanKiyoshi
+- Move dialog windows to querystring rather than router paths - #3953 by @dominik-zeglen
+- Add mutation for bulk cancel orders - #3967 by @akjanik
+- Hide errors in TokenVerify mutation - #3981 by @fowczarek
+- Use newest GraphQL Playground - #3971 by @salwator
+- Fix country area choices - #4008 by @fowczarek
+- Cleanup and maintenance of the GraphQL API code - #3942 by @NyanKiyoshi
+- Removed the dead `children` field from the `Menu` type - #3973 by @NyanKiyoshi
+- Add mutations for bulk publishing and unpublishing products - #3969 by akjanik
+- Add mutation for bulk publishing and unpublishing collections - #3970 by @akjanik
+- Unittests use none as media root - #3975 by @korycins
+- Rename Cart to Checkout - #3963 by @michaljelonek
+- Implement menus items reordering into the GraphQL API - #3958 by @NyanKiyoshi
+- Simplify permission management in API through the meta classes - #3980 by @NyanKiyoshi
+- Add settings to enable Django Debug Toolbar - #3983 by @koradon
+- Implement variant availability, introducing discounts in variants - #3948 by @NyanKiyoshi
+- Add bulk actions - #3955 by @dominik-zeglen
+- Update file field styles with materializecss template filter - #3998 by @zodiacfireworks
+- Add filtering interface for graphQL API - #3952 by @korycins
+- Restrict single payment resolving - #4009 @NyanKiyoshi
+- Add mandatory fields errors in new product form - #4024 by @benekex2
+- Add navigation drawer support - #3839 by @benekex2
+- Set up explicit __hash__ function - #3979 by @akjanik
+- Update node-sass to latest version to fix node-js 12 compatibility - #4033 @NyanKiyoshi
+- Ensure adding to quantities in checkout is respecting the limits set both in storefront 1.0 and in the API - #4005 by @NyanKiyoshi
+- Fix price_range_as_dict function - #3999 by @zodiacfireworks
+- Remove unused decorator - #4036 by @maarcingebala
+- Overall improvement of the GraphQL performances, especially on single nodes - #3968 @NyanKiyoshi
+- Remove unnecessary dedents from GraphQL schema so new Playground can work - #4045 by @salwator
+- Add user avatar management - #4030 by @benekex2
+- Use dataclasses as a structure for payment's gateways - #4028 by @korycins
+- Fix the product listing not showing in the voucher when there were products selected - #4062 by @NyanKiyoshi
+- Fix crash in Dashboard 1.0 when updating an order address's phone number - #4061 by @NyanKiyoshi
+- Update test function names since ready_to_place_order is renamed to clean_checkout- #4070 by @jxltom
+- Resort imports and remove unused imports - #4069 by @jxltom
+- Fix typo in CheckoutBillingAddressUpdate - #4073 by @jxltom
+- Required checkout ID for updating checkout's shipping and billing address - #4074 by @jxltom
+- Implement order events - #4018 by @NyanKiyosho 
+  - Implemented new events: `DRAFT_CREATED`, `DRAFT_ADDED_PRODUCTS`, `DRAFT_REMOVED_PRODUCTS`, and `PAYMENT_FAILED`;
+  - Implemented new mail events: `TRACKING_UPDATED`, `DIGITAL_LINKS`;
+  - Refactored logic of events, it's now easier than ever to add and send events.
+- Reduce the time of tests execution by using dummy password hasher - #4083 by @korycins
+- Add migrations since unnecessary indexes are removed in mptt model in [django-mptt/django-mptt#578](https://github.com/django-mptt/django-mptt/pull/578) - #4071 by @jxltom
+- Update order events and order email events names in typescripts - #4089 by @jxltom
+- Migrated code style to Black. Saleor now includes configurations and tools related to use black. - #3852 by krzysztofwolski and NyanKiyoshi
+- Allow filtering by lists of enums for fields: ``Voucher.filter.status``, ``Voucher.filter.discount_type``, ``Sale.filter.status``, ``Order.filter.payment_status``, ``Order.filter.status``, ``Order.filter.custom_status`` - #4078 by @korycins
+
+
+## 2.5.0
+
+### API
+
+- Add query to fetch draft orders - #3809 by @michaljelonek
+- Add bulk delete mutations - #3838 by @michaljelonek
+- Add `languageCode` enum to API - #3819 by @michaljelonek, #3854 by @jxltom
+- Duplicate address instances in checkout mutations - #3866 by @pawelzar
+- Restrict access to `orders` query for unauthorized users - #3861 by @pawelzar
+- Support setting address as default in address mutations - #3787 by @jxltom
+- Fix phone number validation in GraphQL when country prefix not given - #3905 by @patrys
+- Report pretty stack traces in DEBUG mode - #3918 by @patrys
+
+### Core
+
+- Drop support for Django 2.1 and Django 1.11 (previous LTS) - #3929 by @patrys
+- Fulfillment of digital products - #3868 by @korycins
+- Introduce avatars for staff accounts - #3878 by @pawelzar
+- Refactor the account avatars path from a relative to absolute - #3938 by @NyanKiyoshi
+
+### Dashboard 2.0
+
+- Add translations section - #3884 by @dominik-zeglen
+- Add light/dark theme - #3856 by @dominik-zeglen
+- Add customer's address book view - #3826 by @dominik-zeglen
+- Add "Add variant" button on the variant details page = #3914 by @dominik-zeglen
+- Add back arrows in "Configure" subsections - #3917 by @dominik-zeglen
+- Display avatars in staff views - #3922 by @dominik-zeglen
+- Prevent user from changing his own status and permissions - #3922 by @dominik-zeglen
+- Fix crashing product create view - #3837, #3910 by @dominik-zeglen
+- Fix layout in staff members details page - #3857 by @dominik-zeglen
+- Fix unfocusing rich text editor - #3902 by @dominik-zeglen
+- Improve accessibility - #3856 by @dominik-zeglen
+
+### Other notable changes
+
+- Improve user and staff management in dashboard 1.0 - #3781 by @jxltom
+- Fix default product tax rate in Dashboard 1.0 - #3880 by @pawelzar
+- Fix logo in docs - #3928 by @michaljelonek
+- Fix name of logo file - #3867 by @jxltom
+- Fix variants for juices in example data - #3926 by @michaljelonek
+- Fix alignment of the cart dropdown on new bootstrap version - #3937 by @NyanKiyoshi
+- Refactor the account avatars path from a relative to absolute - #3938 by @NyanKiyoshi
 - New translations:
-  - Estonian
-  - Indonesian
-- Fix problem with l10n in Braintree payment gateway template - #3691 by @Kwaidan00
-- Improve vouchers country limiting  - #3707 by @michaljelonek
-- Add support for date and datetime components - #3708 by @dominik-zeglen
-- Unify field names on product, collection and page - #3706 by @michaljelonek
-- Generate voucher code if it wasn't provided in mutation - #3717 by @Kwaidan00
-- Reuse Storefront's 1.0 payment logic in API - #3715 by @maarcingebala
-- Add instructions for using local assets in Docker - #3723 by @michaljelonek
-- Remove unused imports - #3645 by @jxltom
-- Add discount section - #3654 by @dominik-zeglen
-- Disable style-loader in dev mode - #3720 by @jxltom
+  - Armenian
+  - Portuguese
+  - Swahili
+  - Thai
+
+## 2.4.0
+
+### API
+
+- Add model translations support in GraphQL API - #3789 by @michaljelonek
+- Add mutations to manage addresses for authenticated customers - #3772 by @Kwaidan00, @maarcingebala
+- Add mutation to apply vouchers in checkout - #3739 by @Kwaidan00
+- Add thumbnail field to `OrderLine` type - #3737 by @michaljelonek
+- Add a query to fetch order by token - #3740 by @michaljelonek
+- Add city choices and city area type to address validator API - #3788 by @jxltom
+- Fix access to unpublished objects in API - #3724 by @Kwaidan00
+- Fix bug where errors are not returned when creating fulfillment with a non-existent order line - #3777 by @jxltom
+- Fix `productCreate` mutation when no product type was provided - #3804 by @michaljelonek
+- Enable database search in products query - #3736 by @michaljelonek
 - Use authenticated user's email as default email in creating checkout - #3726 by @jxltom
-- Fix access to unpublished objects via API - #3724 by @Kwaidan00
-- Add thumbnail to OrderLine, deprecate thumbnailUrl - #3737 by @michaljelonek
+- Generate voucher code if it wasn't provided in mutation - #3717 by @Kwaidan00
+- Improve limitation of vouchers by country - #3707 by @michaljelonek
+- Only include canceled fulfillments for staff in fulfillment API - #3778 by @jxltom
+- Support setting address as when creating customer address #3782 by @jxltom
+- Fix generating slug from title - #3816 by @maarcingebala
+- Add `variant` field to `OrderLine` type - #3820 by @maarcingebala
+
+### Core
+
+- Add JSON fields to store rich-text content - #3756 by @michaljelonek
+- Add function to recalculate total order weight - #3755 by @Kwaidan00, @maarcingebala
+- Unify cart creation logic in API and Django views - #3761, #3790 by @maarcingebala
+- Unify payment creation logic in API and Django views - #3715 by @maarcingebala
+- Support partially charged and refunded payments - #3735 by @jxltom
+- Support partial fulfillment of ordered items - #3754 by @jxltom
+- Fix applying discounts when a sale has no end date - #3595 by @cprinos
+
+### Dashboard 2.0
+
+- Add "Discounts" section - #3654 by @dominik-zeglen
+- Add "Pages" section; introduce Draftail WYSIWYG editor - #3751 by @dominik-zeglen
+- Add "Shipping Methods" section - #3770 by @dominik-zeglen
+- Add support for date and datetime components - #3708 by @dominik-zeglen
+- Restyle app layout - #3811 by @dominik-zeglen
+
+### Other notable changes
+
+- Unify model field names related to models' public access - `publication_date` and `is_published` - #3706 by @michaljelonek
+- Improve filter orders by payment status - #3749 @jxltom
 - Refactor translations in emails - #3701 by @Kwaidan00
 - Add orderByToken query - #3740 by @michaljelonek
 - Enable existing search with backend picker in products query - #3736 by @michaljelonek
@@ -26,32 +158,36 @@ All notable, unreleased changes to this project will be documented in this file.
 - Create checkout when accesing checkout if user has no available checkouts in me API - #3745 by @jxltom
 - Sort order's payment and history descendingly - #3747 by @jxltom
 - Use exact image versions in docker-compose - #3742 by @ashishnitinpatil
-- Add mutation to connect voucher with checkout - #3739 by @Kwaidan00
+- Sort order payment and history in descending order - #3747 by @jxltom
+- Disable style-loader in dev mode - #3720 by @jxltom
+- Add ordering to shipping method - #3806 by @michaljelonek
+- Add missing type definition for dashboard 2.0 - #3776 by @jxltom
+- Add header and footer for checkout success pages #3752 by @jxltom
+- Add instructions for using local assets in Docker - #3723 by @michaljelonek
 - Update S3 deployment documentation to include CORS configuration note - #3743 by @NyanKiyoshi
 - Fix missing migrations for is_published field of product and page model - #3757 by @jxltom
-- Add header and footer for checkout success pages #3752 by @jxltom
-- Filter order by payment status from order's last payment - #3749 @jxltom
-- Reuse cart creation logic in API - #3761 by @maarcingebala
-- Add json fields to models for content/description - #3756 by @michaljelonek
-- Fix bug where errors are not returned when creating fulfillment with non-existed order line - #3777 by @jxltom
-- Support fulfill order with 0 quantity only if total quantity is larger than 0 - #3754 by @jxltom
+- Fix problem with l10n in Braintree payment gateway template - #3691 by @Kwaidan00
+- Fix bug where payment is not filtered from active ones when creating payment - #3732 by @jxltom
+- Fix incorrect cart badge location - #3786 by @jxltom
 - Fix storefront styles after bootstrap is updated to 4.3.1 - #3753 by @jxltom
 - Fix logo size in different browser and devices with different sizes - #3722 by @jxltom
-- Add missing type definition for dashboard 2.0 - #3776 by @jxltom
-- Add mutations to manage addresses for authenticated customers - #3772 by @Kwaidan00, @maarcingebala
-- Only include cancelled fulfillments for staff in fulfillment API - #3778 by @jxltom
-- Fix incorrect cart badge location - #3786 by @jxltom
-- Add function to recalculate order's total weight - #3755 by @Kwaidan00, @maarcingebala
-- Unify behavior after creating checkout in API and Storefront 1.0; code formatting improvements - #3790 by @maarcingebala
-
+- Rename dumpdata file `db.json` to `populatedb_data.json` - #3810 by @maarcingebala
+- Prefetch collections for product availability - #3813 by @michaljelonek
+- Bump django-graphql-jwt - #3814 by @michaljelonek
+- Fix generating slug from title - #3816 by @maarcingebala
+- New translations:
+  - Estonian
+  - Indonesian
 
 ## 2.3.1
+
 - Fix access to private variant fields in API - #3773 by maarcingebala
 - Limit access of quantity and allocated quantity to staff in GraphQL API #3780 by @jxltom
 
-
 ## 2.3.0
+
 ### API
+
 - Return user's last checkout in the `User` type - #3578 by @fowczarek
 - Automatically assign checkout to the logged in user - #3587 by @fowczarek
 - Expose `chargeTaxesOnShipping` field in the `Shop` type - #3603 by @fowczarek
@@ -71,15 +207,17 @@ All notable, unreleased changes to this project will be documented in this file.
 - Handle GraphqQL syntax errors - #3576 by @jxltom
 
 ### Core
+
 - Refactor payments architecture - #3519 by @michaljelonek
 - Improve Docker and `docker-compose` configuration - #3657 by @michaljelonek
 - Allow setting payment status manually for dummy gateway in Storefront 1.0 - #3648 by @jxltom
-- Infer default transaction kind from operation type  - #3646 by @jxltom
+- Infer default transaction kind from operation type - #3646 by @jxltom
 - Get correct payment status for order without any payments - #3605 by @jxltom
 - Add default ordering by `id` for `CartLine` model - #3593 by @jxltom
 - Fix "set password" email sent to customer created in the dashboard - #3688 by @Kwaidan00
 
 ### Dashboard 2.0
+
 - ️Add taxes section - #3622 by @dominik-zeglen
 - Add drag'n'drop image upload - #3611 by @dominik-zeglen
 - Unify grid handling - #3520 by @dominik-zeglen
@@ -90,6 +228,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix logo placement - #3602 by @dominik-zeglen
 
 ### Other notable changes
+
 - Register Celery task for updating exchange rates - #3599 by @jxltom
 - Fix handling different attributes with the same slug - #3626 by @jxltom
 - Add missing migrations for tax rate choices - #3629 by @jxltom
@@ -106,9 +245,10 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix product list price filter - #3697 by @Kwaidan00
 - Redirect to success page after successful payment - #3693 by @Kwaidan00
 
-
 ## 2.2.0
+
 ### API
+
 - Use `PermissionEnum` as input parameter type for `permissions` field - #3434 by @maarcingebala
 - Add "authorize" and "charge" mutations for payments - #3426 by @jxltom
 - Add alt text to product thumbnails and background images of collections and categories - #3429 by @fowczarek
@@ -124,6 +264,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Extract enums to separate files - #3523 by @maarcingebala
 
 ### Core
+
 - Add Stripe payment gateway - #3408 by @jxltom
 - Add `first_name` and `last_name` fields to the `User` model - #3101 by @fowczarek
 - Improve several payment validations - #3418 by @jxltom
@@ -142,6 +283,7 @@ All notable, unreleased changes to this project will be documented in this file.
   - Serbian
 
 ### Dashboard 2.0
+
 - Restyle product selection dialogs - #3499 by @dominik-zeglen, @maarcingebala
 - Fix minor visual bugs in Dashboard 2.0 - #3433 by @dominik-zeglen
 - Display warning if order draft has missing data - #3431 by @dominik-zeglen
@@ -158,17 +300,19 @@ All notable, unreleased changes to this project will be documented in this file.
 - Change TypeScript loader to speed up the build process - #3545 by @patrys
 
 ### Bugfixes
+
 - Do not show `Pay For Order` if order is partly paid since partial payment is not supported - #3398 by @jxltom
 - Fix attribute filters in the products category view - #3535 by @fowczarek
 - Fix storybook dependencies conflict - #3544 by @dominik-zeglen
 
-
 ## 2.1.0
+
 ### API
+
 - Change selected connection fields to lists - #3307 by @fowczarek
 - Require pagination in connections - #3352 by @maarcingebala
 - Replace Graphene view with a custom one - #3263 by @patrys
-- Change `sortBy` parameter to use enum type  - #3345 by @fowczarek
+- Change `sortBy` parameter to use enum type - #3345 by @fowczarek
 - Add `me` query to fetch data of a logged-in user - #3202, #3316 by @fowczarek
 - Add `canFinalize` field to the Order type - #3356 by @fowczarek
 - Extract resolvers and mutations to separate files - #3248 by @fowczarek
@@ -176,6 +320,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Allow creating orders without users - #3396 by @fowczarek
 
 ### Core
+
 - Add Razorpay payment gatway - #3205 by @NyanKiyoshi
 - Use standard tax rate as a default tax rate value - #3340 by @fowczarek
 - Add description field to the Collection model - #3275 by @fowczarek
@@ -199,6 +344,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Resort imports by `isort` - #3412 by @jxltom
 
 ### Dashboard 2.0
+
 - Add confirmation modal when leaving view with unsaved changes - #3375 by @dominik-zeglen
 - Add dialog loading and error states - #3359 by @dominik-zeglen
 - Split paths and urls - #3350 by @dominik-zeglen
@@ -220,6 +366,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Add pagination for required connections - #3411 by @dominik-zeglen
 
 ### Bugfixes
+
 - Fix language codes - #3311 by @jxltom
 - Fix resolving empty attributes list - #3293 by @maarcingebala
 - Fix range filters not being applied - #3385 by @michaljelonek
@@ -232,14 +379,16 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix updating background image of a collection - #3362 by @fowczarek & @dominik-zeglen
 
 ### Docs
+
 - Document settings related to generating thumbnails on demand - #3329 by @NyanKiyoshi
 - Improve documentation for Heroku deployment - #3170 by @raybesiga
 - Update documentation on Docker deployment - #3326 by @jxltom
 - Document payment gateway configuration - #3376 by @NyanKiyoshi
 
-
 ## 2.0.0
+
 ### API
+
 - Add mutation to delete a customer; add `isActive` field in `customerUpdate` mutation - #3177 by @maarcingebala
 - Add mutations to manage authorization keys - #3082 by @maarcingebala
 - Add queries for dashboard homepage - #3146 by @maarcingebala
@@ -258,6 +407,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Apply `textwrap.dedent` to GraphQL descriptions - #3167 by @fowczarek
 
 ### Dashboard 2.0
+
 - Add collection management - #3135 by @dominik-zeglen
 - Add customer management - #3176 by @dominik-zeglen
 - Add homepage view - #3155, #3178 by @Bonifacy1 and @dominik-zeglen
@@ -267,6 +417,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Restyle categories section - #3072 by @Bonifacy1
 
 ### Other
+
 - Change relation between `ProductType` and `Attribute` models - #3097 by @maarcingebala
 - Remove `quantity-allocated` generation in `populatedb` script - #3084 by @MartinSeibert
 - Handle `Money` serialization - #3131 by @Pacu2
@@ -279,10 +430,12 @@ All notable, unreleased changes to this project will be documented in this file.
 - Move updating variant names to a Celery task - #3189 by @fowczarek
 
 ### Bugfixes
+
 - Fix typo in `clean_input` method - #3100 by @the-bionic
 - Fix typo in `ShippingMethod` model - #3099 by @the-bionic
 - Remove duplicated variable declaration - #3094 by @the-bionic
 
 ### Docs
+
 - Add createdb note to getting started for Windows - #3106 by @ajostergaard
 - Update docs on pipenv - #3045 by @jxltom

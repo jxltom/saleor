@@ -11,18 +11,38 @@ from .payment.schema import PaymentMutations, PaymentQueries
 from .product.schema import ProductMutations, ProductQueries
 from .shipping.schema import ShippingMutations, ShippingQueries
 from .shop.schema import ShopMutations, ShopQueries
+from .translations.schema import TranslationQueries
 
 
-class Query(AccountQueries, CheckoutQueries, DiscountQueries, MenuQueries,
-            OrderQueries, PageQueries, PaymentQueries, ProductQueries,
-            ShippingQueries, ShopQueries):
+class Query(
+    AccountQueries,
+    CheckoutQueries,
+    DiscountQueries,
+    MenuQueries,
+    OrderQueries,
+    PageQueries,
+    PaymentQueries,
+    ProductQueries,
+    ShippingQueries,
+    ShopQueries,
+    TranslationQueries,
+):
     node = graphene.Node.Field()
 
 
-class Mutations(AccountMutations, CheckoutMutations, CoreMutations,
-                DiscountMutations, MenuMutations, OrderMutations,
-                PageMutations, PaymentMutations, ProductMutations,
-                ShippingMutations, ShopMutations):
+class Mutations(
+    AccountMutations,
+    CheckoutMutations,
+    CoreMutations,
+    DiscountMutations,
+    MenuMutations,
+    OrderMutations,
+    PageMutations,
+    PaymentMutations,
+    ProductMutations,
+    ShippingMutations,
+    ShopMutations,
+):
     pass
 
 

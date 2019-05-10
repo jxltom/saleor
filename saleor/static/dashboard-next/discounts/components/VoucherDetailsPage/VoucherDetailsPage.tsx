@@ -1,8 +1,11 @@
+import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 
+import AppHeader from "../../../components/AppHeader";
 import CardSpacer from "../../../components/CardSpacer";
 import { ConfirmButtonTransitionState } from "../../../components/ConfirmButton";
 import Container from "../../../components/Container";
+import CountryList from "../../../components/CountryList";
 import Form from "../../../components/Form";
 import Grid from "../../../components/Grid";
 import PageHeader from "../../../components/PageHeader";
@@ -11,7 +14,7 @@ import { Tab } from "../../../components/Tab";
 import TabContainer from "../../../components/Tab/TabContainer";
 import i18n from "../../../i18n";
 import { maybe } from "../../../misc";
-import { ListProps, UserError } from "../../../types";
+import { ListProps, TabListActions, UserError } from "../../../types";
 import {
   VoucherDiscountValueType,
   VoucherType
@@ -20,7 +23,6 @@ import { VoucherDetails_voucher } from "../../types/VoucherDetails";
 import DiscountCategories from "../DiscountCategories";
 import DiscountCollections from "../DiscountCollections";
 import DiscountProducts from "../DiscountProducts";
-import VoucherCountries from "../VoucherCountries";
 import VoucherInfo from "../VoucherInfo";
 import VoucherOptions from "../VoucherOptions";
 import VoucherSummary from "../VoucherSummary";
@@ -52,7 +54,10 @@ export interface FormData {
 }
 
 export interface VoucherDetailsPageProps
-  extends Pick<ListProps, Exclude<keyof ListProps, "onRowClick">> {
+  extends Pick<ListProps, Exclude<keyof ListProps, "onRowClick">>,
+    TabListActions<
+      "categoryListToolbar" | "collectionListToolbar" | "productListToolbar"
+    > {
   activeTab: VoucherDetailsPageTab;
   defaultCurrency: string;
   errors: UserError[];
@@ -103,7 +108,13 @@ const VoucherDetailsPage: React.StatelessComponent<VoucherDetailsPageProps> = ({
   onProductUnassign,
   onTabClick,
   onRemove,
-  onSubmit
+  onSubmit,
+  toggle,
+  selected,
+  isChecked,
+  categoryListToolbar,
+  collectionListToolbar,
+  productListToolbar
 }) => {
   const initialForm: FormData = {
     applyOncePerOrder: maybe(() => voucher.applyOncePerOrder, false),
@@ -124,8 +135,9 @@ const VoucherDetailsPage: React.StatelessComponent<VoucherDetailsPageProps> = ({
   return (
     <Form errors={errors} initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, errors: formErrors, hasChanged, submit }) => (
-        <Container width="md">
-          <PageHeader title={maybe(() => voucher.name)} onBack={onBack} />
+        <Container>
+          <AppHeader onBack={onBack}>{i18n.t("Vouchers")}</AppHeader>
+          <PageHeader title={maybe(() => voucher.name)} />
           <Grid>
             <div>
               <VoucherInfo
@@ -194,6 +206,10 @@ const VoucherDetailsPage: React.StatelessComponent<VoucherDetailsPageProps> = ({
                       onRowClick={onCategoryClick}
                       pageInfo={pageInfo}
                       discount={voucher}
+                      isChecked={isChecked}
+                      selected={selected}
+                      toggle={toggle}
+                      toolbar={categoryListToolbar}
                     />
                   ) : activeTab === VoucherDetailsPageTab.collections ? (
                     <DiscountCollections
@@ -205,6 +221,10 @@ const VoucherDetailsPage: React.StatelessComponent<VoucherDetailsPageProps> = ({
                       onRowClick={onCollectionClick}
                       pageInfo={pageInfo}
                       discount={voucher}
+                      isChecked={isChecked}
+                      selected={selected}
+                      toggle={toggle}
+                      toolbar={collectionListToolbar}
                     />
                   ) : (
                     <DiscountProducts
@@ -216,15 +236,30 @@ const VoucherDetailsPage: React.StatelessComponent<VoucherDetailsPageProps> = ({
                       onRowClick={onProductClick}
                       pageInfo={pageInfo}
                       discount={voucher}
+                      isChecked={isChecked}
+                      selected={selected}
+                      toggle={toggle}
+                      toolbar={productListToolbar}
                     />
                   )}
                 </>
               ) : data.type === VoucherType.SHIPPING ? (
-                <VoucherCountries
+                <CountryList
+                  countries={maybe(() => voucher.countries)}
                   disabled={disabled}
+                  emptyText={i18n.t("Voucher applies to all countries")}
+                  title={
+                    <>
+                      {i18n.t("Countries assigned to {{ voucherName }}", {
+                        voucherName: maybe(() => voucher.name)
+                      })}
+                      <Typography variant="caption">
+                        {i18n.t("Vouchers limited to these countries")}
+                      </Typography>
+                    </>
+                  }
                   onCountryAssign={onCountryAssign}
                   onCountryUnassign={onCountryUnassign}
-                  voucher={voucher}
                 />
               ) : null}
             </div>

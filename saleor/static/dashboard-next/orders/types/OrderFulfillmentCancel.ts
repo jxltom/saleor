@@ -1,7 +1,8 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { FulfillmentCancelInput, OrderEventsEmails, OrderEvents, FulfillmentStatus, PaymentChargeStatusEnum, OrderStatus, OrderAction } from "./../../types/globalTypes";
+import { FulfillmentCancelInput, OrderEventsEmailsEnum, OrderEventsEnum, FulfillmentStatus, PaymentChargeStatusEnum, OrderStatus, OrderAction } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: OrderFulfillmentCancel
@@ -37,6 +38,7 @@ export interface OrderFulfillmentCancel_orderFulfillmentCancel_order_billingAddr
 
 export interface OrderFulfillmentCancel_orderFulfillmentCancel_order_events_user {
   __typename: "User";
+  id: string;
   email: string;
 }
 
@@ -46,10 +48,10 @@ export interface OrderFulfillmentCancel_orderFulfillmentCancel_order_events {
   amount: number | null;
   date: any | null;
   email: string | null;
-  emailType: OrderEventsEmails | null;
+  emailType: OrderEventsEmailsEnum | null;
   message: string | null;
   quantity: number | null;
-  type: OrderEvents | null;
+  type: OrderEventsEnum | null;
   user: OrderFulfillmentCancel_orderFulfillmentCancel_order_events_user | null;
 }
 

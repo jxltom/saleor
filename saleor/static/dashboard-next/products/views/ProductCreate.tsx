@@ -78,7 +78,9 @@ export const ProductUpdate: React.StatelessComponent<
                                           collections: formData.collections.map(
                                             collection => collection.value
                                           ),
-                                          description: formData.description,
+                                          descriptionJson: JSON.stringify(
+                                            formData.description
+                                          ),
                                           isPublished: formData.available,
                                           name: formData.name,
                                           price: decimal(formData.price),
@@ -87,7 +89,9 @@ export const ProductUpdate: React.StatelessComponent<
                                           publicationDate:
                                             formData.publicationDate !== ""
                                               ? formData.publicationDate
-                                              : null
+                                              : null,
+                                          sku: formData.sku,
+                                          stockQuantity: formData.stockQuantity !== null ? formData.stockQuantity : 0,
                                         }
                                       });
                                     };
@@ -125,25 +129,20 @@ export const ProductUpdate: React.StatelessComponent<
                                             []
                                           ).map(edge => edge.node)}
                                           disabled={disabled}
-                                          errors={
-                                            productCreateData &&
-                                            productCreateData.productCreate &&
-                                            productCreateData.productCreate
-                                              .errors
-                                              ? productCreateData.productCreate
-                                                  .errors
-                                              : []
-                                          }
+                                          errors={maybe(
+                                            () =>
+                                              productCreateData.productCreate
+                                                .errors,
+                                            []
+                                          )}
                                           fetchCategories={searchCategory}
                                           fetchCollections={searchCollection}
                                           header={i18n.t("New Product")}
-                                          productTypes={
-                                            data && data.productTypes
-                                              ? data.productTypes.edges.map(
-                                                  edge => edge.node
-                                                )
-                                              : undefined
-                                          }
+                                          productTypes={maybe(() =>
+                                            data.productTypes.edges.map(
+                                              edge => edge.node
+                                            )
+                                          )}
                                           onAttributesEdit={
                                             handleAttributesEdit
                                           }

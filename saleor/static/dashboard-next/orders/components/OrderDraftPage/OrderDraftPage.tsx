@@ -7,7 +7,8 @@ import {
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
 
-import { CardMenu } from "../../../components/CardMenu/CardMenu";
+import AppHeader from "../../../components/AppHeader";
+import CardMenu from "../../../components/CardMenu";
 import { ConfirmButtonTransitionState } from "../../../components/ConfirmButton/ConfirmButton";
 import { Container } from "../../../components/Container";
 import { DateTime } from "../../../components/Date";
@@ -33,9 +34,6 @@ const styles = (theme: Theme) =>
     },
     header: {
       marginBottom: 0
-    },
-    menu: {
-      marginRight: -theme.spacing.unit
     }
   });
 
@@ -88,14 +86,13 @@ const OrderDraftPage = withStyles(styles, { name: "OrderDraftPage" })(
     users,
     usersLoading
   }: OrderDraftPageProps) => (
-    <Container width="md">
+    <Container>
+      <AppHeader onBack={onBack}>{i18n.t("Orders")}</AppHeader>
       <PageHeader
         className={classes.header}
         title={maybe(() => order.number) ? "#" + order.number : undefined}
-        onBack={onBack}
       >
         <CardMenu
-          className={classes.menu}
           menuItems={[
             {
               label: i18n.t("Cancel order", { context: "button" }),

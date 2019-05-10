@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 import { AttributeValueInput } from "./../../types/globalTypes";
@@ -111,7 +112,7 @@ export interface ProductCreate_productCreate_product_availability_priceRange {
 }
 
 export interface ProductCreate_productCreate_product_availability {
-  __typename: "ProductAvailability";
+  __typename: "ProductPricingInfo";
   available: boolean | null;
   priceRange: ProductCreate_productCreate_product_availability_priceRange | null;
 }
@@ -153,7 +154,7 @@ export interface ProductCreate_productCreate_product {
   __typename: "Product";
   id: string;
   name: string;
-  description: string;
+  descriptionJson: any;
   seoTitle: string | null;
   seoDescription: string | null;
   category: ProductCreate_productCreate_product_category;
@@ -188,9 +189,11 @@ export interface ProductCreateVariables {
   category: string;
   chargeTaxes: boolean;
   collections?: (string | null)[] | null;
-  description?: string | null;
+  descriptionJson?: any | null;
   isPublished: boolean;
   name: string;
   price?: any | null;
   productType: string;
+  sku?: string | null;
+  stockQuantity?: number | null;
 }

@@ -1,5 +1,7 @@
+import { RawDraftContentState } from "draft-js";
 import * as React from "react";
 
+import AppHeader from "../../../components/AppHeader";
 import { CardSpacer } from "../../../components/CardSpacer";
 import { ConfirmButtonTransitionState } from "../../../components/ConfirmButton/ConfirmButton";
 import Container from "../../../components/Container";
@@ -11,7 +13,7 @@ import { Tab } from "../../../components/Tab";
 import TabContainer from "../../../components/Tab/TabContainer";
 import i18n from "../../../i18n";
 import { maybe } from "../../../misc";
-import { UserError } from "../../../types";
+import { TabListActions, UserError } from "../../../types";
 import CategoryDetailsForm from "../../components/CategoryDetailsForm";
 import CategoryList from "../../components/CategoryList";
 import {
@@ -24,7 +26,7 @@ import CategoryProductsCard from "../CategoryProductsCard";
 
 export interface FormData {
   backgroundImageAlt: string;
-  description: string;
+  description: RawDraftContentState;
   name: string;
   seoTitle: string;
   seoDescription: string;
@@ -35,7 +37,8 @@ export enum CategoryPageTab {
   products = "products"
 }
 
-export interface CategoryUpdatePageProps {
+export interface CategoryUpdatePageProps
+  extends TabListActions<"productListToolbar" | "subcategoryListToolbar"> {
   changeTab: (index: CategoryPageTab) => void;
   currentTab: CategoryPageTab;
   errors: UserError[];
@@ -86,12 +89,17 @@ export const CategoryUpdatePage: React.StatelessComponent<
   onProductClick,
   onSubmit,
   onImageDelete,
-  onImageUpload
+  onImageUpload,
+  isChecked,
+  productListToolbar,
+  selected,
+  subcategoryListToolbar,
+  toggle
 }: CategoryUpdatePageProps) => {
   const initialData: FormData = category
     ? {
         backgroundImageAlt: maybe(() => category.backgroundImage.alt, ""),
-        description: category.description || "",
+        description: maybe(() => JSON.parse(category.descriptionJson)),
         name: category.name || "",
         seoDescription: category.seoDescription || "",
         seoTitle: category.seoTitle || ""
@@ -111,12 +119,11 @@ export const CategoryUpdatePage: React.StatelessComponent<
       confirmLeave
     >
       {({ data, change, errors, submit, hasChanged }) => (
-        <Container width="md">
-          <PageHeader
-            title={category ? category.name : undefined}
-            onBack={onBack}
-          />
+        <Container>
+          <AppHeader onBack={onBack}>{i18n.t("Categories")}</AppHeader>
+          <PageHeader title={category ? category.name : undefined} />
           <CategoryDetailsForm
+            category={category}
             data={data}
             disabled={disabled}
             errors={errors}
@@ -138,7 +145,7 @@ export const CategoryUpdatePage: React.StatelessComponent<
             title={data.seoTitle}
             titlePlaceholder={data.name}
             description={data.seoDescription}
-            descriptionPlaceholder={data.description}
+            descriptionPlaceholder={data.name}
             loading={!category}
             onChange={change}
             disabled={disabled}
@@ -169,6 +176,10 @@ export const CategoryUpdatePage: React.StatelessComponent<
               onNextPage={onNextPage}
               onPreviousPage={onPreviousPage}
               pageInfo={pageInfo}
+              toggle={toggle}
+              selected={selected}
+              isChecked={isChecked}
+              toolbar={subcategoryListToolbar}
             />
           )}
           {currentTab === CategoryPageTab.products && (
@@ -181,6 +192,10 @@ export const CategoryUpdatePage: React.StatelessComponent<
               onPreviousPage={onPreviousPage}
               onRowClick={onProductClick}
               onAdd={onAddProduct}
+              toggle={toggle}
+              selected={selected}
+              isChecked={isChecked}
+              toolbar={productListToolbar}
             />
           )}
           <SaveButtonBar
