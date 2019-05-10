@@ -131,7 +131,6 @@ All notable, unreleased changes to this project will be documented in this file.
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 - Update test function names since ready_to_place_order is renamed to clean_checkout- #4070 by @jxltom
 - Resort imports and remove unused imports - #4069 by @jxltom
-- Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 - Fix typo in CheckoutBillingAddressUpdate - #4073 by @jxltom
 - Required checkout ID for updating checkout's shipping and billing address - #4074 by @jxltom
 - Implement order events - #4018 by @NyanKiyosho 
@@ -146,6 +145,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Cleanup code for updated function names, unused argument, etc. - #4090 by @jxltom
 - Migrated code style to Black. Saleor now includes configurations and tools related to use black. - #3852 by krzysztofwolski and NyanKiyoshi
 - Allow filtering by lists of enums for fields: ``Voucher.filter.status``, ``Voucher.filter.discount_type``, ``Sale.filter.status``, ``Order.filter.payment_status``, ``Order.filter.status``, ``Order.filter.custom_status`` - #4078 by @korycins
+- Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 
 
 ## 2.5.0
