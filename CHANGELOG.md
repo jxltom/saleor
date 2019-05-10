@@ -147,6 +147,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 - Improvements on shipping validation - #3812 by @jxltom
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
+- Improvements on shipping validation - #3812 by @jxltom
 
 
 ## 2.5.0

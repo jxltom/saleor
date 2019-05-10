@@ -91,16 +91,6 @@ def checkout_with_item(checkout, product):
 
 
 @pytest.fixture
-def checkout_with_voucher(checkout, product, voucher):
-    variant = product.variants.get()
-    add_variant_to_checkout(checkout, variant, 3)
-    checkout.voucher_code = voucher.code
-    checkout.discount_amount = Money("20.00", "USD")
-    checkout.save()
-    return checkout
-
-
-@pytest.fixture
 def checkout_with_item_and_address(checkout_with_item, address):
     checkout_with_item.shipping_address = address
     checkout_with_item.save()
