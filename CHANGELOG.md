@@ -146,6 +146,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Allow filtering by lists of enums for fields: ``Voucher.filter.status``, ``Voucher.filter.discount_type``, ``Sale.filter.status``, ``Order.filter.payment_status``, ``Order.filter.status``, ``Order.filter.custom_status`` - #4078 by @korycins
 - Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
 - Improvements on shipping validation - #3812 by @jxltom
+- Support filtering products by same attribute slug and value slug - #3628 by @jxltom
 
 
 ## 2.5.0
