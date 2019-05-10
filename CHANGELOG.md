@@ -125,7 +125,6 @@ All notable, unreleased changes to this project will be documented in this file.
 - Use dataclasses as a structure for payment's gateways - #4028 by @korycins
 - Fix the product listing not showing in the voucher when there were products selected - #4062 by @NyanKiyoshi
 - Fix crash in Dashboard 1.0 when updating an order address's phone number - #4061 by @NyanKiyoshi
-- Improvements on shipping validation - #3812 by @jxltom
 - Update test function names since ready_to_place_order is renamed to clean_checkout- #4070 by @jxltom
 - Add migrations since mptt model is updated - #4071 by @jxltom
 - Support filtering products by same attribute slug and value slug - #3628 by @jxltom
@@ -146,6 +145,7 @@ All notable, unreleased changes to this project will be documented in this file.
 - Migrated code style to Black. Saleor now includes configurations and tools related to use black. - #3852 by krzysztofwolski and NyanKiyoshi
 - Allow filtering by lists of enums for fields: ``Voucher.filter.status``, ``Voucher.filter.discount_type``, ``Sale.filter.status``, ``Order.filter.payment_status``, ``Order.filter.status``, ``Order.filter.custom_status`` - #4078 by @korycins
 - Remove unneccessary constraints for redis and kombu - #4072 by @jxltom
+- Improvements on shipping validation - #3812 by @jxltom
 
 
 ## 2.5.0
